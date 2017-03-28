@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>SSM configuration</display-name>
+    <!-- 解决工程编码过滤器 -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+	    <filter-name>shiroFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	    <init-param>
+	      <param-name>targetFilterLifecycle</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+  	</filter>
+  	<filter-mapping>
+	    <filter-name>shiroFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+  	</filter-mapping>
+    
+    
+    
+    
+    <!-- 配置文件所在位置 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:xmls-config/spring.xml
+        			,classpath:xmls-config/mybatis-spring.xml
+        			,classpath:xmls-config/spring-shiro-config.xml</param-value>
+    </context-param>
+    <!-- Spring配置（监听器） -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- SpringMVC配置 -->
+    <servlet>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:xmls-config/spring-mvc-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springDispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    <!-- servlet演示 -->
+    <servlet>
+    	<description>servlet 功能演示</description>
+    	<display-name>this is display_name of my J2EE component</display-name>
+        <servlet-name>ServletDemo1</servlet-name>
+        <servlet-class>com.servlet.ServletDemo1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletDemo1</servlet-name>
+        <url-pattern>/servlet/ServletDemo1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDemo1</servlet-name>
+        <url-pattern>/servlet/ServletDemo2</url-pattern>
+    </servlet-mapping>
+    
+    <!-- 验证码演示 -->
+    <servlet>
+    	<description>验证码展示</description>
+    	<display-name>this is display_name of my J2EE component</display-name>
+        <servlet-name>authcode1</servlet-name>
+        <servlet-class>com.servlet.DrawImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authcode1</servlet-name>
+        <url-pattern>/servlet/authcode1</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- 验证码校验 -->
+    <servlet>
+    	<description>验证码校验</description>
+    	<display-name>this is display_name of my J2EE component</display-name>
+        <servlet-name>authcode2</servlet-name>
+        <servlet-class>com.servlet.CheckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authcode2</servlet-name>
+        <url-pattern>/servlet/authcode2</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    <welcome-file-list>
+<!--       <welcome-file>views/jsp/login.jsp</welcome-file> -->
+<!--       <welcome-file>views/jsp/login.html</welcome-file> -->
+<!--       <welcome-file>login</welcome-file> -->
+<!--       <welcome-file>login.jsp</welcome-file> -->
+      <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

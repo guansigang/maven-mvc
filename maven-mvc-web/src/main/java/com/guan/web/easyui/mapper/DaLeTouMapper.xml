@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guan.web.easyui.dao.DaLeTouMapper">
+	<!-- 批量插入数据 -->
+	<insert id ="insertDaLeTouBatch" parameterType="java.util.List" >
+		insert into daletou_his_list(
+		daletou_id,
+		daletou_no,
+		open_date,
+		week_date,
+		front_one,
+		front_sec,
+		front_third,
+		front_four,
+		front_five,
+		back_one,
+		back_sec,
+		in_all_money,
+		first_num,
+		first_money,
+		sec_num,
+		sec_money,
+		all_money
+		)
+		values
+		<foreach collection ="list" item="daletou" index= "index" separator =",">
+		(
+		#{daletou.daletou_id}, 
+		#{daletou.daletou_no},
+		#{daletou.open_date},
+		#{daletou.week_date},
+		#{daletou.front_one}, 
+		#{daletou.front_sec},
+		#{daletou.front_third},
+		#{daletou.front_four},
+		#{daletou.front_five},
+		#{daletou.back_one},
+		#{daletou.back_sec},
+		#{daletou.in_all_money,jdbcType=DECIMAL},
+		#{daletou.first_num},
+		#{daletou.first_money,jdbcType=DECIMAL},
+		#{daletou.sec_num},
+		#{daletou.sec_money,jdbcType=DECIMAL},
+		#{daletou.all_money}
+		)
+		</foreach >
+	</insert >
+</mapper>

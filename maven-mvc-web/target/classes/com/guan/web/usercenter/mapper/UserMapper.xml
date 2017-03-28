@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guan.web.usercenter.dao.UserMapper">
+    <!-- 查询所有UserBean -->  
+    <select id="getUserByName" resultType="com.guan.web.usercenter.model.UserAuthBean"  parameterType="java.lang.String">  
+        select 
+			user_id,
+			login_name,
+			login_pwd,
+			user_info_id,
+			user_state,
+			user_status,
+			user_type,
+			user_position,
+			user_level,
+			user_role
+		from sys_login_user  where
+			login_name = #{userName}
+    </select>
+    
+    <insert id="userLogin" parameterType="map">
+	    INSERT INTO sys_user_login_log (login_id,user_id,login_ip,login_time) 
+	    VALUES(#{login_id},#{user_id},#{login_ip},#{login_time})
+	</insert>
+</mapper>
