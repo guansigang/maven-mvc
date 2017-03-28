@@ -17,7 +17,7 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <!-- 基本属性 url、user、password -->  
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/maven-mvc" />  
+        <property name="url" value="jdbc:mysql://127.0.0.1:3302/maven-mvc" />  
         <property name="username" value="root" />  
         <property name="password" value="root" />  
 <!--         <property name="password" value="1qaz!QAZ" />   -->
