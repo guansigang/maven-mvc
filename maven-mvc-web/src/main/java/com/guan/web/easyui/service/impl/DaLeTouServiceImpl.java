@@ -2,6 +2,8 @@ package com.guan.web.easyui.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.guan.base.utils.TimeUtil;
 import com.guan.web.easyui.dao.DaLeTouMapper;
 import com.guan.web.easyui.model.DaletouHisList;
 import com.guan.web.easyui.service.DaLeTouService;
@@ -31,6 +34,8 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 	
 	@Override
 	public String batchAddDaLeTou() throws Exception {
+		System.out.println(countNums("2017-01-02","2017-03-29"));
+		
 		String url="http://chart.cp.360.cn/kaijiang/slt?lotId=120029&chartType=undefined&spanType=0&span=2000&r=0.3688061712477555#roll_132";  
 		insertDaLeTouData(url);
 		return null;
@@ -50,7 +55,6 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 		
 		return null;
 	}
-	
 	
 	
 	 /**  
@@ -101,6 +105,39 @@ public class DaLeTouServiceImpl implements DaLeTouService {
           
         return resultList;  
     }
+    
+	
+	public static String countNums(String startDate,String endDate){
+		
+		int num = Integer.parseInt(TimeUtil.getTwoDay(endDate,startDate));
+		
+	     int hour=queryWeek(endDate)-queryWeek(startDate);
+	     
+	     if(num==0){
+	    	 return "0";
+	     }else if(hour==0){
+	    	 return String.valueOf((num/7)*3);
+	     }else if(hour==2||hour==3||hour==-5){
+	    	 return String.valueOf((num/7)*3+1);
+	     }else if(hour==-2||hour==-3||hour==5){
+	    	 return String.valueOf((num/7)*3+2);
+	     }else{
+	    	 return "-1";
+	     }
+		
+		
+	}
+	
+	public static int queryWeek(String paramDate){
+		Date date = TimeUtil.strToDate(paramDate);
+	    Calendar c = Calendar.getInstance();
+	    c.setTime(date);
+	     int hour=c.get(Calendar.DAY_OF_WEEK);
+		return hour;
+	}
+    
+    
+    
 
 	
 
