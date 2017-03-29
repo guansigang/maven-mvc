@@ -8,14 +8,22 @@ import com.alibaba.fastjson.JSON;
 
 /**
  * @类名名称	PageResult 								<br/>
- * @功能说明	分页信息实体泛型类							<br/>
- * @创建原因	在statement对象发出之前拦截,				<br/>
+ * @功能说明	分页信息实体泛型类						<br/>
+ * @创建原因	在statement对象发出之前拦截,			<br/>
  * 			用于在组装分页SQL过程保存和提供相应的信息,	<br/>
  * 			也可以当做普通分页封装模型适用				<br/>
- * @author 	Canbell
- * @version V1.0.0
- * @date 2015-1-13 10:28:47
- * @since JDK 1.6
+ * @author
+ * 			Canbell 陈传标
+ * @tel
+ * 			13085052088
+ * @email
+ * 			canbell@chen-s.com
+ * @version
+ * 			V1.0.0
+ * @date
+ * 			2015-1-13 10:28:47
+ * @since
+ * 			JDK 1.6
  */
 public class PageResult<T> {
 	private int pageNow;			//	页码
@@ -115,7 +123,7 @@ public class PageResult<T> {
 				.append("), \n");
 			}
 		}
-		builder	.append("] \n");
+		builder	.append("], \n");
 		builder	.append("parameters = [\n");
 		if (parameters != null && !parameters.isEmpty()) {
 			for (Map.Entry<String, String> entry : parameters.entrySet()) {
@@ -130,18 +138,28 @@ public class PageResult<T> {
 		return builder.toString();
 	}
 	
+	/**
+	 * 转换EasyUi可解析格式
+	 * @return
+	 */
 	public String toEasyUiJson() {
-		String result = "{\"pages\":\"";
-		result += totalPage;
-		result += "\",\"from\":\"";
-		result += (pageNow - 1) * pageSize + 1;
-		result += "\",\"to\":\"";
-		result += (pageNow == totalPage ? totalRecord : pageNow * pageSize);
-		result += "\",\"total\":\"";
-		result += totalRecord;
-		result += "\",\"rows\":";
-		result += JSON.toJSONString(resultList);
-		result += "}";
-		return result;
+		StringBuilder result = new StringBuilder("{\"pages\":\"");
+		result.append(totalPage)
+			.append("\",\"from\":\"")
+			.append((pageNow - 1) * pageSize + 1)
+			.append("\",\"to\":\"")
+			.append((pageNow == totalPage ? totalRecord : pageNow * pageSize))
+			.append("\",\"total\":\"")
+			.append(totalRecord)
+			.append("\",\"rows\":");
+		if(resultList==null){
+			result.append("\"\"")
+			.append("}");
+		}else{
+			result.append(JSON.toJSONString(resultList))
+			.append("}");
+		}
+			
+		return result.toString();
 	}
 }

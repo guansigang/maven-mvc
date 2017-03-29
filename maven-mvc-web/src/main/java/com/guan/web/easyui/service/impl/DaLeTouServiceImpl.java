@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.guan.base.utils.PageResult;
 import com.guan.base.utils.TimeUtil;
 import com.guan.web.easyui.dao.DaLeTouMapper;
 import com.guan.web.easyui.model.DaletouHisList;
@@ -42,9 +43,10 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 	}
 	
 	@Override
-	public List<DaletouHisList> queryDaletouData() {
-		// TODO Auto-generated method stub
-		return null;
+	public PageResult<DaletouHisList> queryDaletouData(PageResult<DaletouHisList> pageResult) {
+		pageResult.setResultList(this.daLeTouMapper.queryDaletouHisListByCondition(pageResult));
+		pageResult.setTotalRecord(this.daLeTouMapper.queryDaletouHisListCount(pageResult));
+		return pageResult;
 	}  
 	
 	public String insertDaLeTouData(String url) throws Exception{
@@ -135,10 +137,4 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 	     int hour=c.get(Calendar.DAY_OF_WEEK);
 		return hour;
 	}
-    
-    
-    
-
-	
-
 }

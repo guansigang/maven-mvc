@@ -45,4 +45,53 @@
 		)
 		</foreach >
 	</insert >
+	
+	<select id="queryDaletouHisListByCondition" resultMap="BaseResultb2bRulesMap">		
+		 
+		SELECT
+			daletou_id,
+			daletou_no,
+			open_date,
+			week_date,
+			front_one,
+			front_sec,
+			front_third,
+			front_four,
+			front_five,
+			back_one,
+			back_sec,
+			in_all_money,
+			first_num,
+			first_money,
+			sec_num,
+			sec_money,
+			all_money
+			FROM
+				daletou_his_list
+			WHERE
+				 STATUS = '1'
+				 <if test="parameters.company_no != null and parameters.company_no !=''">
+			AND COMPANY_NO = #{parameters.company_no}
+			</if>
+			<if test="parameters.target_province != null and parameters.target_province !=''">
+			AND TARGET_PROVINCE = #{parameters.target_province}
+			</if>
+	</select>
+	
+	<select id="queryDaletouHisListCount" parameterType="com.chens.utils.core.PageResult" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			daletou_his_list
+		WHERE
+			1 = 1 and status = '1'
+			<if test="parameters.company_no != null and parameters.company_no !=''">
+			AND COMPANY_NO = #{parameters.company_no}
+			</if>
+			<if test="parameters.target_province != null and parameters.target_province !=''">
+			AND TARGET_PROVINCE = #{parameters.target_province}
+			</if>
+	</select>
+	
+	
 </mapper>
