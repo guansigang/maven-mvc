@@ -56,6 +56,7 @@
 			<li><a href="http://www.lxway.com/#works" class="scroll">解决方案</a></li>
 			<li><a href="http://www.lxway.com/#experience" class="scroll">新动态</a></li> 
 			<li><a href="http://www.lxway.com/#contact" class="scroll">联系</a></li>
+			<li><a href="uploadController/uploadToPage" class="scroll">上传</a></li>
 			<li><a href="backlogin" class="scroll">后台登录</a></li>
 		  </ul>
 		</div>

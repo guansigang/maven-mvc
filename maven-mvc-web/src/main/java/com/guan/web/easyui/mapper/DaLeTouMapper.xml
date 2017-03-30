@@ -46,7 +46,7 @@
 		</foreach >
 	</insert >
 	
-	<select id="queryDaletouHisListByCondition" resultMap="BaseResultb2bRulesMap">		
+	<select id="queryDaletouHisListByCondition" parameterType="com.guan.base.utils.PageResult" resultMap="java.util.Map">		
 		 
 		SELECT
 			daletou_id,
@@ -76,9 +76,10 @@
 			<if test="parameters.target_province != null and parameters.target_province !=''">
 			AND TARGET_PROVINCE = #{parameters.target_province}
 			</if>
+			order by open_date desc			
 	</select>
 	
-	<select id="queryDaletouHisListCount" parameterType="com.chens.utils.core.PageResult" resultType="java.lang.Integer">
+	<select id="queryDaletouHisListCount" parameterType="com.guan.base.utils.PageResult" resultType="java.lang.Integer">
 		SELECT
 			COUNT(*)
 		FROM

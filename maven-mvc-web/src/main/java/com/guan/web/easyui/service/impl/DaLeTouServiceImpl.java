@@ -35,10 +35,14 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 	
 	@Override
 	public String batchAddDaLeTou() throws Exception {
+		PageResult<DaletouHisList> pageResult = new PageResult<DaletouHisList>();
+		List<DaletouHisList> daletous = this.daLeTouMapper.queryDaletouHisListByCondition(pageResult);
+		
+		
 		System.out.println(countNums("2017-01-02","2017-03-29"));
 		
 		String url="http://chart.cp.360.cn/kaijiang/slt?lotId=120029&chartType=undefined&spanType=0&span=2000&r=0.3688061712477555#roll_132";  
-		insertDaLeTouData(url);
+//		insertDaLeTouData(url);
 		return null;
 	}
 	
