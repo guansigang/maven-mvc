@@ -1,7 +1,9 @@
 package com.guan.web.usercenter.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.guan.base.system.BaseController;
 import com.guan.base.system.BaseParameter;
 import com.guan.base.utils.Encrypt;
@@ -202,35 +206,27 @@ public class LoginController extends BaseController{
     }
     
     /**
-	 * 登录成功后根据用户判断跳转到的位置
+	 * easyui下拉框查询数据字典
 	 */
-	@RequestMapping(value = "/success", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView success(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/login");
-		HttpSession session = request.getSession();
-		UserAuthBean user = (UserAuthBean) session.getAttribute("userSession");
-		mav.addObject("msg", request.getParameter("msg"));
+	@RequestMapping(value = "/selectBoxQuery", method = { RequestMethod.GET, RequestMethod.POST })
+	public String selectBoxQuery(HttpServletRequest request, HttpServletResponse response,Model model) {
 		
-		//用户信息列表
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/regist/userMain");
-		//财务对账
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/ordercompara/orderMain");
-		//物流对账
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/logistics/queryLogisticsList");
-		//采购需求月计划
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/purchase/purchaseMain");
-		//信息部数据分析
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/juhuasuaninfo/eleBussSysMain");
-		//质量部数据
-		if (user.getUser_level() == "") mav = new ModelAndView("redirect:/juhuasuaninfo/qualityMain");
+		Map<String, String> params = getParams(model);
+		String dict_code = params.get("dict_code").trim();
+		if(dict_code==null||dict_code==""){
+			return "";
+		}
+		List<Map<String, Object>> resultList=new ArrayList<Map<String, Object>>();
+		try {
+			resultList = userService.querySelectBoxOption(dict_code);
+		} catch (Exception e) {
+			logger.error(dict_code+"查询数据字典失败！");
+			e.printStackTrace();
+		}
 		
-//		if (user.getUserLevel() == 0) mav = new ModelAndView("redirect:/regist/add");
-//		if (user.getUserLevel() == 1) mav = new ModelAndView("redirect:/ordercompara/query");
-//		if (user.getUserLevel() == 3) mav = new ModelAndView("redirect:/logistics/queryLogistics");
-//		if (user.getUserLevel() == 4) mav = new ModelAndView("redirect:/logistics/queryLogisticsList");
-//		if (user.getUserLevel() == 5) mav = new ModelAndView("redirect:/purchase/queryPurchaseList");
-//		if (user.getUserLevel() == 7) mav = new ModelAndView("redirect:/juhuasuaninfo/query");
-		return mav;
+		JSONArray ja = JSONArray.parseArray(JSON.toJSONString(resultList));
+		
+		return ja.toJSONString();
 	}
     
 }

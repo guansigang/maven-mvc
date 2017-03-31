@@ -9,7 +9,7 @@
 	<script src="${ contextPath }static/easyui-1.5.1/js/jquery.easyui.min.js" type="text/javascript"></script>
 	<link href="${ contextPath }static/easyui-1.5.1/themes/default/easyui.css" rel="stylesheet" type="text/css" />
 	<link href="${ contextPath }static/easyui-1.5.1/themes/icon.css" rel="stylesheet" type="text/css" />
-	<title>销售订单查询</title>
+	<title>后台管理</title>
     <style>
         html{height:100%; }
 		body {
@@ -40,38 +40,23 @@
 </head>
 <body>   
 	<div class="easyui-layout" style="width:100%;height:700px;">
-		<div data-options="region:'west',split:true" title="West" style="width:200px;">
+		<div data-options="region:'west',split:true" title="导航栏" style="width:200px;">
 			<div data-options="region:'west',split:true,title:'导航菜单'" style="width: 200px;">
 		        <div class="easyui-accordion" data-options="fit:true,border:false">
                     <ul id="mainTree" class="tree easyui-tree" data-options="animate:true,lines:true">
                         <li data-options="id:12,iconCls:'icon-joystick'">
-                            <span>B2C对账信息</span>
+                            <span>用户管理</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('1')"><span>WMS数据</span></a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('2')"><span>导入数据</span></a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('3')"><span>对账单列表</span></a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('4')"><span>结算单信息</span></a>
+                                    <a onclick="addTab('1')"><span>用户信息列表</span></a>
                                 </li>
                             </ul>
                         </li>
-                        <li data-options="iconCls:'icon-joystick'">
-                            <span>B2B对账信息</span>
+                          <li data-options="iconCls:'icon-joystick'">
+                            <span>数据字典管理</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('5')"><span>对账单列表</span></a>
+                                    <a onclick="addTab('5')"><span>数据字典列表</span></a>
                                 </li>
                             </ul>
                             <ul>
@@ -80,7 +65,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li data-options="iconCls:'icon-joystick',id:'testId'">
+                        <!--<li data-options="iconCls:'icon-joystick',id:'testId'">
                             <span>基础信息维护</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
@@ -88,10 +73,10 @@
                                 </li>
                                 <!-- <li data-options="iconCls:'icon-user'">
                                     <a onclick="addTab('11')"><span>采购计划基础信息维护</span></a>
-                                </li> -->
+                                </li> 
                             </ul>
                         </li>
-	                        <!-- <li data-options="iconCls:'icon-joystick'">
+	                       <li data-options="iconCls:'icon-joystick'">
 	                            <span>采购计划</span>
 	                            <ul>
 	                                <li data-options="iconCls:'icon-user'">
@@ -125,7 +110,7 @@
 		        </div>
 		    </div>
 		</div>
-		 <div id="rightMain" data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+		 <div id="rightMain" data-options="region:'center',title:'主要内容',iconCls:'icon-ok'">
 		 	<div class="wrapper" style="height:100%">
 		      <iframe src="" scrolling="no" id="mainFrame" name="mainFrame" frameborder="0" marginheight="0" marginwidth="0" height="100%" width="100%"></iframe>
 		   </div>
@@ -136,33 +121,11 @@
 	$(function(){
 	
 	});
-		 function addTab(flag){ 
+		 function addTab(flag){
 			if(flag==1){
-				$("#mainFrame").attr("src","easyui/toJs300Page");
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_authority");
 			}else if(flag==2){
 				$("#mainFrame").attr("src","logistics/logistics2cImportData");
-			}else if(flag==3){
-				$("#mainFrame").attr("src","logistics/logistics2cDetailList");
-			}else if(flag==4){
-				$("#mainFrame").attr("src","logistics/logistics2cBill");
-			}else if(flag==5){
-				$("#mainFrame").attr("src","logistics/logistics2bDetailList");
-			}else if(flag==6){
-				$("#mainFrame").attr("src","logistics/logistics2bBill");
-			}else if(flag==7){
-				$("#mainFrame").attr("src","logistics/queryLogistics");
-			}else if(flag==8){
-				$("#mainFrame").attr("src","purchase/purchaseMonthPlanInfo");
-			}else if(flag==9){
-				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH&operate=init");
-			}else if(flag==10){
-				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH2&operate=init#");
-			}else if(flag==11){
-				$("#mainFrame").attr("src","purchase/purchaseBaseInfo");
-			}else if(flag==12){
-				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=FOODQUALITY&operate=init#");
-			}else if(flag==13){
-				$("#mainFrame").attr("src","ordercompara/query");
 			}
 		} 
 		

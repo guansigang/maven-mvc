@@ -13,4 +13,6 @@ public interface UserMapper {
 	
 	int userLogin(Map<String, Object> userLogin);
 
+	List<Map<String, Object>> querySelectBoxOption(String dict_code);
+
 }

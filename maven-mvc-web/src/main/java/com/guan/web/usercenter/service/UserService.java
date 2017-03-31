@@ -1,5 +1,8 @@
 package com.guan.web.usercenter.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.guan.web.usercenter.model.UserAuthBean;
 
 public interface UserService {
@@ -7,6 +10,8 @@ public interface UserService {
 	UserAuthBean getUserByName(String userName) throws Exception;
 	
 	int userLogin(String loginId,String userId,String userIp,String loginTime) throws Exception;
+
+	List<Map<String, Object>> querySelectBoxOption(String dict_code) throws Exception;
 	
 	/*UserBean getUserByCondition(String userName, String userPass) throws Exception;
 	

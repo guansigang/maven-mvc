@@ -45,6 +45,12 @@ public class UserBehaviorServiceImpl implements UserService {
 		int num = userMapper.userLogin(loginLog);
 		return num;
 	}
+
+	@Override
+	public List<Map<String, Object>> querySelectBoxOption(String dict_code)throws Exception {
+		List<Map<String, Object>> result_list = userMapper.querySelectBoxOption(dict_code);
+		return result_list;
+	}
 	
 	/*
 	@Override
