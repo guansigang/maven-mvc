@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
@@ -205,10 +206,39 @@ public class LoginController extends BaseController{
 		return new ModelAndView("login", "LOGINFAIL", "登录失败。");
     }
     
+    
+    
+    @RequestMapping(value = "/logout", method = { RequestMethod.GET,RequestMethod.POST })
+	public ModelAndView logout(HttpServletRequest request) throws Exception {
+		
+		logger.debug(" *=* 用户注销 *=* ");
+		HttpSession session = request.getSession();
+		String loginId = (String) session.getAttribute("login_id_session");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String exitTime = sd.format(new Date());
+		//Date exitTime = new Date();
+//	    userService.updateExitTime(loginId, exitTime);
+		session.removeAttribute("login_id_session");
+		session.removeAttribute("currentUser");
+		session.removeAttribute("userSession");
+		ModelAndView mav = new ModelAndView();
+		// 初始化Session
+		request.getSession().invalidate();
+		// 关闭shiro验证
+		SecurityUtils.getSubject().logout();
+		mav.setViewName("redirect:/login");
+		mav.addObject("logstate", 1);
+		
+		return mav;
+	}
+    
+    
+    
     /**
 	 * easyui下拉框查询数据字典
 	 */
-	@RequestMapping(value = "/selectBoxQuery", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/selectBoxQuery", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+	@ResponseBody
 	public String selectBoxQuery(HttpServletRequest request, HttpServletResponse response,Model model) {
 		
 		Map<String, String> params = getParams(model);
@@ -225,7 +255,6 @@ public class LoginController extends BaseController{
 		}
 		
 		JSONArray ja = JSONArray.parseArray(JSON.toJSONString(resultList));
-		
 		return ja.toJSONString();
 	}
     

@@ -56,27 +56,19 @@
                             <span>数据字典管理</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('5')"><span>数据字典列表</span></a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('6')"><span>结算单信息</span></a>
+                                    <a onclick="addTab('2')"><span>数据字典列表</span></a>
                                 </li>
                             </ul>
                         </li>
-                        <!--<li data-options="iconCls:'icon-joystick',id:'testId'">
-                            <span>基础信息维护</span>
+                        <li data-options="iconCls:'icon-joystick',id:'testId'">
+                            <span>模块管理</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('7')"><span>物流对账基础信息维护</span></a>
+                                    <a onclick="addTab('7')"><span>模块信息列表</span></a>
                                 </li>
-                                <!-- <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('11')"><span>采购计划基础信息维护</span></a>
-                                </li> 
                             </ul>
                         </li>
-	                       <li data-options="iconCls:'icon-joystick'">
+	                       <!--<li data-options="iconCls:'icon-joystick'">
 	                            <span>采购计划</span>
 	                            <ul>
 	                                <li data-options="iconCls:'icon-user'">
@@ -125,7 +117,7 @@
 			if(flag==1){
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_authority");
 			}else if(flag==2){
-				$("#mainFrame").attr("src","logistics/logistics2cImportData");
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_dict");
 			}
 		} 
 		

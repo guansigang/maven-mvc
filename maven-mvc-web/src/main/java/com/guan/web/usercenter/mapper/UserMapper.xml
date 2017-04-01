@@ -27,7 +27,7 @@
         select 
 			item_code,
 			item_name
-		from sys_login_user  where
+		from sys_base_dict_item  where
 			dict_code = #{dict_code} and isused='1'
     </select>
 </mapper>
