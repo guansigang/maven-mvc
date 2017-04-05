@@ -22,4 +22,12 @@
 	    INSERT INTO sys_user_login_log (login_id,user_id,login_ip,login_time) 
 	    VALUES(#{login_id},#{user_id},#{login_ip},#{login_time})
 	</insert>
+	
+    <select id="querySelectBoxOption" resultType="java.util.Map"  parameterType="java.lang.String">  
+        select 
+			item_code,
+			item_name
+		from sys_base_dict_item  where
+			dict_code = #{dict_code} and isused='1'
+    </select>
 </mapper>

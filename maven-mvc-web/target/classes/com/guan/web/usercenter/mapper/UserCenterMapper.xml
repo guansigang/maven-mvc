@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guan.web.usercenter.dao.UserCenterMapper">
+    <!-- 查询所有UserBean -->  
+    <select id="selectUserManagers" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			a.user_id,
+			a.login_name,
+			a.login_pwd,
+			a.user_info_id,
+			a.user_state,
+			b.item_name as user_state_cn,
+			a.user_status,
+			a.user_type,
+			a.user_position,
+			a.user_level,
+			a.user_role,
+			a.add_time,
+			a.update_time,
+			a.lastlogin_time,
+			a.add_user,
+			a.update_user
+		FROM
+			sys_login_user a left join sys_base_dict_item b on a.user_state=b.item_code
+			WHERE 1=1
+			<if test="parameters.login_name != null and parameters.login_name !=''">
+			<![CDATA[
+				AND a.login_name < #{parameters.login_name}
+			]]>
+			</if>
+		ORDER BY user_id
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectUserManagersCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_login_user
+		WHERE 1=1
+		<if test="parameters.login_name != null and parameters.login_name !=''">
+			<![CDATA[
+				AND login_name = #{parameters.login_name}
+			]]>
+		</if>
+	</select>
+	
+	
+    <!-- 查询所有sys_base_dict -->  
+    <select id="selectSysBaseDict" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			dict_code as dict_id,
+			dict_code,
+			dict_name,
+			dict_type,
+			dict_remark
+
+		FROM
+			sys_base_dict
+			WHERE 1=1
+			<if test="parameters.dict_code != null and parameters.dict_code !=''">
+			<![CDATA[
+				AND dict_code = #{parameters.dict_code}
+			]]>
+			</if>
+			<if test="parameters.dict_name != null and parameters.dict_name !=''">
+			<![CDATA[
+				AND dict_name = #{parameters.dict_name}
+			]]>
+			</if>
+			<if test="parameters.dict_type != null and parameters.dict_type !=''">
+			<![CDATA[
+				AND dict_type = #{parameters.dict_type}
+			]]>
+			</if>
+		ORDER BY dict_code
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseDictCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_dict
+		WHERE 1=1
+		<if test="parameters.dict_code != null and parameters.dict_code !=''">
+			<![CDATA[
+				AND dict_code = #{parameters.dict_code}
+			]]>
+			</if>
+			<if test="parameters.dict_name != null and parameters.dict_name !=''">
+			<![CDATA[
+				AND dict_name = #{parameters.dict_name}
+			]]>
+			</if>
+			<if test="parameters.dict_type != null and parameters.dict_type !=''">
+			<![CDATA[
+				AND dict_type = #{parameters.dict_type}
+			]]>
+		</if>
+	</select>
+	
+	
+    <!-- 查询所有sys_base_dict_item -->  
+    <select id="selectSysBaseDictItem" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			item_code as item_id,
+			item_code,
+			item_code,
+			item_name,
+			dict_code,
+			code,
+			isused
+
+		FROM
+			sys_base_dict_item
+			WHERE 1=1
+			<if test="parameters.item_code != null and parameters.item_code !=''">
+			<![CDATA[
+				AND item_code = #{parameters.item_code}
+			]]>
+			</if>
+			<if test="parameters.item_name != null and parameters.item_name !=''">
+			<![CDATA[
+				AND item_name = #{parameters.item_name}
+			]]>
+			</if>
+			<if test="parameters.dict_code != null and parameters.dict_code !=''">
+			<![CDATA[
+				AND dict_code = #{parameters.dict_code}
+			]]>
+			</if>
+			<if test="parameters.code != null and parameters.code !=''">
+			<![CDATA[
+				AND code = #{parameters.code}
+			]]>
+			</if>
+			<if test="parameters.isused != null and parameters.isused !=''">
+			<![CDATA[
+				AND isused = #{parameters.isused}
+			]]>
+			</if>
+		ORDER BY dict_code
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseDictItemCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_dict_item
+		WHERE 1=1
+		<if test="parameters.item_code != null and parameters.item_code !=''">
+			<![CDATA[
+				AND item_code = #{parameters.item_code}
+			]]>
+			</if>
+			<if test="parameters.item_name != null and parameters.item_name !=''">
+			<![CDATA[
+				AND item_name = #{parameters.item_name}
+			]]>
+			</if>
+			<if test="parameters.dict_code != null and parameters.dict_code !=''">
+			<![CDATA[
+				AND dict_code = #{parameters.dict_code}
+			]]>
+			</if>
+			<if test="parameters.code != null and parameters.code !=''">
+			<![CDATA[
+				AND code = #{parameters.code}
+			]]>
+			</if>
+			<if test="parameters.isused != null and parameters.isused !=''">
+			<![CDATA[
+				AND isused = #{parameters.isused}
+			]]>
+			</if>
+	</select>
+	
+	
+	<update id="updateSysBaseDict" parameterType="java.util.Map" >
+    update sys_base_dict
+    <set >
+    	<if test="dict_name != null and dict_name !=''">
+        dict_name = #{dict_name,jdbcType=VARCHAR},
+      </if>
+   		<if test="dict_remark != null and dict_remark !=''">
+        dict_remark = #{dict_remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dict_code = #{dict_code,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseDict" parameterType="java.util.Map">
+		INSERT INTO sys_base_dict 
+		(	
+			dict_code,
+			dict_name,
+			dict_remark,
+			dict_type
+		)
+		VALUES
+		(	#{dict_code, jdbcType=VARCHAR},
+		<if test="dict_name != null and dict_name !=''">
+			#{dict_name, jdbcType=VARCHAR},
+      </if>
+		<if test="dict_remark != null and dict_remark !=''">
+			#{dict_remark, jdbcType=VARCHAR},
+      </if>
+			'1'
+		)
+	</insert>
+	
+	<update id="updateSysBaseDictItem" parameterType="java.util.Map" >
+    update sys_base_dict_item
+    <set >
+    	<if test="item_name != null and item_name !=''">
+        dict_name = #{dict_name,jdbcType=VARCHAR},
+      </if>
+   		<if test="isused != null and isused !=''">
+        isused = #{isused,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where item_code = #{item_code,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseDictItem" parameterType="java.util.Map">
+		INSERT INTO sys_base_dict_item 
+		(	
+			item_code,
+			dict_code,
+			item_name,
+			isused,
+			code
+		)
+		VALUES
+		(	#{item_code, jdbcType=VARCHAR},
+			#{dict_code, jdbcType=VARCHAR},
+		<if test="item_name != null and item_name !=''">
+			#{item_name, jdbcType=VARCHAR},
+      </if>
+    		'1',
+			'1'
+		)
+	</insert>
+	
+	 <select id="querySelectBoxBaseDict" resultType="java.util.Map"  parameterType="java.lang.String">  
+        select 
+			dict_code,
+			dict_name
+		from sys_base_dict  where
+			dict_name like "%"#{dict_name}"%"
+    </select>
+    
+    <delete id="deleteSysBaseDict" parameterType="java.util.Map" >
+    delete from sys_base_dict where dict_code = #{dict_code,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteSysBaseDictItem" parameterType="java.util.Map" >
+    delete from sys_base_dict_item where item_code = #{item_code,jdbcType=VARCHAR}
+  </delete>
+</mapper>
