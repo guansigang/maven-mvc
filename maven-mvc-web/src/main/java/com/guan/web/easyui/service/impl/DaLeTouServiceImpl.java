@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.guan.base.utils.PageResult;
+import com.guan.base.base.PageResult;
 import com.guan.base.utils.TimeUtil;
 import com.guan.web.easyui.dao.DaLeTouMapper;
 import com.guan.web.easyui.model.DaletouHisList;

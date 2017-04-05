@@ -1,6 +1,6 @@
 package com.guan.web.easyui.service;
 
-import com.guan.base.utils.PageResult;
+import com.guan.base.base.PageResult;
 import com.guan.web.easyui.model.DaletouHisList;
 
 

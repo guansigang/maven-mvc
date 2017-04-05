@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.guan.base.base.PageResult;
 import com.guan.base.system.BaseController;
-import com.guan.base.utils.PageResult;
 import com.guan.web.easyui.model.DaletouHisList;
 import com.guan.web.easyui.service.DaLeTouService;
 

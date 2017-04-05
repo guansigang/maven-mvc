@@ -1,4 +1,4 @@
-package com.guan.base.utils;
+package com.guan.base.base;
 
 import java.util.HashMap;
 import java.util.List;

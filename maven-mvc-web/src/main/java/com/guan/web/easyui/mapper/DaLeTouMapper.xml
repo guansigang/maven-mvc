@@ -46,7 +46,7 @@
 		</foreach >
 	</insert >
 	
-	<select id="queryDaletouHisListByCondition" parameterType="com.guan.base.utils.PageResult" resultType="java.util.Map">		
+	<select id="queryDaletouHisListByCondition" parameterType="com.guan.base.base.PageResult" resultType="java.util.Map">		
 		 
 		SELECT
 			daletou_id,
@@ -79,7 +79,7 @@
 			order by open_date desc			
 	</select>
 	
-	<select id="queryDaletouHisListCount" parameterType="com.guan.base.utils.PageResult" resultType="java.lang.Integer">
+	<select id="queryDaletouHisListCount" parameterType="com.guan.base.base.PageResult" resultType="java.lang.Integer">
 		SELECT
 			COUNT(*)
 		FROM

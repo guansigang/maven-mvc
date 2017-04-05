@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.guan.base.utils.PageResult;
+import com.guan.base.base.PageResult;
 import com.guan.web.easyui.model.DaletouHisList;
 @Repository("daLeTouMapper")
 public interface DaLeTouMapper {
