@@ -38,4 +38,14 @@ public interface UserCenterMapper {
 	
 	int deleteSysBaseDictItem(Map<String, String> params);
 
+	int selectSysBaseModuleCount(PageResult<Map<String, Object>> pageResult);
+
+	List<Map<String, Object>> selectSysBaseModule(PageResult<Map<String, Object>> pageResult);
+
+	int deleteSysBaseModule(Map<String, String> params);
+
+	int addSysBaseModule(Map<String, String> params);
+
+	int updateSysBaseModule(Map<String, String> params);
+
 }

@@ -3,6 +3,7 @@ package com.guan.web.usercenter.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -273,10 +274,6 @@ public class UserCenterController extends BaseController{
     	}
     	return JSON.toJSONString(resultStr);
     }
-    
-    
-    
-    
     /**
      * 删除数据字典从表
      * @param request
@@ -303,15 +300,6 @@ public class UserCenterController extends BaseController{
     	}
     	return JSON.toJSONString(resultStr);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
 	 * easyui下拉框查询数据字典
 	 */
@@ -335,6 +323,129 @@ public class UserCenterController extends BaseController{
 		JSONArray ja = JSONArray.parseArray(JSON.toJSONString(resultList));
 		return ja.toJSONString();
 	}
+	
+	
+	
+	 /**
+     * 模块信息查询
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/querySysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String querySysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.debug(" *=* 模块信息查询 *=* ");
+    	HttpSession session = request.getSession();
+    	Map<String, String> params = getParams(model);
+    	UserAuthBean user = null;
+//		if (user == null || user.getUserState() != 1) {
+//			return("登陆状态失效, 请注销后重新登陆!");
+//		}
+    	PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+    	// 封装数据
+    	pageResult.setParameters(params);
+    	pageResult.setPageNow(Integer.parseInt(params.get("page"), 10));
+    	pageResult.setPageSize(Integer.parseInt(params.get("rows"), 10));
+    	// 查询结果
+    	try {
+    		pageResult = this.userCenterService.querySysBaseModule(pageResult);
+    	} catch (Exception e) {
+    		logger.error("管理员查询异常!" + e.getMessage());
+    		e.printStackTrace();
+    	}
+    	return pageResult.toEasyUiJson();
+    }
+    
+    
+    
+    /**
+     * 删除数据字典主表
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/deleteSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String deleteSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.debug(" *=* 删除数据字典主表*=* ");
+    	HttpSession session = request.getSession();
+    	Map<String, String> params = getParams(model);
+    	UserAuthBean user = null;
+//		if (user == null || user.getUserState() != 1) {
+//			return("登陆状态失效, 请注销后重新登陆!");
+//		}
+    	EditResult resultStr = new EditResult();
+    	try {
+    		resultStr = this.userCenterService.deleteSysBaseModule(params);
+    	} catch (Exception e) {
+    		logger.error("删除数据字典主表异常!" + e.getMessage());
+    		e.printStackTrace();
+    	}
+    	return JSON.toJSONString(resultStr);
+    }
+    
+    
+    
+    /**
+     * 添加数据字典主表
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String addSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.debug(" *=* 添加数据字典主表*=* ");
+    	HttpSession session = request.getSession();
+    	Map<String, String> params = getParams(model);
+    	String module_id = UUID.randomUUID().toString().replaceAll("-", "");
+    	params.put("module_id", module_id);
+    	UserAuthBean user = null;
+//		if (user == null || user.getUserState() != 1) {
+//			return("登陆状态失效, 请注销后重新登陆!");
+//		}
+    	EditResult resultStr = new EditResult();
+    	// 查询结果
+    	try {
+    		resultStr = this.userCenterService.addSysBaseModule(params);
+    	} catch (Exception e) {
+    		logger.error("管理员查询异常!" + e.getMessage());
+    		e.printStackTrace();
+    	}
+    	return JSON.toJSONString(resultStr);
+    }
+    
+    /**
+     * 添加数据字典从表
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/updateSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.debug(" *=* 添加数据字典从表*=* ");
+    	HttpSession session = request.getSession();
+    	Map<String, String> params = getParams(model);
+    	UserAuthBean user = null;
+//		if (user == null || user.getUserState() != 1) {
+//			return("登陆状态失效, 请注销后重新登陆!");
+//		}
+    	EditResult resultStr = new EditResult();
+    	// 查询结果
+    	try {
+    		resultStr = this.userCenterService.updateSysBaseModule(params);
+    	} catch (Exception e) {
+    		logger.error("管理员查询异常!" + e.getMessage());
+    		e.printStackTrace();
+    	}
+    	return JSON.toJSONString(resultStr);
+    }
     
     
    

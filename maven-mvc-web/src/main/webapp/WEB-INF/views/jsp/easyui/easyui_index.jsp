@@ -64,7 +64,7 @@
                             <span>模块管理</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
-                                    <a onclick="addTab('7')"><span>模块信息列表</span></a>
+                                    <a onclick="addTab('3')"><span>模块信息列表</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -104,7 +104,7 @@
 		</div>
 		 <div id="rightMain" data-options="region:'center',title:'主要内容',iconCls:'icon-ok'">
 		 	<div class="wrapper" style="height:100%">
-		      <iframe src="" scrolling="no" id="mainFrame" name="mainFrame" frameborder="0" marginheight="0" marginwidth="0" height="100%" width="100%"></iframe>
+		      <iframe src="userCenter/userCenterToPage?pageFlag=main_authority" scrolling="no" id="mainFrame" name="mainFrame" frameborder="0" marginheight="0" marginwidth="0" height="100%" width="100%"></iframe>
 		   </div>
 		</div>
 	</div>
@@ -118,6 +118,8 @@
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_authority");
 			}else if(flag==2){
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_dict");
+			}else if(flag==3){
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_module");
 			}
 		} 
 		
