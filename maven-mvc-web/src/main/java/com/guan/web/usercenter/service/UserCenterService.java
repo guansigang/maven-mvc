@@ -28,4 +28,12 @@ public interface UserCenterService {
 	
 	EditResult deleteSysBaseDictItem(Map<String, String> params)throws Exception;
 
+	PageResult<Map<String, Object>> querySysBaseModule(PageResult<Map<String, Object>> pageResult)throws Exception;
+
+	EditResult deleteSysBaseModule(Map<String, String> params)throws Exception;
+
+	EditResult addSysBaseModule(Map<String, String> params)throws Exception;
+
+	EditResult updateSysBaseModule(Map<String, String> params)throws Exception;
+
 }

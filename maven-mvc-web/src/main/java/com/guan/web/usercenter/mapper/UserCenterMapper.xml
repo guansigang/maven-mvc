@@ -258,4 +258,99 @@
   <delete id="deleteSysBaseDictItem" parameterType="java.util.Map" >
     delete from sys_base_dict_item where item_code = #{item_code,jdbcType=VARCHAR}
   </delete>
+  
+  
+  
+  
+  <!-- 查询所有sys_base_module -->  
+    <select id="selectSysBaseModule" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			module_id,
+			module_simp,
+			module_desc,
+			module_index,
+			module_path,
+			is_used,
+			add_time,
+			add_user
+
+		FROM
+			sys_base_module
+			WHERE 1=1
+			<if test="parameters.module_simp != null and parameters.module_simp !=''">
+			<![CDATA[
+				AND module_simp = "%"#{parameters.module_simp}"%"
+				
+				"%"#{dict_name}"%"
+			]]>
+			</if>
+		ORDER BY add_time
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseModuleCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_module
+		WHERE 1=1
+		<if test="parameters.module_simp != null and parameters.module_simp !=''">
+		<![CDATA[
+			AND module_simp = "%"#{parameters.module_simp}"%"
+		]]>
+		</if>
+	</select>
+	
+	<update id="updateSysBaseModule" parameterType="java.util.Map" >
+    update sys_base_module
+    <set >
+    	<if test="module_simp != null and module_simp !=''">
+        module_simp = #{module_simp,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_desc != null and module_desc !=''">
+        module_desc = #{module_desc,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_index != null and module_index !=''">
+        module_index = #{module_index,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_path != null and module_path !=''">
+        module_path = #{module_path,jdbcType=VARCHAR},
+      </if>
+   		<if test="is_used != null and is_used !=''">
+        is_used = #{is_used,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where module_id = #{module_id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseModule" parameterType="java.util.Map">
+		INSERT INTO sys_base_module 
+		(	
+			module_id,
+			module_simp,
+			module_desc,
+			module_index,
+			module_path,
+			is_used,
+			add_time,
+			add_user
+		)
+		VALUES
+		(	#{module_id, jdbcType=VARCHAR},
+		<if test="module_simp != null and module_simp !=''">
+			#{module_simp, jdbcType=VARCHAR},
+      </if>
+		<if test="module_desc != null and module_desc !=''">
+			#{module_desc, jdbcType=VARCHAR},
+      </if>
+			#{module_index, jdbcType=VARCHAR},
+			#{module_path, jdbcType=VARCHAR},
+			'1',
+			now(),
+			#{add_user, jdbcType=VARCHAR}
+		)
+	</insert>
+	 <delete id="deleteSysBaseModule" parameterType="java.util.Map" >
+    delete from sys_base_module where module_id = #{module_id,jdbcType=VARCHAR}
+  </delete>
 </mapper>

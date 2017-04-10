@@ -210,4 +210,64 @@ public class UserCenterServiceImpl implements UserCenterService {
 		return editResult;
 	}
 
+	@Override
+	public PageResult<Map<String, Object>> querySysBaseModule(PageResult<Map<String, Object>> pageResult) throws Exception {
+		pageResult.setResultList(this.userCenterMapper.selectSysBaseModule(pageResult));
+		pageResult.setTotalRecord(this.userCenterMapper.selectSysBaseModuleCount(pageResult));
+		return pageResult;
+	}
+
+	@Override
+	public EditResult deleteSysBaseModule(Map<String, String> params)
+			throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.deleteSysBaseModule(params);
+		if(resultNum==1){
+			//删除成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//删除失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult addSysBaseModule(Map<String, String> params)
+			throws Exception {
+		EditResult editResult = new EditResult();
+		
+		int resultNum = userCenterMapper.addSysBaseModule(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult updateSysBaseModule(Map<String, String> params)
+			throws Exception {
+EditResult editResult = new EditResult();
+		
+		int resultNum = userCenterMapper.updateSysBaseModule(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
 }
