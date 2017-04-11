@@ -266,7 +266,7 @@
     <select id="selectSysBaseModule" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
 		SELECT
 			module_id,
-			module_simp,
+			module_en,
 			module_desc,
 			module_index,
 			module_path,
@@ -277,9 +277,9 @@
 		FROM
 			sys_base_module
 			WHERE 1=1
-			<if test="parameters.module_simp != null and parameters.module_simp !=''">
+			<if test="parameters.module_en != null and parameters.module_en !=''">
 			<![CDATA[
-				AND module_simp = "%"#{parameters.module_simp}"%"
+				AND module_en = "%"#{parameters.module_en}"%"
 				
 				"%"#{dict_name}"%"
 			]]>
@@ -293,9 +293,9 @@
 	<select id="selectSysBaseModuleCount" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM sys_base_module
 		WHERE 1=1
-		<if test="parameters.module_simp != null and parameters.module_simp !=''">
+		<if test="parameters.module_en != null and parameters.module_en !=''">
 		<![CDATA[
-			AND module_simp = "%"#{parameters.module_simp}"%"
+			AND module_en = "%"#{parameters.module_en}"%"
 		]]>
 		</if>
 	</select>
@@ -303,8 +303,8 @@
 	<update id="updateSysBaseModule" parameterType="java.util.Map" >
     update sys_base_module
     <set >
-    	<if test="module_simp != null and module_simp !=''">
-        module_simp = #{module_simp,jdbcType=VARCHAR},
+    	<if test="module_en != null and module_en !=''">
+        module_en = #{module_en,jdbcType=VARCHAR},
       </if>
    		<if test="module_desc != null and module_desc !=''">
         module_desc = #{module_desc,jdbcType=VARCHAR},
@@ -327,7 +327,7 @@
 		INSERT INTO sys_base_module 
 		(	
 			module_id,
-			module_simp,
+			module_en,
 			module_desc,
 			module_index,
 			module_path,
@@ -337,8 +337,8 @@
 		)
 		VALUES
 		(	#{module_id, jdbcType=VARCHAR},
-		<if test="module_simp != null and module_simp !=''">
-			#{module_simp, jdbcType=VARCHAR},
+		<if test="module_en != null and module_en !=''">
+			#{module_en, jdbcType=VARCHAR},
       </if>
 		<if test="module_desc != null and module_desc !=''">
 			#{module_desc, jdbcType=VARCHAR},

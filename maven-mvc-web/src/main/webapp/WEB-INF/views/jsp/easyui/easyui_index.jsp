@@ -66,6 +66,9 @@
                                 <li data-options="iconCls:'icon-user'">
                                     <a onclick="addTab('3')"><span>模块信息列表</span></a>
                                 </li>
+                                <li data-options="iconCls:'icon-user'">
+                                    <a onclick="addTab('4')"><span>权限信息列表</span></a>
+                                </li>
                             </ul>
                         </li>
 	                       <!--<li data-options="iconCls:'icon-joystick'">
@@ -120,6 +123,8 @@
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_dict");
 			}else if(flag==3){
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_module");
+			}else if(flag==4){
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_security");
 			}
 		} 
 		

@@ -1,5 +1,7 @@
 package com.guan.web.usercenter.util;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.guan.base.system.BaseParameter;
 import com.guan.base.utils.PropertiesGetConfiguration;
+import com.guan.web.base.service.SecurityService;
 import com.guan.web.usercenter.model.UserAuthBean;
 import com.guan.web.usercenter.service.UserService;
 
@@ -32,25 +35,41 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private SecurityService securityService;
+	
+	private List<Map<String,String>> securityLevelList = new LinkedList<>();
+	private static Long holdTime = System.currentTimeMillis();
 
 	/**
 	 * 为当前登录的Subject授予角色和权限
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		System.out.println("测试权限11111");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Object currentUser = SecurityUtils.getSubject().getSession().getAttribute("currentUser");
 		if (currentUser != null) {
 			UserAuthBean user = (UserAuthBean) currentUser;
-			Map<Object, Object> map = PropertiesGetConfiguration.getInstance().getPropertiesMap("properties/shiro_user_definition");
-			for (Object object : map.keySet()) {
-				if (StringUtils.equals(String.valueOf(object), user.getUser_role())) {
-					authorizationInfo.addRole(String.valueOf(map.get(object)));
-					authorizationInfo.addStringPermission(String.valueOf(map.get(object)) + ":all");
+			if (securityLevelList == null || securityLevelList.isEmpty() || System.currentTimeMillis() - holdTime > (10 * 60 * 1000)) {
+				securityLevelList = securityService.findUsers();
+				holdTime = System.currentTimeMillis();
+				for (Map<String,String> map : securityLevelList) {
+					if (StringUtils.equals(map.get("module_id"), String.valueOf(user.getModule_id()))) {
+						authorizationInfo.addRole(map.get("module_en"));
+						authorizationInfo.addStringPermission(map.get("module_en") + ":all");
+					}
+				}
+			} else {
+				for (Map<String,String> map : securityLevelList) {
+					if (StringUtils.equals(map.get("module_id"), String.valueOf(user.getModule_id()))) {
+						authorizationInfo.addRole(map.get("module_en"));
+						authorizationInfo.addStringPermission(map.get("module_en") + ":all");
+					}
 				}
 			}
 		}
-		
 		return authorizationInfo;
 	}
 
@@ -59,7 +78,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-
+		System.out.println("测试权限2222");
 		// 获取基于用户名和密码的令牌
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		logger.debug("验证当前getSubject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));

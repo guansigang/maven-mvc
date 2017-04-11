@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guan.web.base.dao.SecurityMapper">
+	<select id="queryShiroSecurity" resultType="java.util.Map">
+		<![CDATA[
+		SELECT
+			shiro.shiro_path,
+			module.is_used,
+			CASE module.module_en
+			WHEN 'anon' THEN
+				'anon'
+			WHEN 'admin' THEN
+			'authc,roles[admin]'
+			ELSE
+				CONCAT('authc,perms[',IFNULL(module.module_en, 'admin'),':all]')
+			END AS user_name
+		FROM
+			sys_base_shiro AS shiro
+		LEFT JOIN sys_base_module AS module ON shiro.module_id = module.module_id
+		]]>
+	</select>
+	
+	
+	<select id="queryUserModuleInfo" resultType="java.util.Map">
+		<![CDATA[
+		SELECT
+			module_id,
+			module_en
+		FROM
+			sys_base_module 
+		]]>
+	</select>
+	
+	
+</mapper>

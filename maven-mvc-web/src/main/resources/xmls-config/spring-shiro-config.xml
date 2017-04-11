@@ -57,7 +57,8 @@
 		<property name="loginUrl" value="/login" />
 		<!-- <property name="successUrl" value="/system/main"/> -->
 		<property name="unauthorizedUrl" value="/unauthrized" />
-<!-- 		<property name="filterChainDefinitions" value="#{authService.loadFilterChainDefinitions()}" /> -->
+		<!--启动时查询数据库获取所有权限列表 -->
+ 		<property name="filterChainDefinitions" value="#{authService.loadFilterChainDefinitions()}" />
 	</bean>
 
 	<!-- <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">

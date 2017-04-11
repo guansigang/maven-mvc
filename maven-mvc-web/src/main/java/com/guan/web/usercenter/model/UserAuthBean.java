@@ -46,6 +46,10 @@ public class UserAuthBean implements Serializable {
 	 * 用户职位
 	 */
 	private String user_position;
+	/*
+	 * 用户模块id
+	 */
+	private String module_id;
 	
 	public String getUser_id() {
 		return user_id;
@@ -107,6 +111,12 @@ public class UserAuthBean implements Serializable {
 	}
 	public void setUser_position(String user_position) {
 		this.user_position = user_position;
+	}
+	public String getModule_id() {
+		return module_id;
+	}
+	public void setModule_id(String module_id) {
+		this.module_id = module_id;
 	}
 
 	
