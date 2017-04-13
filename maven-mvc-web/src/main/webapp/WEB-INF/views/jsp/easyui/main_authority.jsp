@@ -24,10 +24,10 @@
 					登录名称: <input class="easyui-validatebox" validType="" id="express_no" name ="express_no"  style="width:110px"></input>
 					最后登录日期: <input class="easyui-datebox" id="lastLoginDate" name ="lastLoginDate" data-options="sharedCalendar:'#cc',formatter:myformatter,parser:myparser" style="width:110px"></input>
 					在用状态:<select class="easyui-combobox" id="user_state" panelHeight="auto" name="user_state" style="width:100px"></select>
-					所属模块:<select class="easyui-combobox" id="module_id" name="module_id" panelHeight="auto"></select>
+					所属权限:<select class="easyui-combobox" id="module_id" name="module_id" panelHeight="auto"></select>
 					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-remove"  onclick="clearDetailForm()">清空</a>
 					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-search" onclick="submitDetailForm()">搜索</a>
-					<a href="javascript:void(0)" title="添加管理员" class="easyui-linkbutton" iconCls="icon-add" onclick="logisUpdate();return false;">添加</a>
+					<a href="javascript:void(0)" title="添加管理员" class="easyui-linkbutton" iconCls="icon-add" onclick="add_user();return false;">添加</a>
 					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="logisUpdate();return false;">修改</a>
 					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="logisUpdate();return false;">密码重置</a>
 					<a href="javascript:void(0)" title="删除管理员" class="easyui-linkbutton" iconCls="icon-cut" onclick="logisUpdate();return false;">删除</a>
@@ -37,23 +37,22 @@
 			</div>
 			</form>
 		</div>
-		<div id="logisUpdateDataWin">
-			<form id="logisticDataForm" style="margin-top: 50px;" method="post">
+		<div id="editUserDataWin">
+			<form id="editUserDataForm" style="margin-top: 50px;" method="post">
 	    	<table cellpadding="5" style="padding: 20px;">
 	    		<tr>
-	    		<input type="text" id="DELIVERY_BN" name="DELIVERY_BN" style="display: none"/>
-	    			<td>重量(KG）:</td>
+	    		<input type="text" id="user_id_fix" name="user_id" style="display: none"/>
+	    			<td>登录名:</td>
 		    			<td>
-		    				<input type="text" id="DELIVERY_WEIG" name="DELIVERY_WEIG" class="easyui-numberbox" precision="2" required="true" />
+		    				<input type="text" id="login_name_fix" name="login_name" class="easyui-textbox" required="true" />
 		    			</td>
 	    			<td>
-	    			<td>快递费用（元）:</td>
+	    			<td>所属权限:</td>
 		    			<td >
-		    				<input type="text" id="EXPRESS_COST" name="EXPRESS_COST" class="easyui-numberbox" precision="2" required="true" />
+		    				<input type="text" id="security_id_fix" name="security_id" class="easyui-textbox" required="true" />
 		    			</td>
 	    			<td>
 	    		</tr>
-	    			<a style="position: absolute;right: 45px;top: 50px;" href="javascript:void(0)" title="保存" class="easyui-linkbutton" iconCls="icon-save"  onclick="saveLogisticsb2c();return false;">保存</a>
 	    	</table>
 			</form>
 		</div>
@@ -86,9 +85,78 @@
 			   return newDate;
 	       }
 	       
+	       /////////////////////添加///////////////////
+    function add_user() {
+    //表单清空
+        $("#editUserDataForm")[0].reset();
+        //显示
+        $("#editUserDataWin").show();
+        //以窗体的形式展示
+        $("#editUserDataWin").dialog({
+            title: "添加从字典信息",//标题
+            iconCls: "icon-add",//图标
+            width: 600,//窗体的宽度
+            height: 300,//窗体的高度
+            modal: true, //遮罩层
+            //按钮集合
+            buttons: [
+            {
+                text: "添加",//添加按钮的文本值
+                iconCls: "icon-ok", //添加按钮的图标
+                handler: function () {
+                    //将数据序列化
+                    var parm = $("#editShiroForm").serialize();
+                    //中文格式转换
+                    var pp = decodeURIComponent(parm, true);
+                    var itemAddUrl = "userCenter/addSysShiroUser";
+                    saveUser(itemAddUrl);
+                }
+            },
+              {
+                  text: "取消",
+                  iconCls: "icon-cancel",
+                  handler: function () {
+                      $("#editUserDataWin").window("close");
+                  }
+              }
+            ]
+        });
+      }
+      
+      /*修改保存*/
+		function saveUser(itemUrl){
+			$("#editUserDataForm").form("submit", {
+	            url : itemUrl,
+	            onSubmit : function() {
+	                return $(this).form("validate");
+	            },
+	            success : function(result) {
+	                if (result) {
+	                    $.messager.alert("系统提示", "保存成功！");
+	                    $("#editUserDataWin").window("close");
+	                    $("#manageUserInfoTable").datagrid("reload");
+	                } else {
+	                    $.messager.alert("系统提示", "保存失败！");
+	                    return;
+	                }
+	            }
+	        });
+		}
+	       
 		
 		$(document).ready(function(){
-			$('#logisUpdateDataWin').window({
+			
+			$('#security_id_fix').combobox({
+				url:'userCenter/selectSecuritySelectBox',
+				valueField:'security_id',
+				textField:'security_cn',
+				onLoadSuccess: function(param) {
+				},
+				onLoadError:function(param){
+				}
+			});
+		
+			$('#editUserDataWin').window({
 				width:700,
 				height:300,
 				closed:true,

@@ -19,8 +19,8 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/maven_mvc" />  
         <property name="username" value="root" />  
-<!--         <property name="password" value="root" />   -->
-        <property name="password" value="1qaz!QAZ" />
+        <property name="password" value="root" />
+<!--         <property name="password" value="1qaz!QAZ" /> -->
         <property name="initialSize" value="1" />  
         <property name="minIdle" value="1" />   
         <property name="maxActive" value="20" />  
@@ -53,7 +53,9 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-         <property name="basePackage" value="com.guan.web.usercenter.dao,com.guan.web.easyui.dao" />
+         <property name="basePackage" value="com.guan.web.usercenter.dao,
+         									com.guan.web.easyui.dao,
+         									com.guan.web.base.dao" />
 <!--           <property name="basePackage" value="com.guan.web.easyui.dao" /> -->
 <!--         <property name="basePackage" value="com.guan.web" /> -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />

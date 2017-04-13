@@ -14,6 +14,8 @@ public interface UserCenterMapper {
 
 	int selectUserManagersCount(PageResult<Map<String, Object>> pageResult);
 
+	int addSysShiroUser(Map<String, String> params);
+
 	List<Map<String, Object>> selectSysBaseDict(PageResult<Map<String, Object>> pageResult);
 
 	int selectSysBaseDictCount(PageResult<Map<String, Object>> pageResult);
@@ -47,5 +49,26 @@ public interface UserCenterMapper {
 	int addSysBaseModule(Map<String, String> params);
 
 	int updateSysBaseModule(Map<String, String> params);
+
+	int updateSysBaseSecurity(Map<String, String> params);
+
+	int addSysBaseSecurity(Map<String, String> params);
+
+	int deleteSysBaseSecurity(Map<String, String> params);
+
+	List<Map<String, Object>> selectSysBaseSecurity(PageResult<Map<String, Object>> pageResult);
+
+	int selectSysBaseSecurityCount(PageResult<Map<String, Object>> pageResult);
+	
+	int updateSysBaseShiro(Map<String, String> params);
+	
+	int addSysBaseShiro(Map<String, String> params);
+	
+	int deleteSysBaseShiro(Map<String, String> params);
+	
+	List<Map<String, Object>> selectSysBaseShiro(PageResult<Map<String, Object>> pageResult);
+	
+	int selectSysBaseShiroCount(PageResult<Map<String, Object>> pageResult);
+
 
 }

@@ -5,18 +5,18 @@
 		<![CDATA[
 		SELECT
 			shiro.shiro_path,
-			module.is_used,
-			CASE module.module_en
+			security.is_used,
+			CASE security.security_en
 			WHEN 'anon' THEN
 				'anon'
 			WHEN 'admin' THEN
 			'authc,roles[admin]'
 			ELSE
-				CONCAT('authc,perms[',IFNULL(module.module_en, 'admin'),':all]')
+				CONCAT('authc,perms[',IFNULL(security.security_en, 'admin'),':all]')
 			END AS user_name
 		FROM
 			sys_base_shiro AS shiro
-		LEFT JOIN sys_base_module AS module ON shiro.module_id = module.module_id
+		LEFT JOIN sys_base_security AS security ON shiro.security_id = security.security_id
 		]]>
 	</select>
 	

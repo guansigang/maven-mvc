@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.guan.base.base.BaseContent;
 import com.guan.base.base.EditResult;
 import com.guan.base.base.PageResult;
 import com.guan.base.system.BaseController;
@@ -47,12 +50,7 @@ public class UserCenterController extends BaseController{
     @ResponseBody
     public String queryUserInfo(HttpServletRequest request, HttpServletResponse response,Model model){
 		logger.debug(" *=* 查询用户信息 *=* ");
-		HttpSession session = request.getSession();
 		Map<String, String> params = getParams(model);
-		UserAuthBean user = null;
-//		if (user == null || user.getUserState() != 1) {
-//			return("登陆状态失效, 请注销后重新登陆!");
-//		}
 		PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
 		// 封装数据
 		pageResult.setParameters(params);
@@ -68,9 +66,41 @@ public class UserCenterController extends BaseController{
 		return pageResult.toEasyUiJson();
     }
     
-    
     /**
-     * 管理员权限等主信息
+    * 添加模块信息
+    * @param request
+    * @param response
+    * @param model
+    * @return
+    */
+    @RequestMapping(value = "/addSysShiroUser", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String addSysShiroUser(HttpServletRequest request, HttpServletResponse response,Model model){
+    logger.debug(" *=* 添加权限信息表*=* ");
+    Map<String, String> params = getParams(model);
+    String user_id = UUID.randomUUID().toString().replaceAll("-", "");
+    params.put("user_id", user_id);
+    params.put("login_pwd", BaseContent.DEFAULT_SECRET_CODE);
+    Subject currentUser = SecurityUtils.getSubject();
+    UserAuthBean user = (UserAuthBean)currentUser.getSession().getAttribute("currentUser");
+    String add_user = user.getUser_id();
+    params.put("add_user", add_user);
+    EditResult resultStr = new EditResult();
+    //查询结果
+    try {
+    resultStr = this.userCenterService.addSysShiroUser(params);
+    } catch (Exception e) {
+    logger.error("管理员查询异常!" + e.getMessage());
+    e.printStackTrace();
+    }
+    return JSON.toJSONString(resultStr);
+    }
+    
+    
+    
+    //////////////////////////////////////////////数据字典管理START///////////////////////////////////////////////
+    /**
+     * 数据字典查询
      * @param request
      * @param response
      * @param model
@@ -80,12 +110,7 @@ public class UserCenterController extends BaseController{
     @ResponseBody
     public String querySysBaseDict(HttpServletRequest request, HttpServletResponse response,Model model){
     	logger.debug(" *=* 数据字典主表 *=* ");
-    	HttpSession session = request.getSession();
     	Map<String, String> params = getParams(model);
-    	UserAuthBean user = null;
-//		if (user == null || user.getUserState() != 1) {
-//			return("登陆状态失效, 请注销后重新登陆!");
-//		}
     	PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
     	// 封装数据
     	pageResult.setParameters(params);
@@ -100,10 +125,8 @@ public class UserCenterController extends BaseController{
     	}
     	return pageResult.toEasyUiJson();
     }
-    
-    
     /**
-     * 管理员权限等主信息
+     * 数据字典子表查询
      * @param request
      * @param response
      * @param model
@@ -163,7 +186,7 @@ public class UserCenterController extends BaseController{
     }
     
     /**
-     * 添加数据字典从表
+     * 修改数据字典主表
      * @param request
      * @param response
      * @param model
@@ -192,7 +215,7 @@ public class UserCenterController extends BaseController{
     
     
     /**
-     * 添加数据字典主表
+     * 添加数据字典从表
      * @param request
      * @param response
      * @param model
@@ -220,7 +243,7 @@ public class UserCenterController extends BaseController{
     }
     
     /**
-     * 添加数据字典从表
+     * 修改数据字典从表
      * @param request
      * @param response
      * @param model
@@ -301,7 +324,7 @@ public class UserCenterController extends BaseController{
     	return JSON.toJSONString(resultStr);
     }
     /**
-	 * easyui下拉框查询数据字典
+	 * easyui数据字典下拉框查询数据字典
 	 */
 	@RequestMapping(value = "/selectBoxBaseDict", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;charset=UTF-8")
 	@ResponseBody
@@ -325,6 +348,12 @@ public class UserCenterController extends BaseController{
 	}
 	
 	
+//////////////////////////////////////////////数据字典管理END///////////////////////////////////////////////
+	
+	
+	
+	
+//////////////////////////////////////////////数据字典管理START///////////////////////////////////////////////
 	
 	 /**
      * 模块信息查询
@@ -359,9 +388,33 @@ public class UserCenterController extends BaseController{
     }
     
     
+    /**
+   	 * easyui数据字典下拉框查询数据字典
+   	 */
+   	@RequestMapping(value = "/selectModuleSelectBox", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+   	@ResponseBody
+   	public String selectModuleSelectBox(HttpServletRequest request, HttpServletResponse response,Model model) {
+   		
+   		Map<String, String> params = getParams(model);
+   		PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+    	// 封装数据
+    	pageResult.setParameters(params);
+    	// 查询结果
+    	try {
+    		pageResult = this.userCenterService.querySysBaseModule(pageResult);
+    	} catch (Exception e) {
+    		logger.error("管理员查询异常!" + e.getMessage());
+    		e.printStackTrace();
+    	}
+    	List<Map<String, Object>> resultList = pageResult.getResultList();
+   		JSONArray ja = JSONArray.parseArray(JSON.toJSONString(resultList));
+   		return ja.toJSONString();
+   	}
+    
+    
     
     /**
-     * 删除数据字典主表
+     * 删除模块信息
      * @param request
      * @param response
      * @param model
@@ -370,13 +423,8 @@ public class UserCenterController extends BaseController{
     @RequestMapping(value = "/deleteSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String deleteSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.debug(" *=* 删除数据字典主表*=* ");
-    	HttpSession session = request.getSession();
+    	logger.debug(" *=* 删除模块信息表*=* ");
     	Map<String, String> params = getParams(model);
-    	UserAuthBean user = null;
-//		if (user == null || user.getUserState() != 1) {
-//			return("登陆状态失效, 请注销后重新登陆!");
-//		}
     	EditResult resultStr = new EditResult();
     	try {
     		resultStr = this.userCenterService.deleteSysBaseModule(params);
@@ -390,7 +438,7 @@ public class UserCenterController extends BaseController{
     
     
     /**
-     * 添加数据字典主表
+     * 添加模块信息
      * @param request
      * @param response
      * @param model
@@ -399,15 +447,15 @@ public class UserCenterController extends BaseController{
     @RequestMapping(value = "/addSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String addSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.debug(" *=* 添加数据字典主表*=* ");
-    	HttpSession session = request.getSession();
+    	logger.debug(" *=* 添加模块信息表*=* ");
+    	
     	Map<String, String> params = getParams(model);
     	String module_id = UUID.randomUUID().toString().replaceAll("-", "");
     	params.put("module_id", module_id);
-    	UserAuthBean user = null;
-//		if (user == null || user.getUserState() != 1) {
-//			return("登陆状态失效, 请注销后重新登陆!");
-//		}
+    	Subject currentUser = SecurityUtils.getSubject();
+    	UserAuthBean user = (UserAuthBean)currentUser.getSession().getAttribute("currentUser");
+    	String user_id = user.getUser_id();
+    	params.put("add_user", user_id);
     	EditResult resultStr = new EditResult();
     	// 查询结果
     	try {
@@ -420,7 +468,7 @@ public class UserCenterController extends BaseController{
     }
     
     /**
-     * 添加数据字典从表
+     * 修改模块信息
      * @param request
      * @param response
      * @param model
@@ -429,7 +477,7 @@ public class UserCenterController extends BaseController{
     @RequestMapping(value = "/updateSysBaseModule", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updateSysBaseModule(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.debug(" *=* 添加数据字典从表*=* ");
+    	logger.debug(" *=* 添加模块信息表*=* ");
     	HttpSession session = request.getSession();
     	Map<String, String> params = getParams(model);
     	UserAuthBean user = null;
@@ -447,7 +495,267 @@ public class UserCenterController extends BaseController{
     	return JSON.toJSONString(resultStr);
     }
     
+//////////////////////////////////////////////模块信息管理END///////////////////////////////////////////////
     
+    
+    
+
+	
+	
+//////////////////////////////////////////////权限信息管理START///////////////////////////////////////////////
+
+/**
+* 权限信息查询
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/querySysBaseSecurity", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String querySysBaseSecurity(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 权限信息查询 *=* ");
+HttpSession session = request.getSession();
+Map<String, String> params = getParams(model);
+UserAuthBean user = null;
+//if (user == null || user.getUserState() != 1) {
+//return("登陆状态失效, 请注销后重新登陆!");
+//}
+PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+// 封装数据
+pageResult.setParameters(params);
+pageResult.setPageNow(Integer.parseInt(params.get("page"), 10));
+pageResult.setPageSize(Integer.parseInt(params.get("rows"), 10));
+// 查询结果
+try {
+pageResult = this.userCenterService.querySysBaseSecurity(pageResult);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return pageResult.toEasyUiJson();
+}
+
+/**
+ * easyui Security权限下拉框查询数据字典
+ */
+@RequestMapping(value = "/selectSecuritySelectBox", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String selectSecuritySelectBox(HttpServletRequest request, HttpServletResponse response,Model model) {
+	
+	Map<String, String> params = getParams(model);
+	PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+	// 封装数据
+	pageResult.setParameters(params);
+	// 查询结果
+	try {
+		pageResult = this.userCenterService.querySysBaseSecurity(pageResult);
+	} catch (Exception e) {
+		logger.error("管理员查询异常!" + e.getMessage());
+		e.printStackTrace();
+	}
+	List<Map<String, Object>> resultList = pageResult.getResultList();
+	JSONArray ja = JSONArray.parseArray(JSON.toJSONString(resultList));
+	return ja.toJSONString();
+}
+
+/**
+* 删除权限信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/deleteSysBaseSecurity", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String deleteSysBaseSecurity(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 删除数据字典主表*=* ");
+HttpSession session = request.getSession();
+Map<String, String> params = getParams(model);
+UserAuthBean user = null;
+//if (user == null || user.getUserState() != 1) {
+//return("登陆状态失效, 请注销后重新登陆!");
+//}
+EditResult resultStr = new EditResult();
+try {
+resultStr = this.userCenterService.deleteSysBaseSecurity(params);
+} catch (Exception e) {
+logger.error("删除权限信息表异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+
+
+/**
+* 添加模块信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/addSysBaseSecurity", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String addSysBaseSecurity(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 添加权限信息表*=* ");
+Map<String, String> params = getParams(model);
+String security_id = UUID.randomUUID().toString().replaceAll("-", "");
+params.put("security_id", security_id);
+Subject currentUser = SecurityUtils.getSubject();
+UserAuthBean user = (UserAuthBean)currentUser.getSession().getAttribute("currentUser");
+String user_id = user.getUser_id();
+params.put("add_user", user_id);
+EditResult resultStr = new EditResult();
+// 查询结果
+try {
+resultStr = this.userCenterService.addSysBaseSecurity(params);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+/**
+* 修改权限信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/updateSysBaseSecurity", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String updateSysBaseSecurity(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 添加数据字典从表*=* ");
+Map<String, String> params = getParams(model);
+EditResult resultStr = new EditResult();
+// 查询结果
+try {
+resultStr = this.userCenterService.updateSysBaseSecurity(params);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+//////////////////////////////////////////////权限信息管理END///////////////////////////////////////////////
    
+
+
+
+
+
+
+//////////////////////////////////////////////数据字典管理START///////////////////////////////////////////////
+
+/**
+* 权限信息查询
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/querySysBaseShiro", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String querySysBaseShiro(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 权限信息查询 *=* ");
+Map<String, String> params = getParams(model);
+
+PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+//封装数据
+pageResult.setParameters(params);
+pageResult.setPageNow(Integer.parseInt(params.get("page"), 10));
+pageResult.setPageSize(Integer.parseInt(params.get("rows"), 10));
+//查询结果
+try {
+pageResult = this.userCenterService.querySysBaseShiro(pageResult);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return pageResult.toEasyUiJson();
+}
+
+
+/**
+* 删除权限信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/deleteSysBaseShiro", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String deleteSysBaseShiro(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 删除数据字典主表*=* ");
+Map<String, String> params = getParams(model);
+EditResult resultStr = new EditResult();
+try {
+resultStr = this.userCenterService.deleteSysBaseShiro(params);
+} catch (Exception e) {
+logger.error("删除权限信息表异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+
+
+/**
+* 添加模块信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/addSysBaseShiro", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String addSysBaseShiro(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 添加权限信息表*=* ");
+Map<String, String> params = getParams(model);
+String shiro_id = UUID.randomUUID().toString().replaceAll("-", "");
+params.put("shiro_id", shiro_id);
+Subject currentUser = SecurityUtils.getSubject();
+UserAuthBean user = (UserAuthBean)currentUser.getSession().getAttribute("currentUser");
+String user_id = user.getUser_id();
+params.put("add_user", user_id);
+EditResult resultStr = new EditResult();
+//查询结果
+try {
+resultStr = this.userCenterService.addSysBaseShiro(params);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+/**
+* 修改权限信息
+* @param request
+* @param response
+* @param model
+* @return
+*/
+@RequestMapping(value = "/updateSysBaseShiro", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/html;charset=UTF-8")
+@ResponseBody
+public String updateSysBaseShiro(HttpServletRequest request, HttpServletResponse response,Model model){
+logger.debug(" *=* 添加数据字典从表*=* ");
+Map<String, String> params = getParams(model);
+EditResult resultStr = new EditResult();
+//查询结果
+try {
+resultStr = this.userCenterService.updateSysBaseShiro(params);
+} catch (Exception e) {
+logger.error("管理员查询异常!" + e.getMessage());
+e.printStackTrace();
+}
+return JSON.toJSONString(resultStr);
+}
+
+//////////////////////////////////////////////权限信息管理END///////////////////////////////////////////////
+
     
 }

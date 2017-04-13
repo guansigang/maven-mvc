@@ -69,6 +69,9 @@
                                 <li data-options="iconCls:'icon-user'">
                                     <a onclick="addTab('4')"><span>权限信息列表</span></a>
                                 </li>
+                                <li data-options="iconCls:'icon-user'">
+                                    <a onclick="addTab('5')"><span>资源管理</span></a>
+                                </li>
                             </ul>
                         </li>
 	                       <!--<li data-options="iconCls:'icon-joystick'">
@@ -125,6 +128,8 @@
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_module");
 			}else if(flag==4){
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_security");
+			}else if(flag==5){
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_resource");
 			}
 		} 
 		

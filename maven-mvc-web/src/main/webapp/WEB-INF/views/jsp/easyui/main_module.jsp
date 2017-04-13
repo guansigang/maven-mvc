@@ -11,159 +11,6 @@
 	<link href="${ contextPath }static/easyui-1.5.1/themes/icon.css" rel="stylesheet" type="text/css" />
 	<title>后台管理</title>
 	<script type="text/javascript">
-       
-        /////////////////////////删除/////////////////
-        function delete_DictItem() {
-             var selected = $("#tab").datagrid('getSelected');
-             var item_code = selected.item_code;
-             
-            if (selected != null) {
-                $.messager.confirm('提示', '是否确定要删除？', function (y) {
-                    if (y) {
-                        var v = "";
-                        var checked = $("#tab").datagrid('getChecked');
-                        $.post("userCenter/deleteSysBaseDictItem", {item_code:item_code}, function (data) {
-                            $.messager.alert('提示', "删除数据成功！");
-                            $("#tab").datagrid('reload');
-                        });
-                    }
-                })
-            } else {
-            $.messager.alert('提示','您还没有选中一行数，请选中在删除！');
-           } 
-    }
-    /////////////////////添加///////////////////
-    function add_dg() {
-      $('#item_code').attr('readonly',false);
-		$("#item_dict_code_fix").combobox({disabled: false}); 
-    //表单清空
-        $("#fm_dg")[0].reset();
-        //显示
-        $("#dd_dg").show();
-        //以窗体的形式展示
-        $("#dd_dg").dialog({
-            title: "添加从字典信息",//标题
-            iconCls: "icon-add",//图标
-            width: 350,//窗体的宽度
-            height: 400,//窗体的高度
-            modal: true, //遮罩层
-            //按钮集合
-            buttons: [
-            {
-                text: "添加",//添加按钮的文本值
-                iconCls: "icon-ok", //添加按钮的图标
-                handler: function () {
-                    //将数据序列化
-                    var parm = $("#fm_dg").serialize();
-                    //中文格式转换
-                    var pp = decodeURIComponent(parm, true);
-                    var itemUrl = "userCenter/addSysBaseDictItem";
-                   	saveDictItem(itemUrl);
-                }
-            },
-              {
-                  text: "取消",
-                  iconCls: "icon-cancel",
-                  handler: function () {
-                      $("#dd_dg").window("close");
-                  }
-              }
-            ]
-        });
-      }
-      //////////////////修改//////////////////
-      function edit_dg() {
-//             $('#item_code').attr('disabled','disabled');
-             $('#item_code').attr('readonly',true);
-			$("#item_dict_code_fix").combobox({disabled: true}); 
-          
-          $('#item_dict_code_fix').combobox({ 
-     		 editable:false,//不可编辑
-      		}); 
-          
-          
-          
-          
-      //选中一行，获取这一行的属性的值
-          var selected = $("#tab").datagrid('getSelected');
-          //判断是否选中
-          if (selected != null) {
-          
-			$("#dd_dg").show();
-	        $("#fm_dg").form("load", selected);
-              $("#dd_dg").dialog({
-                  title: "编辑信息",
-                  iconCls: "icon-edit",
-                  modal: true,//遮罩层
-                  width: 350,
-                  height: 400,
-                  buttons: [
-                  {
-                      text: "编辑",
-                      iconCls: "icon-edit",
-                      handler: function () {
-                          var parm = $("#fm_dg").serialize();
-                          var pp = decodeURIComponent(parm, true);
-                  		  var itemUpdateUrl = "userCenter/updateSysBaseDict";
-                   		  saveDictItem(itemUpdateUrl);
-                      }
-
-                  },
-                   {
-                       text: "取消",
-                       iconCls: "icon-cancel",
-                       handler: function () {
-                           $("#dd_dg").window('close');
-                       }
-                   }
-                  ]
-
-
-              });
-          } else {
-              $.messager.alert('提示','请选中一行在进行编辑');
-          }
-
-      }
-      
-      
-      /*修改保存*/
-		function saveDictItem(itemUrl){
-			$("#fm_dg").form("submit", {
-	            url : itemUrl,
-	            onSubmit : function() {
-	                return $(this).form("validate");
-	            },
-	            success : function(result) {
-	                if (result) {
-	                    $.messager.alert("系统提示", "保存成功！");
-	                    $("#dd_dg").window("close");
-	                    $("#tab").datagrid("reload");
-	                } else {
-	                    $.messager.alert("系统提示", "保存失败！");
-	                    return;
-	                }
-	            }
-	        });
-		}
-		
-		/*数据字典子表查询*/
-		function submitDictItemForm() {
-			var item_code = $("#item_item_code").val();
-			var dict_code = $("#item_dict_code").val();
-			var item_name = $("#item_item_name").val();
-			$('#tab').datagrid('load',{
-				dict_code:dict_code,
-				item_code:item_code,
-				item_name:item_name
-			});
-		}
-		
-		/*数据字典子表清空查询条件*/
-		function clearDictItemForm() {
-			$("#detailItem")[0].reset();
-		}
-		
     </script>
     <style>
        #editModuleWin tr{height: 50px;}
@@ -229,13 +76,11 @@
 		var statuesRefresh;
 		var stu = "0";
 		//调整宽度
-		function fixWidth(percent)  
-		{  
-		    return document.body.clientWidth * percent ; //这里你可以自己做调整  
+		function fixWidth(percent){  
+	    	return document.body.clientWidth * percent ; //这里你可以自己做调整  
 		} 
 		
 		$(document).ready(function(){
-		
 			$('#item_dict_code_fix').combobox({
 				url:'userCenter/selectBoxBaseDict',
 				valueField:'dict_code',
@@ -271,12 +116,12 @@
 					collapsible: true, //隐藏按钮
 					columns:[[
 								{ field: 'module_id',checkbox:true},
-								{ field: 'module_en', title: '模块名称',width:fixWidth(0.3) },
-								{ field: 'module_index', title: '模块首页',width:fixWidth(0.3) },
-								{ field: 'module_path', title: '模块权限路径',width:fixWidth(0.3) },
-								{ field: 'is_used', title: '是否在用',width:fixWidth(0.3)},
-								{ field: 'module_desc', title: '模块说明',width:fixWidth(0.1) },
-								{ field: 'add_time', title: '添加时间',width:fixWidth(0.1) },
+								{ field: 'module_en', title: '模块名称',width:fixWidth(0.1) },
+								{ field: 'module_index', title: '模块首页',width:fixWidth(0.1) },
+								{ field: 'module_path', title: '模块登录页',width:fixWidth(0.1) },
+								{ field: 'is_used', title: '是否在用',width:fixWidth(0.1)},
+								{ field: 'module_desc', title: '模块说明',width:fixWidth(0.3) },
+								{ field: 'add_time', title: '添加时间',width:fixWidth(0.1),formatter:formatterSTAT_DATE },
 							]],
 					onLoadSuccess: function(data){
 				       
@@ -309,42 +154,10 @@
 				dict_name:dict_name
 			});
 		}
+		
 		function clearDetailForm() {
 			$("#dict_code").val("");
 			$("#dict_name").val("");
-		}
-		
-		
-		
-		function exportFormForSelect(){
-			
-			var rows = $('#mainModuleInfoTable').datagrid('getSelections');
-			
-			if(rows==null){
-				$.messager.alert('提示', '请先选择您要修改的记录！', 'warning');
-				return false;
-			}
-			var flag = 0;
-			var ids = "";
-			$.each(rows,function(i){
-				console.log(rows[i].detail_status_real);
-				if(rows[i].detail_status_real!="2"){
-					layer.msg("只能选择对账不一致的对账单", { icon: 5 });
-					flag=1;
-					return false;
-				}else{
-					ids=ids+"__"+rows[i].csv_id;
-				}
-			});
-			
-			if(flag==1){
-				return false;
-			}
-			
-			$("#detailff").attr("action", "logistics/creatExcelBySelect?ids="+ids).submit();
-			
-			
-			
 		}
 		
 		/*打开修改页面*/
@@ -405,9 +218,25 @@
                     }
                 })
             } else {
-            $.messager.alert('提示','您还没有选中一行数，请选中在删除！');
+            	$.messager.alert('提示','您还没有选中一行数，请选中在删除！');
            } 
     }
+    
+    
+     function formatterSTAT_DATE(value,row,index){
+		 if(!value){
+			 return "";
+		 }
+			var date = new Date(parseInt(value));
+			var newDate = date.getFullYear() + "-" +//年份
+				(date.getMonth()+1) + "-" + //月份
+				date.getDate() + " " +//日
+		    	date.getHours() + ":" + //小时     
+		    	date.getMinutes() + ":" + //分   
+		    	date.getSeconds(); //秒 
+		    	//console.log(date.getDate()+" "+date.getHours());
+		   return newDate;
+      }
 		
 		
 	</script>

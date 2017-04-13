@@ -31,6 +31,7 @@ import com.guan.web.usercenter.service.UserService;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 	
+	
 	private static Logger logger = Logger.getLogger(ShiroDbRealm.class);
 	
 	@Autowired

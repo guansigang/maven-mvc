@@ -30,6 +30,24 @@ public class UserCenterServiceImpl implements UserCenterService {
 		pageResult.setTotalRecord(this.userCenterMapper.selectUserManagersCount(pageResult));
 		return pageResult;
 	}
+	
+	@Override
+	public EditResult addSysShiroUser(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.addSysShiroUser(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+	
+	
 
 	/**
 	 * 数据字典报表管理查询数据字典主表
@@ -218,8 +236,7 @@ public class UserCenterServiceImpl implements UserCenterService {
 	}
 
 	@Override
-	public EditResult deleteSysBaseModule(Map<String, String> params)
-			throws Exception {
+	public EditResult deleteSysBaseModule(Map<String, String> params)throws Exception {
 		EditResult editResult = new EditResult();
 		int resultNum = userCenterMapper.deleteSysBaseModule(params);
 		if(resultNum==1){
@@ -235,10 +252,8 @@ public class UserCenterServiceImpl implements UserCenterService {
 	}
 
 	@Override
-	public EditResult addSysBaseModule(Map<String, String> params)
-			throws Exception {
+	public EditResult addSysBaseModule(Map<String, String> params)throws Exception {
 		EditResult editResult = new EditResult();
-		
 		int resultNum = userCenterMapper.addSysBaseModule(params);
 		if(resultNum==1){
 			//编辑成功
@@ -253,11 +268,119 @@ public class UserCenterServiceImpl implements UserCenterService {
 	}
 
 	@Override
-	public EditResult updateSysBaseModule(Map<String, String> params)
-			throws Exception {
-EditResult editResult = new EditResult();
-		
+	public EditResult updateSysBaseModule(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
 		int resultNum = userCenterMapper.updateSysBaseModule(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult updateSysBaseSecurity(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.updateSysBaseSecurity(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult addSysBaseSecurity(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.addSysBaseSecurity(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult deleteSysBaseSecurity(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.deleteSysBaseSecurity(params);
+		if(resultNum==1){
+			//删除成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//删除失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public PageResult<Map<String, Object>> querySysBaseSecurity(PageResult<Map<String, Object>> pageResult) throws Exception {
+		pageResult.setResultList(this.userCenterMapper.selectSysBaseSecurity(pageResult));
+		pageResult.setTotalRecord(this.userCenterMapper.selectSysBaseSecurityCount(pageResult));
+		return pageResult;
+	}
+
+	@Override
+	public PageResult<Map<String, Object>> querySysBaseShiro(PageResult<Map<String, Object>> pageResult) throws Exception {
+		pageResult.setResultList(this.userCenterMapper.selectSysBaseShiro(pageResult));
+		pageResult.setTotalRecord(this.userCenterMapper.selectSysBaseShiroCount(pageResult));
+		return pageResult;
+	}
+
+	@Override
+	public EditResult deleteSysBaseShiro(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.deleteSysBaseShiro(params);
+		if(resultNum==1){
+			//删除成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//删除失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult updateSysBaseShiro(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.updateSysBaseShiro(params);
+		if(resultNum==1){
+			//编辑成功
+			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_SUCCESS_RESULT_DESC);
+		}else{
+			//编辑失败
+			editResult.setResultCode(ResultContent.EDIT_DATA_FAIL_RESULT_CODE);
+			editResult.setResultDesc(ResultContent.EDIT_DATA_FAIL_RESULT_DESC);
+		}
+		return editResult;
+	}
+
+	@Override
+	public EditResult addSysBaseShiro(Map<String, String> params)throws Exception {
+		EditResult editResult = new EditResult();
+		int resultNum = userCenterMapper.addSysBaseShiro(params);
 		if(resultNum==1){
 			//编辑成功
 			editResult.setResultCode(ResultContent.EDIT_DATA_SUCCESS_RESULT_CODE);
