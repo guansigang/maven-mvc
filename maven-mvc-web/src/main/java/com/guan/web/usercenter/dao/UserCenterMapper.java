@@ -13,6 +13,8 @@ public interface UserCenterMapper {
 	List<Map<String, Object>> selectUserManagers(PageResult<Map<String, Object>> pageResult);
 
 	int selectUserManagersCount(PageResult<Map<String, Object>> pageResult);
+	
+	int updateSysShiroUser(Map<String, String> params);
 
 	int addSysShiroUser(Map<String, String> params);
 

@@ -12,6 +12,8 @@ public interface UserService {
 	int userLogin(String loginId,String userId,String userIp,String loginTime) throws Exception;
 
 	List<Map<String, Object>> querySelectBoxOption(String dict_code) throws Exception;
+
+	void updateExitTime(String loginId) throws Exception;
 	
 	/*UserBean getUserByCondition(String userName, String userPass) throws Exception;
 	
@@ -24,7 +26,6 @@ public interface UserService {
 	int updatePassword(String userName,String password,String new_password)throws Exception;
 	
     
-    int updateExitTime(String loginId,String exitTime) throws Exception;
 
     UserShiro getShiroUser(int key) throws Exception;*/
 }

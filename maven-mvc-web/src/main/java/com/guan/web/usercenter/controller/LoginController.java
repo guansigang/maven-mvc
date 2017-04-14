@@ -194,7 +194,7 @@ public class LoginController extends BaseController{
 //				session.setAttribute(ip, ip);
 //				session.setAttribute(name, value);
 //				session.setAttribute(login_id, login_id);
-				return new ModelAndView("easyui/easyui_index", "SUCCESS", "登录成功。");
+				return new ModelAndView(user2.getModule_index(), "SUCCESS", "登录成功。");
 			} else {
 				return new ModelAndView("login", "KEYERROR", "用户名或密码错误。");
 			}
@@ -213,11 +213,11 @@ public class LoginController extends BaseController{
 		
 		logger.debug(" *=* 用户注销 *=* ");
 		HttpSession session = request.getSession();
+		UserAuthBean user = (UserAuthBean) session.getAttribute("currentUser");
 		String loginId = (String) session.getAttribute("login_id_session");
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String exitTime = sd.format(new Date());
-		//Date exitTime = new Date();
-//	    userService.updateExitTime(loginId, exitTime);
+//		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String exitTime = sd.format(new Date());
+	    userService.updateExitTime(loginId);
 		session.removeAttribute("login_id_session");
 		session.removeAttribute("currentUser");
 		session.removeAttribute("userSession");
@@ -226,7 +226,7 @@ public class LoginController extends BaseController{
 		request.getSession().invalidate();
 		// 关闭shiro验证
 		SecurityUtils.getSubject().logout();
-		mav.setViewName("redirect:/login");
+		mav.setViewName("redirect:"+user.getModule_path());
 		mav.addObject("logstate", 1);
 		
 		return mav;

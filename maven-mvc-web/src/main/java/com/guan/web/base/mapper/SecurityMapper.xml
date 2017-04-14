@@ -21,13 +21,13 @@
 	</select>
 	
 	
-	<select id="queryUserModuleInfo" resultType="java.util.Map">
+	<select id="queryUserSecurityInfo" resultType="java.util.Map">
 		<![CDATA[
 		SELECT
-			module_id,
-			module_en
+			security_id,
+			security_en
 		FROM
-			sys_base_module 
+			sys_base_security 
 		]]>
 	</select>
 	

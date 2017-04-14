@@ -47,9 +47,17 @@ public class UserAuthBean implements Serializable {
 	 */
 	private String user_position;
 	/*
-	 * 用户模块id
+	 * 用户权限id
 	 */
-	private String module_id;
+	private String security_id;
+	/*
+	 * 登录成功后首页
+	 */
+	private String module_index;
+	/*
+	 * 登录页面
+	 */
+	private String module_path;
 	
 	public String getUser_id() {
 		return user_id;
@@ -112,12 +120,25 @@ public class UserAuthBean implements Serializable {
 	public void setUser_position(String user_position) {
 		this.user_position = user_position;
 	}
-	public String getModule_id() {
-		return module_id;
+	public String getSecurity_id() {
+		return security_id;
 	}
-	public void setModule_id(String module_id) {
-		this.module_id = module_id;
+	public void setSecurity_id(String security_id) {
+		this.security_id = security_id;
 	}
+	public String getModule_index() {
+		return module_index;
+	}
+	public void setModule_index(String module_index) {
+		this.module_index = module_index;
+	}
+	public String getModule_path() {
+		return module_path;
+	}
+	public void setModule_path(String module_path) {
+		this.module_path = module_path;
+	}
+	
 
 	
 	

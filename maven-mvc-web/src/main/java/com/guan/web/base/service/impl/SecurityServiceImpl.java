@@ -1,7 +1,6 @@
 package com.guan.web.base.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -296,7 +295,7 @@ public class SecurityServiceImpl implements SecurityService {
 	 */
 	@Override
 	public List<Map<String, String>> findUsers() {
-		List<Map<String, String>> users = securityMapper.queryUserModuleInfo();
+		List<Map<String, String>> users = securityMapper.queryUserSecurityInfo();
 		return users;
 	}
 

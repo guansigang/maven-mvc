@@ -15,4 +15,6 @@ public interface UserMapper {
 
 	List<Map<String, Object>> querySelectBoxOption(String dict_code);
 
+	void updateExitTime(String loginId);
+
 }

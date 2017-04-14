@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface SecurityMapper {
 	List<Map<String, Object>> queryShiroSecurity();
 	
-	List<Map<String, String>> queryUserModuleInfo();
+	List<Map<String, String>> queryUserSecurityInfo();
 	
 }

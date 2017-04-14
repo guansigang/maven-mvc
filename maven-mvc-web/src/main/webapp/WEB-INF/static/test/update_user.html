@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>创新空间</title>
+        <link rel="stylesheet" href="css/bootstrap-cerulean.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery-3.1.1.js"></script>
+        <script src="js/bootstrap.js"></script>
+        
+        <style type="text/css">
+		/* .page-tabs a{
+			display: block;
+   			float: left;
+    		border-right: solid 1px #eee;
+    		padding: 0 15px;
+    		text-decoration: none;
+		}
+		
+		.page-tabs a.active {
+		    background: #EC5564;
+		    color: #fff;
+		}
+		
+		.content-tabs {
+		    position: relative;
+		    height: 42px;
+		    background: #fafafa;
+		    line-height: 40px;
+		} */
+		
+		
+		.dropdown-menu .divider {
+		    height: 2px;
+		    margin: 9px 0;
+		    overflow: hidden;
+		    background-color: #e5e5e5;
+		}
+		
+        </style>
+        
+    </head>
+    
+    <body ontouchstart style="width: 100%;">
+        <section class="ui-container">
+			<section id="form">
+				<div class="demo-item" style="width: 100%;">
+			        <div class="content-tabs" style="width: 100%;">
+                <button onclick='backfirst();' style="position: absolute;height: 40px;" class="roll-nav roll-left J_tabLeft"><i class="fa icon-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs" style="width: 100%;margin-left: 40px;width: 100000px;height:40px;overflow: hidden;">
+                    <div id="title_list" class="page-tabs-content" style="margin-left: 0px;float: left;">
+	                    <a href="javascript:;" class="J_menuTab" data-id="home.html">首页</a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?zx_timeStart=2016-02-14&amp;zx_timeEnd=2017-02-13&amp;">全部咨询 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?zx_timeStart=2017-02-13&amp;zx_timeEnd=2017-02-13&amp;">今日咨询 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?zx_timeStart=2017-02-13&amp;zx_timeEnd=2017-02-13&amp;shifoudaozhen=2">今日预约 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?yuyueTimeStart=2017-02-13&amp;yuyueTimeEnd=2017-02-13&amp;shifoudaozhen=2">今日应到诊 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?daozhen_timeStart=2017-02-12&amp;daozhen_timeEnd=2017-02-12&amp;shifoudaozhen=3">昨日到诊 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/manage_zx/manage.html?yuyueTimeStart=2017-02-14&amp;yuyueTimeEnd=2017-02-14&amp;shifoudaozhen=2">明日应到诊 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/useradmin/system_zh.html">账号管理 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/system_site/system_zxfs.html">咨询方式 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/system_site/system_message.html">短信模版设置 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/role/system_role.html">权限组设置 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/role/system_auth.html">系统结构组 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/system_site/system_yy.html">医院管理 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/system_site/system_xx.html">信息来源 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/returnvisit/huifangjihua_list.html">回访计划 <i class="fa fa-times-circle"></i></a>
+	                    <a href="javascript:;" class="J_menuTab" data-id="/index.php/baidutongji/report_shijianduan_jihua.html">计划时间段报表 <i class="fa fa-times-circle"></i></a>
+                    </div>
+                </nav>
+                <button onclick='backlast();' style="position: absolute;right: 140px;top: 0px;height: 40px;" class="roll-nav roll-right J_tabRight"><i class="fa icon-forward"></i>
+                </button>
+                <div style="position: absolute;right: 60px;top: 0px;height: 40px;" class="btn-group roll-nav roll-right">
+                    <button style="height: 40px;vertical-align: top;" class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span style="margin-top: 0px;" class="caret"></span>
+
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a style="position: absolute;right: 0px;top: 0px;"  href="/index.php/index/safe" onclick="if(confirm('确认退出?')) return true;else return false;" class="roll-nav roll-right J_tabExit"><i class="fa icon-signout"></i> 退出</a>
+            </div>
+			        
+			    </div>
+			</section>
+			
+			<div>
+				<button onclick="adda();" style="height: 40px;vertical-align: top;" class="dropdown J_tabClose" data-toggle="dropdown">测试</button>
+			</div>
+			
+			
+
+        </section><!-- /.ui-container-->
+        <script>
+        
+        function backfirst(){
+        	$(".page-tabs-content").animate({
+     			marginLeft: "0px"
+     		}, "fast")
+        };
+        function backlast(){
+        	var f = $(".J_menuTab:last").width();
+        	if($("#title_list").width()>($(".content-tabs").width()-180)){
+	        	 $(".page-tabs-content").animate({
+	     			marginLeft: $(".content-tabs").width()-$("#title_list").width()-f-240+"px"
+	     		}, "slow")
+        	}
+        };
+        function adda(){
+       		$(".J_menuTab").removeClass("active");
+        	$("#title_list").append('<a href="javascript:;" class="J_menuTab active" data-id="/index.php/manage_zx/manage.html?zx_timeStart=2016-02-14&amp;zx_timeEnd=2017-02-13&amp;">全部咨询wdadsadadadad<i class="fa fa-times-circle"></i></a>');
+        	addclick();
+        	var f = $(".J_menuTab:last").width();
+        	var e = Math.abs(parseInt($(".page-tabs-content").css("margin-left")));
+        	if($("#title_list").width()>($(".content-tabs").width()-180)){
+        		$("#title_list").css("margin-left",$(".content-tabs").width()-$("#title_list").width()-f-240+"px");
+        	}
+        }
+        $(function(){
+        	addclick();
+        	
+        	$(".J_tabCloseAll").click(function(){
+        		$(".page-tabs-content .J_menuTab").not(":first").each(function() {
+        			return $(this).remove(),backfirst();
+        		})
+        		$(".page-tabs-content .J_menuTab:first").addClass("active");
+       		});
+        	
+        	$(".J_tabCloseOther").click(function(){
+        		$(".page-tabs-content .J_menuTab").not(":first").not(".active").each(function() {
+        			return $(this).remove(),backfirst();
+        		})
+       		});
+        	
+        	
+        	
+        })
+        function addclick(){
+        	$(".J_menuTab").click(function(){
+        		$(".J_menuTab").removeClass("active");
+        		$(this).toggleClass("active");
+       		});
+        }
+        </script>
+    </body>
+</html>

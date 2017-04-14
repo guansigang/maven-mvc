@@ -23,9 +23,10 @@
 		    <table class="easyui-datagrid" id="mainModuleInfoTable" title=""></table>
 			<div id="detailtb" style="padding:5px;height:auto">
 				<div>
-					模块查询: <input class="easyui-validatebox" validType="" id="module_en" name ="module_en"  style="width:110px"></input>
+					英文名称查询: <input class="easyui-textbox" validType="" id="module_en" name ="module_en"  style="width:110px"></input>
+					中文名称查询: <input class="easyui-textbox" validType="" id="module_cn" name ="module_cn"  style="width:110px"></input>
 					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-remove"  onclick="clearDetailForm()">清空</a>
-					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-search" onclick="submitDetailForm()">搜索</a>
+					<a href="javascript:void(0)" title="查询" class="easyui-linkbutton" iconCls="icon-search" onclick="submitDetailForm()">搜索</a>
 					<a href="javascript:void(0)" title="添加模块" class="easyui-linkbutton" iconCls="icon-add" onclick="moduleAdd();return false;">添加</a>
 					<a href="javascript:void(0)" title="修改模块" class="easyui-linkbutton" iconCls="icon-edit" onclick="moduleUpdate();return false;">修改</a>
 					<a href="javascript:void(0)" title="删除模块" class="easyui-linkbutton" iconCls="icon-cancel" onclick="deleteModule();return false;">删除</a>
@@ -34,7 +35,7 @@
 			</form>
 		</div>
 		<div id="editModuleWin">
-			<form id="editModuleForm" style="margin-top: 50px;" method="post">
+			<form id="editModuleForm" style="margin-top: 40px;" method="post">
 	    	<table  style="padding: 20px;margin: 0 auto;">
   				<input type="hidden" id="module_id_fix" name="module_id" class="easyui-textbox"/>
 	    		<tr>
@@ -52,9 +53,16 @@
 	    			<td>
 	    		</tr>
 	    		<tr>
-	    			<td>模块简述:</td>
+	    			<td>英文名称:</td>
 		    			<td >
 		    				<input type="text" id="module_en_fix" name="module_en" class="easyui-textbox"/>
+		    			</td>
+	    			<td>
+	    		</tr>
+	    		<tr>
+	    			<td>中文名称:</td>
+		    			<td >
+		    				<input type="text" id="module_cn_fix" name="module_cn" class="easyui-textbox"/>
 		    			</td>
 	    			<td>
 	    		</tr>
@@ -75,23 +83,9 @@
 		var layermsg;
 		var statuesRefresh;
 		var stu = "0";
-		//调整宽度
-		function fixWidth(percent){  
-	    	return document.body.clientWidth * percent ; //这里你可以自己做调整  
-		} 
 		
 		$(document).ready(function(){
-			$('#item_dict_code_fix').combobox({
-				url:'userCenter/selectBoxBaseDict',
-				valueField:'dict_code',
-				textField:'dict_name',
-				onLoadSuccess: function(param) {
-				},
-				onLoadError:function(param){
-				}
-			});
-		
-		
+			//编辑弹出框
 			$('#editModuleWin').window({
 				width:400,
 				height:400,
@@ -104,8 +98,10 @@
 				collapsible:false,
 				title:'对账单表',
 			});
+			
+			//easyui数据信息列表
 			$('#mainModuleInfoTable').datagrid({
-					title: '数据字典主表管理',
+					title: '模块管理',
 					url: 'userCenter/querySysBaseModule',
 					rownumbers: true,
 					toolbar:'#detailtb',
@@ -116,10 +112,11 @@
 					collapsible: true, //隐藏按钮
 					columns:[[
 								{ field: 'module_id',checkbox:true},
-								{ field: 'module_en', title: '模块名称',width:fixWidth(0.1) },
+								{ field: 'module_en', title: '英文名称',width:fixWidth(0.1) },
+								{ field: 'module_cn', title: '中文名称',width:fixWidth(0.1) },
 								{ field: 'module_index', title: '模块首页',width:fixWidth(0.1) },
 								{ field: 'module_path', title: '模块登录页',width:fixWidth(0.1) },
-								{ field: 'is_used', title: '是否在用',width:fixWidth(0.1)},
+								{ field: 'is_used', title: '是否在用',width:fixWidth(0.1),formatter:formatteris_used },
 								{ field: 'module_desc', title: '模块说明',width:fixWidth(0.3) },
 								{ field: 'add_time', title: '添加时间',width:fixWidth(0.1),formatter:formatterSTAT_DATE },
 							]],
@@ -127,16 +124,13 @@
 				       
 				    },
 				    onClickRow:function(rowIndex, rowData){
-				    $('#tab').datagrid('load',{
-						dict_code:rowData.dict_code,
-					});
 				    }
 			});
 				
 			var pl = $('#mainModuleInfoTable').datagrid('getPager');
 			$(pl).pagination({
 				pageSize: 10,			//每页显示的记录条数，默认为10
-				pageList: [10,20,50,100],	//可以设置每页记录条数的列表
+				pageList: [10,20,50],	//可以设置每页记录条数的列表
 				beforePageText: '第',	//页数文本框前显示的汉字
 				afterPageText: '页    共 {pages} 页',
 				displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
@@ -147,24 +141,24 @@
 			}); 
 		});
 		function submitDetailForm() {
-			var dict_code = $("#dict_code").val();
-			var dict_name = $("#dict_name").val();
+			var module_en = $("#module_en").val();
+			var module_cn = $("#module_cn").val();
 			$('#mainModuleInfoTable').datagrid('load',{
-				dict_code:dict_code,
-				dict_name:dict_name
+				module_en:module_en,
+				module_cn:module_cn
 			});
 		}
 		
 		function clearDetailForm() {
-			$("#dict_code").val("");
-			$("#dict_name").val("");
+			$("#module_en").textbox('setValue','');
+			$("#module_cn").textbox('setValue','');
 		}
 		
 		/*打开修改页面*/
 		function moduleUpdate(){
 	        var selectedRows = $("#mainModuleInfoTable").datagrid("getSelections");
 	        if (selectedRows.length != 1) {
-	            $.messager.alert("系统提示", "请选择一条要编辑的数据！");
+	            $.messager.alert("系统提示", "请选择一条要编辑的数据！",'info');
 	            return;
 	        }
 	        var row = selectedRows[0];
@@ -192,11 +186,11 @@
 	            success : function(result) {
 	            	console.log(result);
 	                if (result) {
-	                    $.messager.alert("系统提示", "保存成功！");
+	                    $.messager.alert("系统提示", "保存成功！",'info');
 	                    $("#editModuleWin").window("close");
 	                    $("#mainModuleInfoTable").datagrid("reload");
 	                } else {
-	                    $.messager.alert("系统提示", "保存失败！");
+	                    $.messager.alert("系统提示", "保存失败！",'error');
 	                    return;
 	                }
 	            }
@@ -218,27 +212,9 @@
                     }
                 })
             } else {
-            	$.messager.alert('提示','您还没有选中一行数，请选中在删除！');
+            	$.messager.alert('提示','您还没有选中一行数，请选中再删除！','info');
            } 
     }
-    
-    
-     function formatterSTAT_DATE(value,row,index){
-		 if(!value){
-			 return "";
-		 }
-			var date = new Date(parseInt(value));
-			var newDate = date.getFullYear() + "-" +//年份
-				(date.getMonth()+1) + "-" + //月份
-				date.getDate() + " " +//日
-		    	date.getHours() + ":" + //小时     
-		    	date.getMinutes() + ":" + //分   
-		    	date.getSeconds(); //秒 
-		    	//console.log(date.getDate()+" "+date.getHours());
-		   return newDate;
-      }
-		
-		
 	</script>
 
 </body>

@@ -23,7 +23,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.guan.base.system.BaseParameter;
-import com.guan.base.utils.PropertiesGetConfiguration;
 import com.guan.web.base.service.SecurityService;
 import com.guan.web.usercenter.model.UserAuthBean;
 import com.guan.web.usercenter.service.UserService;
@@ -57,16 +56,16 @@ public class ShiroDbRealm extends AuthorizingRealm {
 				securityLevelList = securityService.findUsers();
 				holdTime = System.currentTimeMillis();
 				for (Map<String,String> map : securityLevelList) {
-					if (StringUtils.equals(map.get("module_id"), String.valueOf(user.getModule_id()))) {
-						authorizationInfo.addRole(map.get("module_en"));
-						authorizationInfo.addStringPermission(map.get("module_en") + ":all");
+					if (StringUtils.equals(map.get("security"), String.valueOf(user.getSecurity_id()))) {
+						authorizationInfo.addRole(map.get("security_en"));
+						authorizationInfo.addStringPermission(map.get("security_en") + ":all");
 					}
 				}
 			} else {
 				for (Map<String,String> map : securityLevelList) {
-					if (StringUtils.equals(map.get("module_id"), String.valueOf(user.getModule_id()))) {
-						authorizationInfo.addRole(map.get("module_en"));
-						authorizationInfo.addStringPermission(map.get("module_en") + ":all");
+					if (StringUtils.equals(map.get("security_id"), String.valueOf(user.getSecurity_id()))) {
+						authorizationInfo.addRole(map.get("security_en"));
+						authorizationInfo.addStringPermission(map.get("security_en") + ":all");
 					}
 				}
 			}

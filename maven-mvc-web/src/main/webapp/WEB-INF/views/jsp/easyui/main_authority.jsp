@@ -21,15 +21,15 @@
 			</table>
 			<div id="detailtb" style="padding:5px;height:auto">
 				<div>
-					登录名称: <input class="easyui-validatebox" validType="" id="express_no" name ="express_no"  style="width:110px"></input>
+					登录名称: <input class="easyui-textbox" id="login_name" name ="login_name"  style="width:110px"></input>
 					最后登录日期: <input class="easyui-datebox" id="lastLoginDate" name ="lastLoginDate" data-options="sharedCalendar:'#cc',formatter:myformatter,parser:myparser" style="width:110px"></input>
 					在用状态:<select class="easyui-combobox" id="user_state" panelHeight="auto" name="user_state" style="width:100px"></select>
-					所属权限:<select class="easyui-combobox" id="module_id" name="module_id" panelHeight="auto"></select>
+					所属权限:<select class="easyui-combobox" id="security_id" name="security_id" panelHeight="auto" style="width:100px"></select>
 					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-remove"  onclick="clearDetailForm()">清空</a>
 					<a href="javascript:void(0)" title="清空搜索项" class="easyui-linkbutton" iconCls="icon-search" onclick="submitDetailForm()">搜索</a>
 					<a href="javascript:void(0)" title="添加管理员" class="easyui-linkbutton" iconCls="icon-add" onclick="add_user();return false;">添加</a>
-					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="logisUpdate();return false;">修改</a>
-					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="logisUpdate();return false;">密码重置</a>
+					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="update_user();return false;">修改</a>
+					<a href="javascript:void(0)" title="修改管理员" class="easyui-linkbutton" iconCls="icon-edit" onclick="reset_secret();return false;">密码重置</a>
 					<a href="javascript:void(0)" title="删除管理员" class="easyui-linkbutton" iconCls="icon-cut" onclick="logisUpdate();return false;">删除</a>
 					<a href="javascript:void(0)" title="导出管理员" class="easyui-linkbutton" iconCls="icon-print"  onclick="exportMode();return false;">导出</a>
 				</div>
@@ -62,28 +62,6 @@
 		var layermsg;
 		var statuesRefresh;
 		var stu = "0";
-		//调整宽度
-		function fixWidth(percent)  
-		{  
-		    return document.body.clientWidth * percent ; //这里你可以自己做调整  
-		} 
-		
-		
-		function formatterSTAT_DATE(value,row,index){
-			 if(!value){
-				 return "";
-			 }
-				var date = new Date(value);
-// 				debugger;
-				var newDate = date.getFullYear() + "-" +//年份
-					(date.getMonth()+1) + "-" + //月份
-					date.getDate() + " " +//日
-			    	date.getHours() + ":" + //小时     
-			    	date.getMinutes() + ":" + //分   
-			    	date.getSeconds(); //秒 
-			    	//console.log(date.getDate()+" "+date.getHours());
-			   return newDate;
-	       }
 	       
 	       /////////////////////添加///////////////////
     function add_user() {
@@ -123,6 +101,53 @@
         });
       }
       
+      
+      
+      
+	       /////////////////////修改///////////////////
+    function update_user() {
+    //表单清空
+        $("#editUserDataForm")[0].reset();
+      //选中一行，获取这一行的属性的值
+          var selected = $("#manageUserInfoTable").datagrid('getSelected');
+          //判断是否选中
+          if (selected != null) {
+			$("#editUserDataWin").show();
+	        $("#editUserDataForm").form("load", selected);
+              $("#editUserDataWin").dialog({
+                  title: "编辑信息",
+                  iconCls: "icon-edit",
+                  modal: true,//遮罩层
+                  width: 600,
+                  height: 300,
+                  buttons: [
+                  {
+                      text: "保存",
+                      iconCls: "icon-edit",
+                      handler: function () {
+                          var parm = $("#editUserDataForm").serialize();
+                          var pp = decodeURIComponent(parm, true);
+                  		  var itemUpdateUrl = "userCenter/updateSysShiroUser";
+                   		  saveUser(itemUpdateUrl);
+                      }
+
+                  },
+                   {
+                       text: "取消",
+                       iconCls: "icon-cancel",
+                       handler: function () {
+                           $("#editUserDataWin").window('close');
+                       }
+                   }
+                  ]
+
+
+              });
+          } else {
+              $.messager.alert('提示','请选中一行在进行编辑');
+          }
+      }
+      
       /*修改保存*/
 		function saveUser(itemUrl){
 			$("#editUserDataForm").form("submit", {
@@ -142,9 +167,44 @@
 	            }
 	        });
 		}
-	       
 		
+		function reset_secret(){
+      //选中一行，获取这一行的属性的值
+          var selected = $("#manageUserInfoTable").datagrid('getSelected');
+          //判断是否选中
+          if (selected != null) {
+          $.messager.confirm('提示', '确定要重置密码？', function (y) {
+                    if (y) {
+                        $.ajax({
+							url : "userCenter/updateUserSecret",
+							type : "post",
+							async : true,
+							data : {user_id:selected.user_id},
+							success : function(d) {
+								if(JSON.parse(d).resultCode==1){
+								$.messager.alert("系统提示", "密码已成功重置为admin123！");
+								}
+							},
+							error:function(data){
+							$.messager.alert("系统提示", "密码重置失败！");
+							}
+						});
+                    }
+                })
+          } else {
+              $.messager.alert('提示','请选中一行重置密码');
+          }
+		}
 		$(document).ready(function(){
+			$('#security_id').combobox({
+				url:'userCenter/selectSecuritySelectBox',
+				valueField:'security_id',
+				textField:'security_cn',
+				onLoadSuccess: function(param) {
+				},
+				onLoadError:function(param){
+				}
+			});
 			
 			$('#security_id_fix').combobox({
 				url:'userCenter/selectSecuritySelectBox',
@@ -194,10 +254,10 @@
 					columns:[[
 								{ field:'user_id',checkbox:true},
 								{ field: 'login_name', title: '登录名称',width:fixWidth(0.1) },
-								{ field: 'user_state_cn', title: '在用状态',width:fixWidth(0.1) },
+								{ field: 'item_name', title: '在用状态',width:fixWidth(0.1) },
 								{ field: 'user_status', title: '用户状态',width:fixWidth(0.1),formatter:formatterSTAT_DATE },
 								{ field: 'user_type', title: '用户类型',width:fixWidth(0.1) },
-								{ field: 'module_id', title: '所属模块',width:fixWidth(0.1) },
+								{ field: 'security_cn', title: '角色',width:fixWidth(0.1) },
 								{ field: 'user_position', title: '用户职位',width:fixWidth(0.1) },
 								{ field: 'user_level', title: '用户等级',width:fixWidth(0.1) },
 								{ field: 'user_role', title: '用户角色',width:fixWidth(0.1) },
@@ -243,20 +303,7 @@
 			}
 		}
 
-		function submitDetailForm() {
-			var startDate = $("#detailStartDate").datebox('getValue');
-			var endDate = $("#detailEndDate").datebox('getValue');
-			var express_no = $("#express_no").val();
-			var company_no = $("#company_no").combobox("getValue");
-			var detailStatus = $("#detailStatus").combobox("getValue");
-			$('#manageUserInfoTable').datagrid('load',{
-				detailStartDate:startDate,
-				detailEndDate:endDate,
-				express_no:express_no,
-				company_no:company_no,
-				detailStatus:detailStatus
-			});
-		}
+		
 		
 		
 		
@@ -327,13 +374,25 @@
 			}
 		});
 		}
+		
+		function submitDetailForm() {
+			var lastLoginDate = $("#lastLoginDate").datebox('getValue');
+			var login_name = $("#login_name").val();
+			var user_state = $("#user_state").combobox("getValue");
+			var security_id = $("#security_id").combobox("getValue");
+			$('#manageUserInfoTable').datagrid('load',{
+				login_name:login_name,
+				lastlogin_time:lastLoginDate,
+				user_state:user_state,
+				security_id:security_id
+			});
+		}
+		
 		function clearDetailForm() {
-			
-			$("#detailStartDate").textbox('setValue','');
-			$("#detailEndDate").textbox('setValue','');
-			$("#express_no").val('');
-			$("#company_no").combobox('setValue','');
-			$("#detailStatus").combobox('setValue','');
+			$("#lastLoginDate").textbox('setValue','');
+			$("#login_name").textbox('setValue','');
+			$("#user_state").combobox('setValue','');
+			$("#security_id").combobox('setValue','');
 		}
 		function exportMode() {
 			var url = "logistics/creatB2CDataExcel";
@@ -353,18 +412,7 @@
 			$.unblockUI();
 		}
 		
-		/*打开修改页面*/
-		function logisUpdate(){
-	        var selectedRows = $("#manageUserInfoTable").datagrid("getSelections");
-	        if (selectedRows.length != 1) {
-	            $.messager.alert("系统提示", "请选择一条要编辑的数据！");
-	            return;
-	        }
-	        var row = selectedRows[0];
-			$('#logisUpdateDataWin').window('open');
-	        $("#logisticDataForm").form("load", row);
-	        url = "${pageContext.request.contextPath}/logistics/updateLogisticsdetail2cInfo";
-		}
+		
 		
 		
 		/*修改保存*/

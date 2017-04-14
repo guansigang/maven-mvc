@@ -196,10 +196,6 @@
 		var layermsg;
 		var statuesRefresh;
 		var stu = "0";
-		//调整宽度
-		function fixWidth(percent){  
-	    	return document.body.clientWidth * percent ; //这里你可以自己做调整  
-		} 
 		
 		$(document).ready(function(){
 			$('#module_id_fix').combobox({
@@ -246,9 +242,6 @@
 				       
 				    },
 				    onClickRow:function(rowIndex, rowData){
-				    $('#tab').datagrid('load',{
-						dict_code:rowData.dict_code,
-					});
 				    }
 			});
 				
@@ -301,24 +294,6 @@
             	$.messager.alert('提示','您还没有选中一行数，请选中在删除！');
            } 
     }
-    
-    
-     function formatterSTAT_DATE(value,row,index){
-		 if(!value){
-			 return "";
-		 }
-			var date = new Date(parseInt(value));
-			var newDate = date.getFullYear() + "-" +//年份
-				(date.getMonth()+1) + "-" + //月份
-				date.getDate() + " " +//日
-		    	date.getHours() + ":" + //小时     
-		    	date.getMinutes() + ":" + //分   
-		    	date.getSeconds(); //秒 
-		    	//console.log(date.getDate()+" "+date.getHours());
-		   return newDate;
-      }
-		
-		
 	</script>
 
 </body>

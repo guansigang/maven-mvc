@@ -52,6 +52,10 @@ public class UserBehaviorServiceImpl implements UserService {
 		return result_list;
 	}
 	
+	public void updateExitTime(String loginId) throws Exception{
+		userMapper.updateExitTime(loginId);
+	}
+	
 	/*
 	@Override
 	public UserBean getUserByCondition(String userName, String userPass) throws Exception {
@@ -138,17 +142,6 @@ public class UserBehaviorServiceImpl implements UserService {
 		
 		return 1;
 	}
-    
-	
-	public int updateExitTime(String loginId,String exitTime) throws Exception{
-		UserInfo userInfo = new UserInfo();
-		
-		userInfo.setExit_time(exitTime);
-		userInfo.setLogin_id(loginId);
-		userMapper.updateExitTime(userInfo);
-		return 1;
-	}
-	
 	@Override
 	public PageResult<UserInfo> getUserLogin(PageResult<UserInfo> pageResult) throws Exception {
 		pageResult.setResultList(this.userMapper.getUserLogin(pageResult));

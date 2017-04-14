@@ -9,6 +9,8 @@
 			a.login_pwd,
 			a.user_info_id,
 			a.user_state,
+			c.item_name,
+			a.security_id,
 			b.security_cn,
 			a.user_status,
 			a.user_type,
@@ -22,13 +24,24 @@
 			a.update_user
 		FROM
 			sys_login_user a left join sys_base_security b on a.security_id=b.security_id
+			left join sys_base_dict_item c on a.user_state=c.item_code
 			WHERE 1=1
 			<if test="parameters.login_name != null and parameters.login_name !=''">
 			<![CDATA[
-				AND a.login_name < #{parameters.login_name}
+				AND a.login_name like "%"#{parameters.login_name}"%" 
 			]]>
 			</if>
-		ORDER BY user_id
+			<if test="parameters.user_state != null and parameters.user_state !=''">
+			<![CDATA[
+				AND a.user_state = #{parameters.user_state}
+			]]>
+			</if>
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND a.security_id = #{parameters.security_id}
+			]]>
+			</if>
+		ORDER BY a.user_id
 		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
 		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
 		LIMIT #{pageNow}, #{pageSize}
@@ -39,9 +52,19 @@
 		WHERE 1=1
 		<if test="parameters.login_name != null and parameters.login_name !=''">
 			<![CDATA[
-				AND login_name = #{parameters.login_name}
+				AND a.login_name like "%"#{parameters.login_name}"%" 
 			]]>
-		</if>
+			</if>
+			<if test="parameters.user_state != null and parameters.user_state !=''">
+			<![CDATA[
+				AND a.user_state = #{parameters.user_state}
+			]]>
+			</if>
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND a.security_id = #{parameters.security_id}
+			]]>
+			</if>
 	</select>
 	
   <insert id="addSysShiroUser" parameterType="java.util.Map">
@@ -51,6 +74,7 @@
 			login_name,
 			login_pwd,
 			security_id,
+			user_state,
 			add_time,
 			add_user
 		)
@@ -59,10 +83,27 @@
 			#{login_name, jdbcType=VARCHAR},
 			#{login_pwd, jdbcType=VARCHAR},
 			#{security_id, jdbcType=VARCHAR},
+			#{user_state, jdbcType=VARCHAR},
 			now(),
 			#{add_user, jdbcType=VARCHAR}
 		)
 	</insert>
+	
+	<update id="updateSysShiroUser" parameterType="java.util.Map" >
+    update sys_login_user
+    <set >
+    	<if test="login_name != null and login_name !=''">
+        login_name = #{login_name,jdbcType=VARCHAR},
+      </if>
+   		<if test="security_id != null and security_id !=''">
+        security_id = #{security_id,jdbcType=VARCHAR},
+      </if>
+   		<if test="login_pwd != null and login_pwd !=''">
+        login_pwd = #{login_pwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </update>
 	
     <!-- 查询所有sys_base_dict -->  
     <select id="selectSysBaseDict" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
@@ -356,6 +397,7 @@
 		(	
 			module_id,
 			module_en,
+			module_cn,
 			module_desc,
 			module_index,
 			module_path,
@@ -365,12 +407,9 @@
 		)
 		VALUES
 		(	#{module_id, jdbcType=VARCHAR},
-		<if test="module_en != null and module_en !=''">
 			#{module_en, jdbcType=VARCHAR},
-      </if>
-		<if test="module_desc != null and module_desc !=''">
+			#{module_cn, jdbcType=VARCHAR},
 			#{module_desc, jdbcType=VARCHAR},
-      </if>
 			#{module_index, jdbcType=VARCHAR},
 			#{module_path, jdbcType=VARCHAR},
 			'1',
