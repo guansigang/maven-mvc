@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guan.web.autoCreat.dao.AuthCreatMapper">
+	<select id="selectSysDateBaseTable" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT TABLE_NAME as TABLE_CODE,TABLE_NAME,`ENGINE`,TABLE_ROWS,TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES 
+			WHERE 1=1
+			<if test="parameters.SCHEMA_CODE != null and parameters.SCHEMA_CODE !=''">
+			<![CDATA[
+				AND TABLE_SCHEMA like "%"#{parameters.SCHEMA_CODE}"%"
+			]]>
+			</if>
+		ORDER BY create_time
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysDateBaseTableCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES
+		WHERE 1=1
+		<if test="parameters.SCHEMA_CODE != null and parameters.SCHEMA_CODE !=''">
+			<![CDATA[
+				AND TABLE_SCHEMA like "%"#{parameters.SCHEMA_CODE}"%"
+			]]>
+		</if>
+	</select>
+	
+	<update id="updateSysDateBaseTable" parameterType="java.util.Map" >
+  <!--  MySQL添加字段的方法并不复杂，下面将为您详细介绍MySQL添加字段和修改字段等操作的实现方法，希望对您学习MySQL添加字段方面会有所帮助。
+	1.登录数据库
+	>mysql -u root -p 数据库名称
+	
+	2.查询所有数据表
+	>show tables;
+	
+	3.查询表的字段信息
+	>desc 表名称;
+	
+	4.1添加表字段
+	
+	alter table table1 add transactor varchar(10) not Null;
+	
+	alter table   table1 add id int unsigned not Null auto_increment primary key
+	
+	4.2.修改某个表的字段类型及指定为空或非空
+	>alter table 表名称 change 字段名称 字段名称 字段类型 [是否允许非空];
+	>alter table 表名称 modify 字段名称 字段类型 [是否允许非空];
+	
+	>alter table 表名称 modify 字段名称 字段类型 [是否允许非空];
+	
+	4.3.修改某个表的字段名称及指定为空或非空
+	>alter table 表名称 change 字段原名称 字段新名称 字段类型 [是否允许非空
+	
+	4.4如果要删除某一字段，可用命令：ALTER TABLE mytable DROP 字段 名; -->
+  </update>
+  
+  
+  <insert id="addSysDateBaseTable" parameterType="java.util.Map">
+		create table blog_article
+(
+  article_Id int unsigned not null  auto_increment,
+  article_title varchar(20) not null unique,
+  article_content longtext not null,
+  article_date datetime not null,
+  article_readTime int unsigned not null default 0,
+  user_Name char(15) not null,
+  category_Name char(18) not null,
+  primary key(article_Id),
+  foreign key(user_Name) references blog_user(user_Name) on delete cascade on update cascade,
+  foreign key(category_Name) references blog_category(category_Name) on delete cascade on update cascade
+)engine=innodb default charset=utf8 auto_increment=1;
+	</insert>
+    <select id="querySelectDateBase" resultType="java.util.Map"  parameterType="java.lang.String">  
+        SELECT SCHEMA_NAME,SCHEMA_NAME as SCHEMA_CODE FROM information_schema.SCHEMATA
+    </select>
+	
+	
+</mapper>

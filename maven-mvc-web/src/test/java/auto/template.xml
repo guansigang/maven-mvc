@@ -1,0 +1,6 @@
+	
+	<page name="{0}">
+		<method>{1}</method>
+		<display>{2}</display>
+		<request_param>{3}</request_param>
+	</page>
