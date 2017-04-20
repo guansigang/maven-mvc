@@ -14,7 +14,7 @@
     <div class="message">品牌名称-管理登录</div>
     <div id="darkbannerwrap"></div>
     
-    <form method="post" action="easyuichecklogin">
+    <form method="post" action="checklogin?loginUrl=backlogin">
 		<input name="action" value="login" type="hidden">
 		<input name="username" placeholder="用户名" required="" type="text">
 		<hr class="hr15">

@@ -1,12 +1,9 @@
 package com.guan.web.base.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -16,12 +13,10 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.guan.web.base.dao.SecurityMapper;
 import com.guan.web.base.service.AuthService;
-import com.guan.web.base.service.SecurityService;
 
 @Service("authService")
 public class AuthServiceImpl implements AuthService {

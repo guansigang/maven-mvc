@@ -9,7 +9,9 @@
 			a.login_pwd,
 			a.user_info_id,
 			a.user_state,
-			b.item_name as user_state_cn,
+			c.item_name,
+			a.security_id,
+			b.security_cn,
 			a.user_status,
 			a.user_type,
 			a.user_position,
@@ -21,14 +23,25 @@
 			a.add_user,
 			a.update_user
 		FROM
-			sys_login_user a left join sys_base_dict_item b on a.user_state=b.item_code
+			sys_login_user a left join sys_base_security b on a.security_id=b.security_id
+			left join sys_base_dict_item c on a.user_state=c.item_code
 			WHERE 1=1
 			<if test="parameters.login_name != null and parameters.login_name !=''">
 			<![CDATA[
-				AND a.login_name < #{parameters.login_name}
+				AND a.login_name like "%"#{parameters.login_name}"%" 
 			]]>
 			</if>
-		ORDER BY user_id
+			<if test="parameters.user_state != null and parameters.user_state !=''">
+			<![CDATA[
+				AND a.user_state = #{parameters.user_state}
+			]]>
+			</if>
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND a.security_id = #{parameters.security_id}
+			]]>
+			</if>
+		ORDER BY a.user_id
 		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
 		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
 		LIMIT #{pageNow}, #{pageSize}
@@ -39,11 +52,58 @@
 		WHERE 1=1
 		<if test="parameters.login_name != null and parameters.login_name !=''">
 			<![CDATA[
-				AND login_name = #{parameters.login_name}
+				AND a.login_name like "%"#{parameters.login_name}"%" 
 			]]>
-		</if>
+			</if>
+			<if test="parameters.user_state != null and parameters.user_state !=''">
+			<![CDATA[
+				AND a.user_state = #{parameters.user_state}
+			]]>
+			</if>
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND a.security_id = #{parameters.security_id}
+			]]>
+			</if>
 	</select>
 	
+  <insert id="addSysShiroUser" parameterType="java.util.Map">
+		INSERT INTO sys_login_user 
+		(	
+			user_id,
+			login_name,
+			login_pwd,
+			security_id,
+			user_state,
+			add_time,
+			add_user
+		)
+		VALUES
+		(	#{user_id, jdbcType=VARCHAR},
+			#{login_name, jdbcType=VARCHAR},
+			#{login_pwd, jdbcType=VARCHAR},
+			#{security_id, jdbcType=VARCHAR},
+			#{user_state, jdbcType=VARCHAR},
+			now(),
+			#{add_user, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateSysShiroUser" parameterType="java.util.Map" >
+    update sys_login_user
+    <set >
+    	<if test="login_name != null and login_name !=''">
+        login_name = #{login_name,jdbcType=VARCHAR},
+      </if>
+   		<if test="security_id != null and security_id !=''">
+        security_id = #{security_id,jdbcType=VARCHAR},
+      </if>
+   		<if test="login_pwd != null and login_pwd !=''">
+        login_pwd = #{login_pwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </update>
 	
     <!-- 查询所有sys_base_dict -->  
     <select id="selectSysBaseDict" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
@@ -257,5 +317,306 @@
   
   <delete id="deleteSysBaseDictItem" parameterType="java.util.Map" >
     delete from sys_base_dict_item where item_code = #{item_code,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+  
+  <!-- 查询所有sys_base_module -->  
+    <select id="selectSysBaseModule" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			module_id,
+			module_en,
+			module_cn,
+			module_desc,
+			module_index,
+			module_path,
+			is_used,
+			add_time,
+			add_user
+
+		FROM
+			sys_base_module
+			WHERE 1=1
+			<if test="parameters.module_en != null and parameters.module_en !=''">
+			<![CDATA[
+				AND module_en like "%"#{parameters.module_en}"%"
+			]]>
+			</if>
+			<if test="parameters.module_cn != null and parameters.module_cn !=''">
+			<![CDATA[
+				AND module_cn like "%"#{parameters.module_cn}"%"
+			]]>
+			</if>
+		ORDER BY add_time
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseModuleCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_module
+		WHERE 1=1
+		<if test="parameters.module_en != null and parameters.module_en !=''">
+		<![CDATA[
+			AND module_en like "%"#{parameters.module_en}"%"
+		]]>
+		</if>
+		<if test="parameters.module_cn != null and parameters.module_cn !=''">
+			<![CDATA[
+				AND module_cn like "%"#{parameters.module_cn}"%"
+			]]>
+		</if>
+	</select>
+	
+	<update id="updateSysBaseModule" parameterType="java.util.Map" >
+    update sys_base_module
+    <set >
+    	<if test="module_en != null and module_en !=''">
+        module_en = #{module_en,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_desc != null and module_desc !=''">
+        module_desc = #{module_desc,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_index != null and module_index !=''">
+        module_index = #{module_index,jdbcType=VARCHAR},
+      </if>
+   		<if test="module_path != null and module_path !=''">
+        module_path = #{module_path,jdbcType=VARCHAR},
+      </if>
+   		<if test="is_used != null and is_used !=''">
+        is_used = #{is_used,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where module_id = #{module_id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseModule" parameterType="java.util.Map">
+		INSERT INTO sys_base_module 
+		(	
+			module_id,
+			module_en,
+			module_cn,
+			module_desc,
+			module_index,
+			module_path,
+			is_used,
+			add_time,
+			add_user
+		)
+		VALUES
+		(	#{module_id, jdbcType=VARCHAR},
+			#{module_en, jdbcType=VARCHAR},
+			#{module_cn, jdbcType=VARCHAR},
+			#{module_desc, jdbcType=VARCHAR},
+			#{module_index, jdbcType=VARCHAR},
+			#{module_path, jdbcType=VARCHAR},
+			'1',
+			now(),
+			#{add_user, jdbcType=VARCHAR}
+		)
+	</insert>
+	 <delete id="deleteSysBaseModule" parameterType="java.util.Map" >
+    delete from sys_base_module where module_id = #{module_id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+   <select id="selectSysBaseSecurity" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			secu.security_id,
+			module.module_cn,
+			secu.module_id,
+			secu.security_en,
+			secu.security_cn,
+			secu.security_desc,
+			secu.is_used,
+			secu.add_time,
+			secu.add_user
+
+		FROM
+			sys_base_security secu left join sys_base_module module on secu.module_id = module.module_id
+			WHERE 1=1
+			<if test="parameters.module_id != null and parameters.module_id !=''">
+			<![CDATA[
+				AND secu.module_id = #{parameters.module_id}
+			]]>
+			</if>
+		<if test="parameters.security_en != null and parameters.security_en !=''">
+			<![CDATA[
+				AND secu.security_en like "%"#{parameters.security_en}"%"
+			]]>
+			</if>
+			<if test="parameters.security_cn != null and parameters.security_cn !=''">
+			<![CDATA[
+				AND secu.security_cn like "%"#{parameters.security_cn}"%"
+			]]>
+			</if>
+		ORDER BY secu.add_time
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseSecurityCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_security
+		WHERE 1=1
+		<if test="parameters.module_id != null and parameters.module_id !=''">
+			<![CDATA[
+				AND module_id = #{parameters.module_id}
+			]]>
+			</if>
+		<if test="parameters.security_en != null and parameters.security_en !=''">
+			<![CDATA[
+				AND security_en like "%"#{parameters.security_en}"%"
+			]]>
+			</if>
+			<if test="parameters.security_cn != null and parameters.security_cn !=''">
+			<![CDATA[
+				AND security_cn like "%"#{parameters.security_cn}"%"
+			]]>
+			</if>
+	</select>
+	
+	<update id="updateSysBaseSecurity" parameterType="java.util.Map" >
+    update sys_base_security
+    <set >
+    	<if test="module_id != null and module_id !=''">
+        module_id = #{module_id,jdbcType=VARCHAR},
+      </if>
+    	<if test="security_en != null and security_en !=''">
+        security_en = #{security_en,jdbcType=VARCHAR},
+      </if>
+   		<if test="security_cn != null and security_cn !=''">
+        security_cn = #{security_cn,jdbcType=VARCHAR},
+      </if>
+   		<if test="security_desc != null and security_desc !=''">
+        security_desc = #{security_desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where security_id = #{security_id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseSecurity" parameterType="java.util.Map">
+		INSERT INTO sys_base_security 
+		(	
+			security_id,
+			module_id,
+			security_en,
+			security_cn,
+			security_desc,
+			add_time,
+			add_user
+		)
+		VALUES
+		(	#{security_id, jdbcType=VARCHAR},
+			#{module_id, jdbcType=VARCHAR},
+		<if test="security_en != null and security_en !=''">
+			#{security_en, jdbcType=VARCHAR},
+      </if>
+		<if test="security_cn != null and security_cn !=''">
+			#{security_cn, jdbcType=VARCHAR},
+      </if>
+		<if test="security_desc != null and security_desc !=''">
+			#{security_desc, jdbcType=VARCHAR},
+      </if>
+			now(),
+			#{add_user, jdbcType=VARCHAR}
+		)
+	</insert>
+	 <delete id="deleteSysBaseSecurity" parameterType="java.util.Map" >
+    update sys_base_security set is_used="0" where security_id = #{security_id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  
+   <select id="selectSysBaseShiro" resultType="java.util.Map" parameterType="com.guan.base.base.PageResult">
+		SELECT
+			shiro.shiro_id,
+			shiro.shiro_path,
+			secu.security_cn,
+			shiro.security_id,
+			shiro.path_desc,
+			shiro.is_used,
+			shiro.add_time,
+			shiro.add_user
+
+		FROM
+			sys_base_shiro shiro left join sys_base_security secu on secu.security_id = shiro.security_id
+			WHERE 1=1
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND shiro.security_id = #{parameters.security_id}
+			]]>
+			</if>
+			<if test="parameters.shiro_path != null and parameters.shiro_path !=''">
+			<![CDATA[
+				AND shiro.shiro_path like "%"#{parameters.shiro_path}"%"
+			]]>
+			</if>
+		ORDER BY shiro.add_time
+		<if test="pageNow != null and pageNow !='' and pageSize != null and pageSize !=''">
+		<bind name="pageNow" value="(pageNow - 1) * pageSize"/>
+		LIMIT #{pageNow}, #{pageSize}
+		</if>
+	</select>
+	<select id="selectSysBaseShiroCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM sys_base_shiro
+		WHERE 1=1
+			<if test="parameters.security_id != null and parameters.security_id !=''">
+			<![CDATA[
+				AND shiro.security_id = #{parameters.security_id}
+			]]>
+			</if>
+			<if test="parameters.shiro_path != null and parameters.shiro_path !=''">
+			<![CDATA[
+				AND shiro.shiro_path like "%"#{parameters.shiro_path}"%"
+			]]>
+			</if>
+	</select>
+	
+	<update id="updateSysBaseShiro" parameterType="java.util.Map" >
+    update sys_base_shiro
+    <set >
+   		<if test="shiro_path != null and shiro_path !=''">
+        shiro_path = #{shiro_path,jdbcType=VARCHAR},
+      </if>
+   		<if test="security_id != null and security_id !=''">
+        security_id = #{security_id,jdbcType=VARCHAR},
+      </if>
+   		<if test="path_desc != null and path_desc !=''">
+        path_desc = #{path_desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shiro_id = #{shiro_id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <insert id="addSysBaseShiro" parameterType="java.util.Map">
+		INSERT INTO sys_base_shiro 
+		(	
+			shiro_id,
+			shiro_path,
+			security_id,
+			path_desc,
+			add_time,
+			add_user
+		)
+		VALUES
+		(	#{shiro_id, jdbcType=VARCHAR},
+			#{shiro_path, jdbcType=VARCHAR},
+			#{security_id, jdbcType=VARCHAR},
+		
+		<if test="path_desc != null and path_desc !=''">
+			#{path_desc, jdbcType=VARCHAR},
+      </if>
+			now(),
+			#{add_user, jdbcType=VARCHAR}
+		)
+	</insert>
+	 <delete id="deleteSysBaseShiro" parameterType="java.util.Map" >
+    update sys_base_shiro set is_used="0" where shiro_id = #{shiro_id,jdbcType=VARCHAR}
   </delete>
 </mapper>

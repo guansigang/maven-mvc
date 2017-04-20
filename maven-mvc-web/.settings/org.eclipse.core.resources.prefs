@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/guan/web/autoCreat/util/auto-config-idea.properties=UTF-8
+encoding//src/main/webapp/WEB-INF/views/jsp/easyui/common/base/taglibs.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/jsp/test/date.jsp=UTF-8
 encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/test/java/auto/GeneralXML.java=UTF-8

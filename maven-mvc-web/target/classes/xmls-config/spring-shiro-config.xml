@@ -27,7 +27,7 @@
 	
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
 		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
-		<!-- <property name="cacheManager" ref="shiroEhcacheManager"/> -->
+<!-- 		<property name="cacheManager" ref="shiroEhcacheManager"/> -->
 	</bean>
 
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
@@ -35,8 +35,9 @@
 		<property name="httpOnly" value="true"/>
 		<property name="maxAge" value="-1"/>
 	</bean>
-	
+	<!-- 会话管理器 --> 
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- session缓存信息保存时间，超过此时间只有需要重新登录 -->
 		<property name="globalSessionTimeout" value="7200000"/>
 		<property name="deleteInvalidSessions" value="true"/>
 		<property name="sessionValidationSchedulerEnabled" value="true"/>
@@ -50,13 +51,14 @@
 		<property name="sessionManager" ref="sessionManager" />
 		<!-- <property name="cacheManager" ref="shiroEhcacheManager" /> -->
 	</bean>
-
+	<!-- 安全管理器 -->  
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
 		<!-- <property name="successUrl" value="/system/main"/> -->
 		<property name="unauthorizedUrl" value="/unauthrized" />
-<!-- 		<property name="filterChainDefinitions" value="#{authService.loadFilterChainDefinitions()}" /> -->
+		<!--启动时查询数据库获取所有权限列表 -->
+ 		<property name="filterChainDefinitions" value="#{authService.loadFilterChainDefinitions()}" />
 	</bean>
 
 	<!-- <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">

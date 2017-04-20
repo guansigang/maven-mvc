@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.guan.base.base.EditResult;
 import com.guan.base.base.PageResult;
 import com.guan.base.base.ResultContent;
-import com.guan.web.usercenter.controller.UserCenterController;
 import com.guan.web.usercenter.dao.UserCenterMapper;
 import com.guan.web.usercenter.service.UserCenterService;
 
@@ -20,7 +19,7 @@ public class UserCenterServiceImpl implements UserCenterService {
 	@Autowired
 	private UserCenterMapper userCenterMapper;
 
-	private static Logger logger = Logger.getLogger(UserCenterController.class);
+	private static Logger logger = Logger.getLogger(UserCenterServiceImpl.class);
 
 	/**
 	 * 查询管理员信息

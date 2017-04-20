@@ -74,21 +74,21 @@
                                 </li>
                             </ul>
                         </li>
-	                       <!--<li data-options="iconCls:'icon-joystick'">
-	                            <span>采购计划</span>
-	                            <ul>
-	                                <li data-options="iconCls:'icon-user'">
-	                                    <a onclick="addTab('8')"><span>月计划提报数据</span></a>
-	                                </li>
-	                                <li data-options="iconCls:'icon-user'">
-	                                    <a onclick="addTab('9')"><span>月计划执行报表</span></a>
-	                                </li>
-	                                <li data-options="iconCls:'icon-user'">
-	                                    <a onclick="addTab('10')"><span>采购计划表</span></a>
-	                                </li>
-	                            </ul>
-	                        </li> 
-                        <li data-options="iconCls:'icon-joystick'">
+                       <li data-options="iconCls:'icon-joystick'">
+                            <span>自动生成代码</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-user'">
+                                    <a onclick="addTab('6')"><span>mybatis自动生成</span></a>
+                                </li>
+                               <!--  <li data-options="iconCls:'icon-user'">
+                                    <a onclick="addTab('9')"><span>月计划执行报表</span></a>
+                                </li>
+                                <li data-options="iconCls:'icon-user'">
+                                    <a onclick="addTab('10')"><span>采购计划表</span></a>
+                                </li> -->
+                            </ul>
+                        </li> 
+                        <!--<li data-options="iconCls:'icon-joystick'">
                             <span>质量模块</span>
                             <ul>
                                 <li data-options="iconCls:'icon-user'">
@@ -130,6 +130,8 @@
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_security");
 			}else if(flag==5){
 				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=main_resource");
+			}else if(flag==6){
+				$("#mainFrame").attr("src","userCenter/userCenterToPage?pageFlag=autoCreat/auto_creatResource");
 			}
 		} 
 		

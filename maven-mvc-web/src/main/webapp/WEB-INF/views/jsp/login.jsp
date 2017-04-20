@@ -31,7 +31,6 @@
     <link href="${pageContext.request.contextPath}/static/gentellela/css/build/css/custom.min.css" rel="stylesheet">
   </head>
 <body class="login">
-	
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -39,7 +38,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form id="loginform" action="checklogin">
+            <form id="loginform" method="post" action="checklogin?loginUrl=login">
               <h1>Login Form</h1>
               <div>
                 <input type="text" name="username" class="form-control" placeholder="Username" required="" />
@@ -115,7 +114,11 @@
   <script>
   
   $(function(){
-//   	console.log("sdgfdgdfgd");
+	  var result_code="${LOGIN_RESULT_CODE}";
+	  var result_desc="${LOGIN_RESULT_DESC}";
+	  if(result_code){
+		  alert(result_desc);
+	  }
   });
   
   

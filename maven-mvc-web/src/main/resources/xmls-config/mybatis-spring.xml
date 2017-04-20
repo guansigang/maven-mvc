@@ -55,7 +55,8 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
          <property name="basePackage" value="com.guan.web.usercenter.dao,
          									com.guan.web.easyui.dao,
-         									com.guan.web.base.dao" />
+         									com.guan.web.base.dao,
+         									com.guan.web.autoCreat.dao" />
 <!--           <property name="basePackage" value="com.guan.web.easyui.dao" /> -->
 <!--         <property name="basePackage" value="com.guan.web" /> -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
