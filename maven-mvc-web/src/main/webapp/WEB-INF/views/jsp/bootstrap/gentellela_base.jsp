@@ -29,6 +29,7 @@
     <link href="${pageContext.request.contextPath}/static/gentellela/css/build/css/custom.min.css" rel="stylesheet">
     
     <style type="text/css">
+    html, body{ margin:0; height:100%; }
     </style>
   </head>
 <body class="nav-md">

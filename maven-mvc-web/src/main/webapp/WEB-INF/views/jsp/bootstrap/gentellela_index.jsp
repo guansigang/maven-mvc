@@ -29,6 +29,7 @@
     <link href="${pageContext.request.contextPath}/static/gentellela/css/build/css/custom.min.css" rel="stylesheet">
     
     <style type="text/css">
+     html, body{ margin:0; height:100%; }
     </style>
   </head>
 <body class="nav-md">
@@ -321,10 +322,8 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div id="rightMain" data-options="region:'center',title:'主要内容',iconCls:'icon-ok'">
-		 	<div class="wrapper" style="height:100%">
-		      <iframe src="bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou" scrolling="no" id="mainFrame" name="mainFrame" frameborder="0" marginheight="0" marginwidth="0" height="100%" width="100%"></iframe>
-		   </div>
+        <div id="rightMain" style="height:100%" class="right_col" data-options="region:'center',title:'主要内容',iconCls:'icon-ok'">
+ 		      <iframe src="bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou" scrolling="no" id="mainFrame" name="mainFrame" onload="setIframeHeight(this)" frameborder="0" marginheight="0" marginwidth="0" width="100%"></iframe>
 		</div>
         <!-- /page content -->
 
@@ -373,6 +372,19 @@
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.js"></script>
 <!--     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.min.js"></script> -->
-  </body>
-  
-  </html>
+</body>
+<script>
+function setIframeHeight(iframe) {
+	if (iframe) {
+		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		}
+	}
+};
+
+window.onload = function () {
+	setIframeHeight(document.getElementById('external-frame'));
+};
+</script>
+</html>

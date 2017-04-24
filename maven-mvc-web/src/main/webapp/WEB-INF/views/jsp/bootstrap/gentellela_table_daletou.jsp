@@ -9,8 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gentellela Alela! | </title>
+    <style type="text/css">
+    html, body{ margin:0; height:100%; }
+    </style>
 </head>
-<body>
+<body style="background-color: #e4e9ed">
     <div class="container body">
       <div class="col-sm-12">
 		<form action="/index.php/manage_zx/manage" method="post" id="contact-form">
