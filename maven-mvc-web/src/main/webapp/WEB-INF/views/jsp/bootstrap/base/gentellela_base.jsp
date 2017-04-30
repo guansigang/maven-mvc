@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Gentellela Alela! | </title>
-
+ 	<!-- ace Style -->
+ 	<!--[if lte IE 8]>
+	  <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugin/ace/css/ace-ie.min.css" />
+	<![endif]-->
+    <link href="${pageContext.request.contextPath}/static/plugin/ace/css/ace.min.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath}/static/gentellela/css/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -34,6 +38,8 @@
 <body class="nav-md">
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/jquery/dist/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/plugin/jquery3.2.1/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/plugin/jquery3.2.1/jquery.dataTables.bootstrap.js"></script>
     <!-- Bootstrap -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
