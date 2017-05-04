@@ -52,20 +52,7 @@ public class EasyuiController extends BaseController{
     	return resultCode;
     	
     }
-    @RequestMapping("/queryDaletouData")
-    @ResponseBody
-    public String queryDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.info("batchAddDaletouData");
-    	PageResult<DaletouHisList> pageResult = new PageResult<DaletouHisList>();
-    	try {
-    		pageResult = daLeTouService.queryDaletouData(pageResult);
-    	} catch (Exception e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	return pageResult.toEasyUiJson();
-    	
-    }
+  
     
 	
     

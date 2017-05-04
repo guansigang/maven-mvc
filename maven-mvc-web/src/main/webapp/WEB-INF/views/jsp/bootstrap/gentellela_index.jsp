@@ -34,7 +34,7 @@
   </head>
 <body class="nav-md">
     <div class="container body">
-      <div class="main_container">
+<!--       <div class="main_container"> -->
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
@@ -329,7 +329,7 @@
 
         <!-- footer content -->
         <!-- /footer content -->
-      </div>
+<!--       </div> -->
     </div>
 
     <!-- jQuery -->
@@ -381,8 +381,12 @@ function setIframeHeight(iframe) {
 			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
 		} */
 		
+		var bHeight = iframe.contentWindow.document.body.scrollHeight;  
+	    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;  
+	    var height = Math.max(bHeight, dHeight); 
+		iframe.height = height; 
 		
-   		 iframe.height=document.documentElement.clientHeight;
+//    		 iframe.height=document.documentElement.clientHeight;
 	}
 };
 
