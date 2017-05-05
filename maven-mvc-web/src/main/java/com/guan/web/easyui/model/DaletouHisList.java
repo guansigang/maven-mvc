@@ -1,8 +1,11 @@
 package com.guan.web.easyui.model;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+@Alias("DaletouHisList")
 public class DaletouHisList {
 	String daletou_id;
 	String daletou_no;
@@ -33,8 +36,13 @@ public class DaletouHisList {
 	public void setDaletou_no(String daletou_no) {
 		this.daletou_no = daletou_no;
 	}
-	public Date getOpen_date() {
+	/*public Date getOpen_date() {
 		return open_date;
+	}*/
+	
+	public String getOpen_date() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(open_date);
 	}
 	public void setOpen_date(Date open_date) {
 		this.open_date = open_date;

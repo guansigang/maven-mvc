@@ -38,7 +38,7 @@
 <body class="nav-md">
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/jquery/dist/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/static/plugin/jquery3.2.1/jquery.dataTables.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/plugin/dataTables-1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/plugin/jquery3.2.1/jquery.dataTables.bootstrap.js"></script>
     <!-- Bootstrap -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -78,6 +78,7 @@
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.js"></script>
 <!--     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.min.js"></script> -->
+	<script src="${pageContext.request.contextPath}/static/base/js/common.js"></script>
   </body>
   
   </html>

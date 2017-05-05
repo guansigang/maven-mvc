@@ -2,7 +2,6 @@ package com.guan.web.easyui.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,16 +32,14 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 	@Autowired
 	private DaLeTouMapper daLeTouMapper;
 	
+	
 	@Override
 	public String batchAddDaLeTou() throws Exception {
 		PageResult<DaletouHisList> pageResult = new PageResult<DaletouHisList>();
 		List<DaletouHisList> daletous = this.daLeTouMapper.queryDaletouHisListByCondition(pageResult);
-		
-		
-		System.out.println(countNums("2017-01-02","2017-03-29"));
-		
+		DaletouHisList daletou = daletous.get(0);
 		String url="http://chart.cp.360.cn/kaijiang/slt?lotId=120029&chartType=undefined&spanType=0&span=2000&r=0.3688061712477555#roll_132";  
-//		insertDaLeTouData(url);
+		insertDaLeTouData(url,TimeUtil.strToDate(daletou.getOpen_date()));
 		return null;
 	}
 	
@@ -53,10 +50,9 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 		return pageResult;
 	}  
 	
-	public String insertDaLeTouData(String url) throws Exception{
+	public String insertDaLeTouData(String url, Date date) throws Exception{
 		        
-		      List<DaletouHisList> resultList = getContentFormUrl(url);
-		      
+		      List<DaletouHisList> resultList = getContentFormUrl(url,date);
 		      daLeTouMapper.insertDaLeTouBatch(resultList);
 		
 		return null;
@@ -67,9 +63,10 @@ public class DaLeTouServiceImpl implements DaLeTouService {
      * 根据URL抓取网页内容  
      *   
      * @param url  
+	 * @param date 
      * @return  
      */ 
-    public static List<DaletouHisList> getContentFormUrl(String url) throws Exception 
+    public static List<DaletouHisList> getContentFormUrl(String url, Date date) throws Exception 
     { 
         /* 实例化一个HttpClient客户端 */ 
    	 CloseableHttpClient client = HttpClients.createDefault();
@@ -90,7 +87,7 @@ public class DaLeTouServiceImpl implements DaLeTouService {
             {  
                 /* 转化为文本信息 */ 
                 content = EntityUtils.toString(entity);
-                resultList = FunctionUtils.getGoalContent(content);
+                resultList = FunctionUtils.getGoalContent(content,date);
             }  
   
         } catch (ClientProtocolException e)  
@@ -111,34 +108,4 @@ public class DaLeTouServiceImpl implements DaLeTouService {
           
         return resultList;  
     }
-    
-	
-	public static String countNums(String startDate,String endDate){
-		
-		int num = Integer.parseInt(TimeUtil.getTwoDay(endDate,startDate));
-		
-	     int hour=queryWeek(endDate)-queryWeek(startDate);
-	     
-	     if(num==0){
-	    	 return "0";
-	     }else if(hour==0){
-	    	 return String.valueOf((num/7)*3);
-	     }else if(hour==2||hour==3||hour==-5){
-	    	 return String.valueOf((num/7)*3+1);
-	     }else if(hour==-2||hour==-3||hour==5){
-	    	 return String.valueOf((num/7)*3+2);
-	     }else{
-	    	 return "-1";
-	     }
-		
-		
-	}
-	
-	public static int queryWeek(String paramDate){
-		Date date = TimeUtil.strToDate(paramDate);
-	    Calendar c = Calendar.getInstance();
-	    c.setTime(date);
-	     int hour=c.get(Calendar.DAY_OF_WEEK);
-		return hour;
-	}
 }

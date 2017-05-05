@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.guan.base.base.PageResult;
@@ -32,10 +33,27 @@ public class BootstrapController extends BaseController{
     	return "bootstrap/"+pageFlag;
     }
     
-    @RequestMapping("/queryDaletouData")
+    
+    @RequestMapping("/batchAddDaletouData")
+    @ResponseBody
+    public String batchAddDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.info("batchAddDaletouData");
+    	
+    	String resultCode="";
+    	try {
+    		resultCode = daLeTouService.batchAddDaLeTou();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return resultCode;
+    	
+    }
+    
+    @RequestMapping(value = "/queryDaletouData", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;;charset=UTF-8")
     @ResponseBody
     public String queryDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.info("batchAddDaletouData");
+    	logger.info("queryDaletouData");
     	PageResult<DaletouHisList> pageResult = new PageResult<DaletouHisList>();
     	try {
     		pageResult = daLeTouService.queryDaletouData(pageResult);

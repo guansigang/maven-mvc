@@ -193,6 +193,7 @@ html, body {
 						<div class="row" style="margin:0;">
 							<div class="col-sm-3">
 								<button class="btn btn-primary" type="submit">确定筛选</button>
+								<button class="btn btn-primary" onclick="_add_daletou_data();return false;" type="submit">获取数据</button>
 							</div>
 						</div>
 					</div>
@@ -240,25 +241,16 @@ html, body {
 		src="${pageContext.request.contextPath}/static/easyui-1.5.1/js/jquery.easyui.min.js"></script>
 	<script>
 		function _add_daletou_data() {
+		console.log("asdasdadad");
 			$.ajax({
-				url : 'easyui/batchAddDaletouData',
+				url : 'batchAddDaletouData',
 				type : "post",
 				async : true,
 				data : {},
 				success : function(d) {
-					if (d == 1) {
-						$('#detail2cStatusWin').window('close', true);
-						layer.msg("保存成功！", {
-							icon : 6
-						});
-						addTab(5);
-					}
+					console.log(d);
 				},
 				error : function(data) {
-					//layer.close(laymsg);
-					layer.msg("网络繁忙,请稍后重新登陆", {
-						icon : 5
-					});
 				}
 			});
 
@@ -268,7 +260,7 @@ html, body {
 	
 	<script type="text/javascript">
 			jQuery(function($) {
-				/* var oTable1 = $('#sample-table-2').dataTable( {
+				/* var oTable1 = $('#sample-table-2').dataTable({
 				"aoColumns": [
 			      { "bSortable": false },
 			      null, null,null, null, null,
@@ -317,15 +309,161 @@ function loadItemTable(itemParam){
 		data: itemParam,
 	  	dataType: "json",
 		success: function (data) {
-		console.log(data);
-			var table2=$('#sample-table-2').DataTable({
+			console.log(data.rows);
+			var str = JSON.stringify(data.rows); 
+			 $('#sample-table-2').DataTable({
+				bAutoWidth:false,
+				data:data.rows,
+				searching: false,// 是否禁用原生搜索
+			 	/* aoColumns:[
+				null,null,null,null,null,null,null,null,null,null,null,null,null,
+				{ "asSorting": [ "asc" ] },
+				{ "asSorting": [ "desc", "asc", "asc" ] },
+				{ "asSorting": [ ] },
+				{ "asSorting": [ ] }
+				], */
+			/* 	 columnDefs: [
+            {
+                // The `data` parameter refers to the data for the cell (defined by the
+                // `data` option, which defaults to the column being worked with, in
+                // this case `data: 0`.
+                "render": function ( data, type, row ) {
+                    return data +' ('+ row[3]+')';
+                },
+                "targets": 0
+            },
+            { "visible": false,  "targets": [ 3 ] }
+        ],  */
+				columns:[
+// 					      {data:'daletou_id',title:'采购单编号'},
+					       {data:'daletou_no',title:'期号'},
+					       {data:'open_date',title:'开奖日期'},
+					       {data:'week_date',title:'周几'},
+					       {data:'front_one',title:'第一位'},
+					       {data:'front_sec',title:'第二位'},
+					       {data:'front_third',title:'第三位'},
+					       {data:'front_four',title:'第四位'},
+					       {data:'front_five',title:'第五位'},
+					       {data:'back_one',title:'后一位'},
+					       {data:'back_sec',title:'后二位'},
+					       {data:'in_all_money',title:'投注金额'},
+					       {data:'first_num',title:'一等奖注数'},
+					       {data:'first_money',title:'一等奖奖金'},
+					       {data:'sec_num',title:'二等奖注数'},
+					       {data:'sec_money',title:'二等奖奖金'},
+					       {data:'all_money',title:'奖池'}
+					    ]
+			});
+			
+			
+			/* $('#sample-table-2').dataTable(  
+    {  
+        data: [  
+                {  
+                    "name":    "Tiger Nixon1",  
+                    "position":   "System Architect1",  
+                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
+                    "salary":    "$3,1201",  
+                    "start_date": "2011/04/25",  
+                    "office":    "Edinburgh1",  
+                    "extn":    "54211"  
+                },  
+                {  
+                    "name":    "Tiger Nixon2",  
+                    "position":   "System Architect2",  
+                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
+                    "salary":    "$3,1202",  
+                    "start_date": "2011/04/25",  
+                    "office":    "Edinburgh2",  
+                    "extn":    "54212"  
+                },  
+                {  
+                    "name":    "Tiger Nixon3",  
+                    "position":   "System Architect3",  
+                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
+                    "salary":    "$3,1203",  
+                    "start_date": "2011/04/25",  
+                    "office":    "Edinburgh3",  
+                    "extn":    "54213"  
+                }  
+                  
+        ],  
+          
+        columnDefs: [  
+            {  
+                "targets": 0,  
+                "searchable": false  
+            },  
+            {  
+                "targets": [1,2,3],  
+                "orderData": [ 2, 3, 4 ],  
+                "searchable": false  
+            },  
+            {  
+                "targets": [-3,-4],  
+                "orderable": false,  
+                "searchable": false  
+            }  
+        ],  
+          
+        columns: [  
+            { "name": "name",   
+              "cellType": "th",  
+              "orderDataType": "dom-text",  
+              "orderSequence": [ "desc","asc", "asc" ],  
+              "className": "my_class",  
+              "contentPadding": "mmm",  
+              "createdCell": function (td, cellData, rowData, row, col) {  
+                  if ( row < 1 ) {  
+                    $(td).css('color', 'red');  
+                  }  
+                },  
+              "data": "name",   
+              "searchable": true,   
+              "title": "My Name"  
+            },  
+            {   
+                "data": "position",  
+                "render": function ( data, type, full, meta ) {  
+                    return '<a href="'+data+'">' + data + '</a>';  
+                }  
+            },  
+            {  
+                "data": 'phone',  
+                "render": {  
+                  "_": "plain",  
+                  "filter": "filter",  
+                  "display": "display"  
+                }  
+            },  
+            { "data": "office" },  
+            { "data": "start_date", "type": "date" },  
+            { "data": "extn", "visible": false},  
+            { "data": "salary", "width": "20px"  },  
+            {  
+                "data": null,  
+                "orderable": false,  
+                "defaultContent": "<button>Edit</button>"  
+            }  
+  
+        ]  
+    }  
+);   */
+		
+		
+		
+		
+		
+		
+		
+			/* var table2=$('#sample-table-2').DataTable({
 				data:data.rows,
 				bAutoWidth:false,
 		        searching: false,// 是否禁用原生搜索  
 //				serverSide:true,//true代表后台处理分页，false代表前台处理分页
 				bProcessing:true, //开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好
 				columns:[
-			       {data:'daletou_id',title:'采购单编号'},
+			      {data:'daletou_id',title:'采购单编号'},
 			       {data:'daletou_no',title:'商品编码'},
 			       {data:'open_date',title:'商品名称'},
 			       {data:'week_date',title:'包装规格'},
@@ -344,7 +482,7 @@ function loadItemTable(itemParam){
 			       {data:'all_money',title:'实际到货数量'},
 			       {data:null,title:'操作'}
 			    ],
-			    /* columnDefs:[//设置操作按钮 
+			     columnDefs:[//设置操作按钮 
 			                
 			                {
 					             "targets":-1,
@@ -352,9 +490,9 @@ function loadItemTable(itemParam){
 					            		 return '<a title="编辑" onclick="Competence_modify_detail(this)" href="javascript:void(0)" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>';
 					             }
 					         }
-			     ] */
+			     ]
 			});
-			/* $("#page2").pagination(data.total,{
+			$("#page2").pagination(data.total,{
 				items_per_page:PAGE_SIZE,
 				current_page:CURRENT_PAGE-1,
 				num_edge_entries: 2,

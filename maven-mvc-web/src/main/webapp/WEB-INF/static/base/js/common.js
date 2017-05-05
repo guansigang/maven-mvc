@@ -1,3 +1,10 @@
+$.extend( $.fn.dataTable.defaults,{//初始化datatables全局配置
+    searching : true,//默认打开搜索功能
+    ordering : false,//默认关闭排序功能
+    bSort : false,//是否排序 false / true(default)
+    paging: false,//默认不适用分页
+    bInfo:false//默认不展示记录信息（总共多少条，当前是第多少页等）
+} );
 /**一些插件的全局配置-start-*/
 var CURRENT_PAGE=1;/**当前所在页数*/
 var PAGE_SIZE=4;/***每月显示条目/

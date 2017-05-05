@@ -35,27 +35,4 @@ public class EasyuiController extends BaseController{
     public String gentellela(String pageFlag){
     	return "bootstrap/"+pageFlag;
     }
-    
-    
-    @RequestMapping("/batchAddDaletouData")
-    @ResponseBody
-    public String batchAddDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
-    	logger.info("batchAddDaletouData");
-    	
-    	String resultCode="";
-    	try {
-    		resultCode = daLeTouService.batchAddDaLeTou();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	return resultCode;
-    	
-    }
-  
-    
-	
-    
-    
-    
 }

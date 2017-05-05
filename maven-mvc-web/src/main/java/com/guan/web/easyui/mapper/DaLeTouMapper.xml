@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <typeAliases>  
+    <typeAlias alias="daletou" type="com.guan.web.easyui.model.DaletouHisList" />  
+</typeAliases>  -->
 <mapper namespace="com.guan.web.easyui.dao.DaLeTouMapper">
 	<!-- 批量插入数据 -->
 	<insert id ="insertDaLeTouBatch" parameterType="java.util.List" >
@@ -46,12 +49,11 @@
 		</foreach >
 	</insert >
 	
-	<select id="queryDaletouHisListByCondition" parameterType="com.guan.base.base.PageResult" resultType="java.util.Map">		
-		 
+	<select id="queryDaletouHisListByCondition" parameterType="com.guan.base.base.PageResult" resultType="com.guan.web.easyui.model.DaletouHisList">		
 		SELECT
 			daletou_id,
 			daletou_no,
-			open_date,
+			date_format(open_date, '%Y-%m-%d')as open_date,
 			week_date,
 			front_one,
 			front_sec,
