@@ -312,6 +312,7 @@ function loadItemTable(itemParam){
 			console.log(data.rows);
 			var str = JSON.stringify(data.rows); 
 			 $('#sample-table-2').DataTable({
+			 	bPaginate: true, //翻页功能
 				bAutoWidth:false,
 				data:data.rows,
 				searching: false,// 是否禁用原生搜索
@@ -334,6 +335,23 @@ function loadItemTable(itemParam){
             },
             { "visible": false,  "targets": [ 3 ] }
         ],  */
+        
+         columnDefs: [  
+            {  
+                "targets": 0,  
+                "searchable": false  
+            },  
+            {  
+                "targets": [1,2,3],  
+                "orderData": [ 2, 3, 4 ],  
+                "searchable": false  
+            },  
+            {  
+                "targets": [-3,-4],  
+                "orderable": false,  
+                "searchable": false  
+            }  
+        ], 
 				columns:[
 // 					      {data:'daletou_id',title:'采购单编号'},
 					       {data:'daletou_no',title:'期号'},
