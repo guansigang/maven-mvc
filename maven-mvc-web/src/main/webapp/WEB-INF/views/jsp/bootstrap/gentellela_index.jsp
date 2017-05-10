@@ -371,6 +371,7 @@
     <script src="${pageContext.request.contextPath}/static/gentellela/js/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.js"></script>
+   	<script src="${pageContext.request.contextPath}/static/base/js/common.js"></script>
 <!--     <script src="${pageContext.request.contextPath}/static/gentellela/js/build/js/custom.min.js"></script> -->
 </body>
 <script>
@@ -381,6 +382,8 @@ function setIframeHeight(iframe) {
 			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
 		} */
 		
+		console.log("&&&&&&&&&&&&&&&&");
+		
 		var bHeight = iframe.contentWindow.document.body.scrollHeight;  
 	    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;  
 	    var height = Math.max(bHeight, dHeight); 
@@ -389,6 +392,8 @@ function setIframeHeight(iframe) {
 //    		 iframe.height=document.documentElement.clientHeight;
 	}
 };
+
+
 
 window.onload = function () {
 	setIframeHeight(document.getElementById('external-frame'));

@@ -316,6 +316,20 @@ function loadItemTable(itemParam){
 				bAutoWidth:false,
 				data:data.rows,
 				searching: false,// 是否禁用原生搜索
+				fnCreatedRow :  function ( nRow, aData, iDataIndex ) {
+// 					console.log("************");
+// 					console.log(nRow);
+// 					console.log(aData);
+			     },
+			     fnDrawCallback :  function ( oSettings ) {
+			       setIframeHeight(window.parent.document.getElementById('mainFrame'));
+			     },
+				
+				
+				
+				
+				
+				
 			 	/* aoColumns:[
 				null,null,null,null,null,null,null,null,null,null,null,null,null,
 				{ "asSorting": [ "asc" ] },

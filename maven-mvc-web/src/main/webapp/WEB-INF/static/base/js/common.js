@@ -38,6 +38,22 @@ function createPageResult(parameters,pageNumber,pageSize){
 	return pageResult;
 }
 
+function setIframeHeight(iframe) {
+	if (iframe) {
+		/* var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		} */
+		
+		var bHeight = iframe.contentWindow.document.body.scrollHeight;  
+	    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;  
+	    var height = Math.max(bHeight, dHeight); 
+		iframe.height = height; 
+		
+//    		 iframe.height=document.documentElement.clientHeight;
+	}
+};
+
 /**
  * table属性为空会有弹出框提示，此方法重写js弹出框，解决之
  */
