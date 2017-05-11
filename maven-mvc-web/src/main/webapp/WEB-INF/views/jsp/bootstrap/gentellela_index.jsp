@@ -65,13 +65,19 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="bootstrap/bootstrapToPage?pageFlag=Copy of gentellela_index">主页</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
+                      <li><a href="index3.html">Dashboard3</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-map-marker"></i> 百度地图 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a onclick="changeIframe('map')">百度地图</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a></li>
+                      <li><a onclick="changeIframe('daletou')">table</a></li>
                       <li><a href="form_advanced.html">Advanced Components</a></li>
                       <li><a href="form_validation.html">Form Validation</a></li>
                       <li><a href="form_wizards.html">Form Wizard</a></li>
@@ -381,9 +387,6 @@ function setIframeHeight(iframe) {
 		if (iframeWin.document.body) {
 			iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
 		} */
-		
-		console.log("&&&&&&&&&&&&&&&&");
-		
 		var bHeight = iframe.contentWindow.document.body.scrollHeight;  
 	    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;  
 	    var height = Math.max(bHeight, dHeight); 
@@ -392,6 +395,43 @@ function setIframeHeight(iframe) {
 //    		 iframe.height=document.documentElement.clientHeight;
 	}
 };
+
+function changeIframe(flag){ 
+			if(flag=='map'){
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_baidu_map");
+			}else if(flag=='daletou'){
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou");
+			}else if(flag==3){
+				$("#mainFrame").attr("src","logistics/logistics2cDetailList");
+			}else if(flag==4){
+				$("#mainFrame").attr("src","logistics/logistics2cBill");
+			}else if(flag==5){
+				$("#mainFrame").attr("src","logistics/logistics2bDetailList");
+			}else if(flag==6){
+				$("#mainFrame").attr("src","logistics/logistics2bMonth");
+			}else if(flag==7){
+				$("#mainFrame").attr("src","commodity/queryCommodity");
+			}else if(flag==8){
+				$("#mainFrame").attr("src","commodity/queryb2bRuleInfo");
+			}else if(flag==9){
+				$("#mainFrame").attr("src","commodity/queryb2bstorerule");
+// 				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH&operate=init");
+			}else if(flag==10){
+				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH2&operate=init#");
+			}else if(flag==11){
+				$("#mainFrame").attr("src","purchase/purchaseBaseInfo");
+			}else if(flag==12){
+				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=FOODQUALITY&operate=init#");
+			}else if(flag==13){
+				$("#mainFrame").attr("src","ordercompara/query");
+			}else if(flag==14){
+				$("#mainFrame").attr("src","commodity/queryb2cRuleInfo");
+			}else if(flag==15){
+				$("#mainFrame").attr("src","commodity/queryLogisticsWLGSImport");
+			}else if(flag==16){
+				$("#mainFrame").attr("src","commodity/queryLogisticsKDGSImport");
+			}
+		}
 
 
 

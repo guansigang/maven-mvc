@@ -309,7 +309,6 @@ function loadItemTable(itemParam){
 		data: itemParam,
 	  	dataType: "json",
 		success: function (data) {
-			console.log(data.rows);
 			var str = JSON.stringify(data.rows); 
 			 $('#sample-table-2').DataTable({
 			 	bPaginate: true, //翻页功能
