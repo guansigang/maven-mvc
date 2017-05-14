@@ -78,6 +78,7 @@
                     <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a></li>
                       <li><a onclick="changeIframe('daletou')">table</a></li>
+                      <li><a onclick="changeIframe('daletousys')">tablesys</a></li>
                       <li><a href="form_advanced.html">Advanced Components</a></li>
                       <li><a href="form_validation.html">Form Validation</a></li>
                       <li><a href="form_wizards.html">Form Wizard</a></li>
@@ -396,13 +397,13 @@ function setIframeHeight(iframe) {
 	}
 };
 
-function changeIframe(flag){ 
+function changeIframe(flag){
 			if(flag=='map'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_baidu_map");
 			}else if(flag=='daletou'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou");
 			}else if(flag==3){
-				$("#mainFrame").attr("src","logistics/logistics2cDetailList");
+				$("#daletousys").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_daletou_sys");
 			}else if(flag==4){
 				$("#mainFrame").attr("src","logistics/logistics2cBill");
 			}else if(flag==5){

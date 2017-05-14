@@ -42,7 +42,12 @@ public class DaletouHisList {
 	
 	public String getOpen_date() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.format(open_date);
+		if(open_date==null){
+			return "--";
+		}else{
+			return sdf.format(open_date);
+		}
+		
 	}
 	public void setOpen_date(Date open_date) {
 		this.open_date = open_date;
