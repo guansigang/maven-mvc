@@ -68,10 +68,11 @@
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-map-marker"></i> 百度地图 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-map-marker"></i> 地图 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a onclick="changeIframe('map')">百度地图</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+                      <li><a onclick="changeIframe('baidumap')">百度地图</a></li>
+                      <li><a onclick="changeIframe('gaodemap')">高德地图</a></li>
+                      <li><a onclick="changeIframe('sougoumap')">搜狗地图</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
@@ -398,39 +399,16 @@ function setIframeHeight(iframe) {
 };
 
 function changeIframe(flag){
-			if(flag=='map'){
+			if(flag=='baidumap'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_baidu_map");
 			}else if(flag=='daletou'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou");
-			}else if(flag==3){
+			}else if(flag=='daletousys'){
 				$("#daletousys").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_daletou_sys");
-			}else if(flag==4){
-				$("#mainFrame").attr("src","logistics/logistics2cBill");
-			}else if(flag==5){
-				$("#mainFrame").attr("src","logistics/logistics2bDetailList");
-			}else if(flag==6){
-				$("#mainFrame").attr("src","logistics/logistics2bMonth");
-			}else if(flag==7){
-				$("#mainFrame").attr("src","commodity/queryCommodity");
-			}else if(flag==8){
-				$("#mainFrame").attr("src","commodity/queryb2bRuleInfo");
-			}else if(flag==9){
-				$("#mainFrame").attr("src","commodity/queryb2bstorerule");
-// 				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH&operate=init");
-			}else if(flag==10){
-				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=QQDS_CGJH2&operate=init#");
-			}else if(flag==11){
-				$("#mainFrame").attr("src","purchase/purchaseBaseInfo");
-			}else if(flag==12){
-				$("#mainFrame").attr("src","http://192.168.4.48:8001/jsp/complexreport.do?funcIds=FOODQUALITY&operate=init#");
-			}else if(flag==13){
-				$("#mainFrame").attr("src","ordercompara/query");
-			}else if(flag==14){
-				$("#mainFrame").attr("src","commodity/queryb2cRuleInfo");
-			}else if(flag==15){
-				$("#mainFrame").attr("src","commodity/queryLogisticsWLGSImport");
-			}else if(flag==16){
-				$("#mainFrame").attr("src","commodity/queryLogisticsKDGSImport");
+			}else if(flag=='gaodemap'){
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_gaode_map");
+			}else if(flag=='sougoumap'){
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_sougou_map");
 			}
 		}
 
