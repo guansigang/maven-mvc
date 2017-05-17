@@ -231,6 +231,16 @@ html, body {
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="table-header">Results for "Latest Registered Domains"</div>
+				<div class="table-responsive">
+					<table id="sample-table-3" class="table table-striped table-bordered table-hover">
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script>
 		$(document).ready(function() {
@@ -314,41 +324,24 @@ function loadItemTable(itemParam){
 			 	bPaginate: true, //翻页功能
 				bAutoWidth:false,
 				data:data.rows,
+				oLanguage: {
+					"sSearch": "搜索:",
+					"sLengthMenu": "每页显示 _MENU_ 条记录",
+				        "sZeroRecords": "Nothing found - 没有记录",
+					"sInfo": "显示第  _START_ 条到第  _END_ 条记录,一共  _TOTAL_ 条记录",
+					"sInfoEmpty": "显示0条记录",
+					"oPaginate": {
+						"sPrevious": " 上一页 ",
+						"sNext":     " 下一页 ",
+						}
+					},
+				
 				searching: false,// 是否禁用原生搜索
 				fnCreatedRow :  function ( nRow, aData, iDataIndex ) {
-// 					console.log("************");
-// 					console.log(nRow);
-// 					console.log(aData);
 			     },
 			     fnDrawCallback :  function ( oSettings ) {
 			       setIframeHeight(window.parent.document.getElementById('mainFrame'));
 			     },
-				
-				
-				
-				
-				
-				
-			 	/* aoColumns:[
-				null,null,null,null,null,null,null,null,null,null,null,null,null,
-				{ "asSorting": [ "asc" ] },
-				{ "asSorting": [ "desc", "asc", "asc" ] },
-				{ "asSorting": [ ] },
-				{ "asSorting": [ ] }
-				], */
-			/* 	 columnDefs: [
-            {
-                // The `data` parameter refers to the data for the cell (defined by the
-                // `data` option, which defaults to the column being worked with, in
-                // this case `data: 0`.
-                "render": function ( data, type, row ) {
-                    return data +' ('+ row[3]+')';
-                },
-                "targets": 0
-            },
-            { "visible": false,  "targets": [ 3 ] }
-        ],  */
-        
          columnDefs: [  
             {  
                 "targets": 0,  
@@ -386,156 +379,29 @@ function loadItemTable(itemParam){
 					    ]
 			});
 			
-			
-			/* $('#sample-table-2').dataTable(  
-    {  
-        data: [  
-                {  
-                    "name":    "Tiger Nixon1",  
-                    "position":   "System Architect1",  
-                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
-                    "salary":    "$3,1201",  
-                    "start_date": "2011/04/25",  
-                    "office":    "Edinburgh1",  
-                    "extn":    "54211"  
-                },  
-                {  
-                    "name":    "Tiger Nixon2",  
-                    "position":   "System Architect2",  
-                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
-                    "salary":    "$3,1202",  
-                    "start_date": "2011/04/25",  
-                    "office":    "Edinburgh2",  
-                    "extn":    "54212"  
-                },  
-                {  
-                    "name":    "Tiger Nixon3",  
-                    "position":   "System Architect3",  
-                    "phone": { "plain": 5552368, "filter": "5552368 555-2368", "display": "555-2368" },  
-                    "salary":    "$3,1203",  
-                    "start_date": "2011/04/25",  
-                    "office":    "Edinburgh3",  
-                    "extn":    "54213"  
-                }  
-                  
-        ],  
-          
-        columnDefs: [  
-            {  
-                "targets": 0,  
-                "searchable": false  
-            },  
-            {  
-                "targets": [1,2,3],  
-                "orderData": [ 2, 3, 4 ],  
-                "searchable": false  
-            },  
-            {  
-                "targets": [-3,-4],  
-                "orderable": false,  
-                "searchable": false  
-            }  
-        ],  
-          
-        columns: [  
-            { "name": "name",   
-              "cellType": "th",  
-              "orderDataType": "dom-text",  
-              "orderSequence": [ "desc","asc", "asc" ],  
-              "className": "my_class",  
-              "contentPadding": "mmm",  
-              "createdCell": function (td, cellData, rowData, row, col) {  
-                  if ( row < 1 ) {  
-                    $(td).css('color', 'red');  
-                  }  
-                },  
-              "data": "name",   
-              "searchable": true,   
-              "title": "My Name"  
-            },  
-            {   
-                "data": "position",  
-                "render": function ( data, type, full, meta ) {  
-                    return '<a href="'+data+'">' + data + '</a>';  
-                }  
-            },  
-            {  
-                "data": 'phone',  
-                "render": {  
-                  "_": "plain",  
-                  "filter": "filter",  
-                  "display": "display"  
-                }  
-            },  
-            { "data": "office" },  
-            { "data": "start_date", "type": "date" },  
-            { "data": "extn", "visible": false},  
-            { "data": "salary", "width": "20px"  },  
-            {  
-                "data": null,  
-                "orderable": false,  
-                "defaultContent": "<button>Edit</button>"  
-            }  
-  
-        ]  
-    }  
-);   */
-		
-		
-		
-		
-		
-		
-		
-			/* var table2=$('#sample-table-2').DataTable({
-				data:data.rows,
+			 $('#sample-table-3').DataTable({
+			 	bPaginate: true, //翻页功能
 				bAutoWidth:false,
-		        searching: false,// 是否禁用原生搜索  
-//				serverSide:true,//true代表后台处理分页，false代表前台处理分页
-				bProcessing:true, //开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好
+				data:data.rows,
+				searching: false,// 是否禁用原生搜索
+				fnCreatedRow :  function ( nRow, aData, iDataIndex ) {
+			     },
+			     fnDrawCallback :  function ( oSettings ) {
+			       setIframeHeight(window.parent.document.getElementById('mainFrame'));
+			     },
+        
 				columns:[
-			      {data:'daletou_id',title:'采购单编号'},
-			       {data:'daletou_no',title:'商品编码'},
-			       {data:'open_date',title:'商品名称'},
-			       {data:'week_date',title:'包装规格'},
-			       {data:'front_one',title:'商品条码'},
-			       {data:'front_sec',title:'采购数量'},
-			       {data:'front_third',title:'实际到货数量'},
-			       {data:'front_four',title:'实际到货数量'},
-			       {data:'front_five',title:'实际到货数量'},
-			       {data:'back_one',title:'实际到货数量'},
-			       {data:'back_sec',title:'实际到货数量'},
-			       {data:'in_all_money',title:'实际到货数量'},
-			       {data:'first_num',title:'实际到货数量'},
-			       {data:'first_money',title:'实际到货数量'},
-			       {data:'sec_num',title:'实际到货数量'},
-			       {data:'sec_money',title:'实际到货数量'},
-			       {data:'all_money',title:'实际到货数量'},
-			       {data:null,title:'操作'}
-			    ],
-			     columnDefs:[//设置操作按钮 
-			                
-			                {
-					             "targets":-1,
-					             "render":function(data,type,row,meta){
-					            		 return '<a title="编辑" onclick="Competence_modify_detail(this)" href="javascript:void(0)" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>';
-					             }
-					         }
-			     ]
+					       {data:'daletou_id',title:'采购单编号',visible: false},
+					       {data:'daletou_no',title:'期号'},
+					       {data:'open_date',title:'开奖日期'},
+					       {data:'week_date',title:'周几'},
+					       {data:'first_diff',title:'第一位'},
+					       {data:'sec_diff',title:'第二位'},
+					       {data:'thir_diff',title:'第三位'},
+					       {data:'four_diff',title:'第四位'},
+					       {data:'five_diff',title:'第五位'}
+					    ]
 			});
-			$("#page2").pagination(data.total,{
-				items_per_page:PAGE_SIZE,
-				current_page:CURRENT_PAGE-1,
-				num_edge_entries: 2,
-			    num_display_entries: 4,
-				callback:function(n){
-					var index = layer.load(2,{time:2000});
-					CURRENT_PAGE=(n+1);
-					table2.destroy();
-				    $('#sample-table2').empty();
-				    init(createPageResult({Method:'delivers',batch_treatment:"true"},CURRENT_PAGE,PAGE_SIZE));
-				}
-			}); */
 		},
 		error: function (data) {
 		}

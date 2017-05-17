@@ -18,6 +18,11 @@ public class DaletouHisList {
 	int front_five;
 	int back_one;
 	int back_sec;
+	int first_diff;
+	int sec_diff;
+	int thir_diff;
+	int four_diff;
+	int five_diff;
 	BigDecimal in_all_money;
 	int first_num;
 	BigDecimal first_money;
@@ -136,7 +141,34 @@ public class DaletouHisList {
 	public void setAll_money(BigDecimal all_money) {
 		this.all_money = all_money;
 	}
-	
-	
-
+	public int getFirst_diff() {
+		return front_sec-front_one;
+	}
+	public void setFirst_diff(int first_diff) {
+		this.first_diff = first_diff;
+	}
+	public int getSec_diff() {
+		return front_third-front_sec;
+	}
+	public void setSec_diff(int sec_diff) {
+		this.sec_diff = sec_diff;
+	}
+	public int getThir_diff() {
+		return front_four-front_third;
+	}
+	public void setThir_diff(int thir_diff) {
+		this.thir_diff = thir_diff;
+	}
+	public int getFour_diff() {
+		return front_five-front_four;
+	}
+	public void setFour_diff(int four_diff) {
+		this.four_diff = four_diff;
+	}
+	public int getFive_diff() {
+		return back_sec-back_one;
+	}
+	public void setFive_diff(int five_diff) {
+		this.five_diff = five_diff;
+	}
 }

@@ -404,7 +404,7 @@ function changeIframe(flag){
 			}else if(flag=='daletou'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou");
 			}else if(flag=='daletousys'){
-				$("#daletousys").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_daletou_sys");
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_daletou_sys");
 			}else if(flag=='gaodemap'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_gaode_map");
 			}else if(flag=='sougoumap'){
