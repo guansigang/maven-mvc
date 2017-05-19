@@ -331,7 +331,7 @@
 
         <!-- page content -->
         <div id="rightMain" style="height:100%" class="right_col" data-options="region:'center',title:'主要内容',iconCls:'icon-ok'">
- 		      <iframe src="bootstrap/bootstrapToPage?pageFlag=gentellela_table_daletou" scrolling="no" id="mainFrame" name="mainFrame" onload="setIframeHeight(this)" frameborder="0" marginheight="0" marginwidth="0" width="100%"></iframe>
+ 		      <iframe src="bootstrap/bootstrapToPage?pageFlag=gentellela_daletou_sys" scrolling="no" id="mainFrame" name="mainFrame" onload="setIframeHeight(this)" frameborder="0" marginheight="0" marginwidth="0" width="100%"></iframe>
 		</div>
         <!-- /page content -->
 

@@ -1,6 +1,5 @@
-package com.chens.web.auto;
+package com.guan.web.autoCreat.util;
 
-import com.chens.utils.base.MyPath;
 import org.apache.log4j.PropertyConfigurator;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

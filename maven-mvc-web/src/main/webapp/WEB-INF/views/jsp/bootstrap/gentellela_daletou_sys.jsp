@@ -37,36 +37,18 @@ html, body {
 			</form>
 		</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="table-header">Results for "Latest Registered
-					Domains"</div>
-
+				<div class="table-header">Results for "Latest Registered Domains"</div>
 				<div class="table-responsive">
-					<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+					<table id="sample-table-3" class="table table-striped table-bordered table-hover">
 					</table>
+				</div>
+				<div id="main1">
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<script>
 		$(document).ready(function() {
@@ -80,6 +62,7 @@ html, body {
 	<script type="text/javascript">
 			jQuery(function($) {
 				loadItemTable([]);
+				var myChart = echarts.init(document.getElementById('main1'));
 			})
 			
 			
@@ -98,26 +81,29 @@ function loadItemTable(itemParam){
 			var str = JSON.stringify(data.rows); 
 			console.log(data.rows);
 			 
-				/* columns:[
-// 					      {data:'daletou_id',title:'采购单编号'},
-					       {data:'daletou_no',title:'期号'},
-					       {data:'open_date',title:'开奖日期'},
-					       {data:'week_date',title:'周几'},
-					       {data:'front_one',title:'第一位'},
-					       {data:'front_sec',title:'第二位'},
-					       {data:'front_third',title:'第三位'},
-					       {data:'front_four',title:'第四位'},
-					       {data:'front_five',title:'第五位'},
-					       {data:'back_one',title:'后一位'},
-					       {data:'back_sec',title:'后二位'},
-					       {data:'in_all_money',title:'投注金额'},
-					       {data:'first_num',title:'一等奖注数'},
-					       {data:'first_money',title:'一等奖奖金'},
-					       {data:'sec_num',title:'二等奖注数'},
-					       {data:'sec_money',title:'二等奖奖金'},
-					       {data:'all_money',title:'奖池'}
+			 $('#sample-table-3').DataTable({
+			 	bPaginate: true, //翻页功能
+				bAutoWidth:false,
+				data:data.rows,
+				searching: false,// 是否禁用原生搜索
+				fnCreatedRow :  function ( nRow, aData, iDataIndex ) {
+			     },
+			     fnDrawCallback :  function ( oSettings ) {
+			       setIframeHeight(window.parent.document.getElementById('mainFrame'));
+			     },
+        
+				columns:[
+					       {data:'daletou_id',title:'采购单编号',visible: false},
+					       {data:'daletou_no',title:'期号',visible: false},
+					       {data:'open_date',title:'开奖日期',visible: false},
+					       {data:'week_date',title:'周几',visible: false},
+					       {data:'first_diff',title:'第一位'},
+					       {data:'sec_diff',title:'第二位'},
+					       {data:'thir_diff',title:'第三位'},
+					       {data:'four_diff',title:'第四位'},
+					       {data:'five_diff',title:'第五位'}
 					    ]
-			}); */
+			});
 		},
 		error: function (data) {
 		}

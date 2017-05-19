@@ -392,8 +392,8 @@ function loadItemTable(itemParam){
         
 				columns:[
 					       {data:'daletou_id',title:'采购单编号',visible: false},
-					       {data:'daletou_no',title:'期号'},
-					       {data:'open_date',title:'开奖日期'},
+					       {data:'daletou_no',title:'期号',visible: false},
+					       {data:'open_date',title:'开奖日期',visible: false},
 					       {data:'week_date',title:'周几'},
 					       {data:'first_diff',title:'第一位'},
 					       {data:'sec_diff',title:'第二位'},
