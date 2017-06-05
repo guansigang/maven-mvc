@@ -20,7 +20,12 @@ public class AuthCreatServiceImpl implements AuthCreatService {
 
 	private static Logger logger = Logger.getLogger(AuthCreatServiceImpl.class);
 	
-	
+	@Override
+	public PageResult<Map<String, Object>> queryDataBaseInfoList(PageResult<Map<String, Object>> pageResult) {
+		List<Map<String, Object>> result_list = authCreatMapper.querySelectDateBase();
+		pageResult.setResultList(result_list);
+		return pageResult;
+	}
 	
 	@Override
 	public List<Map<String, Object>> querySelectDateBase() {
@@ -67,7 +72,5 @@ public class AuthCreatServiceImpl implements AuthCreatService {
 		pageResult.setTotalRecord(this.authCreatMapper.selectSysDateBaseTableCount(pageResult));
 		return pageResult;
 	}
-
-	
 
 }

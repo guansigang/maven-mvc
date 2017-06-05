@@ -21,17 +21,47 @@ import com.guan.base.base.EditResult;
 import com.guan.base.base.PageResult;
 import com.guan.base.system.BaseController;
 import com.guan.web.autoCreat.service.AuthCreatService;
+import com.guan.web.easyui.model.DaletouHisList;
 
 
 
 @Controller
-@RequestMapping("/AuthCreat")
+@RequestMapping("/authCreat")
 public class AuthCreatController extends BaseController{
  
 	private static Logger logger = Logger.getLogger(AuthCreatController.class);
 
 	@Resource
 	AuthCreatService authCreatService;
+	
+	 @RequestMapping("/authCreatToPage")
+	    public String authCreat(String pageFlag){
+	    	logger.info("authCreat页面跳转："+pageFlag);
+	    	return "authCreat/"+pageFlag;
+	    }
+	
+	/**
+	 * 查询数据源下数据库信息
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/queryDataBase", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;;charset=UTF-8")
+    @ResponseBody
+    public String queryDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.info("queryDataBase");
+    	PageResult<Map<String, Object>> pageResult = new PageResult<Map<String, Object>>();
+    	try {
+    		pageResult = authCreatService.queryDataBaseInfoList(pageResult);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	return pageResult.toEasyUiJson();
+    	
+    }
+	
+	
 
  // ////////////////////////////////////////////自动生成代码///////////////////////////////////////////////
  	/**

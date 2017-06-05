@@ -77,10 +77,10 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
+                      <li><a onclick="changeIframe('dataSys')">General Form</a></li>
                       <li><a onclick="changeIframe('daletou')">table</a></li>
-                      <li><a onclick="changeIframe('daletousys')">tablesys</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
+                      <li><a onclick="changeIframe('daletousys')">随机数生成</a></li>
+                      <li><a onclick="changeIframe('createResource')">查看数据源</a></li>
                       <li><a href="form_validation.html">Form Validation</a></li>
                       <li><a href="form_wizards.html">Form Wizard</a></li>
                       <li><a href="form_upload.html">Form Upload</a></li>
@@ -409,6 +409,10 @@ function changeIframe(flag){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_gaode_map");
 			}else if(flag=='sougoumap'){
 				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_sougou_map");
+			}else if(flag=='dataSys'){
+				$("#mainFrame").attr("src","bootstrap/bootstrapToPage?pageFlag=gentellela_data_sys");
+			}else if(flag=='createResource'){
+				$("#mainFrame").attr("src","authCreat/authCreatToPage?pageFlag=gentellela_create_resource");
 			}
 		}
 
