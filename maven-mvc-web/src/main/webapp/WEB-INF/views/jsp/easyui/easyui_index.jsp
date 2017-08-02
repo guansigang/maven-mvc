@@ -6,9 +6,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<base href="${ contextPath }"></base>
-	<script src="${ contextPath }static/easyui-1.5.1/js/jquery.easyui.min.js" type="text/javascript"></script>
-	<link href="${ contextPath }static/easyui-1.5.1/themes/default/easyui.css" rel="stylesheet" type="text/css" />
-	<link href="${ contextPath }static/easyui-1.5.1/themes/icon.css" rel="stylesheet" type="text/css" />
+	<script src="${ contextPath }static/plugin/easyui-1.5.1/js/jquery.easyui.min.js" type="text/javascript"></script>
+	<link href="${ contextPath }static/plugin/easyui-1.5.1/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+	<link href="${ contextPath }static/plugin/easyui-1.5.1/themes/icon.css" rel="stylesheet" type="text/css" />
 	<title>后台管理</title>
     <style>
         html{height:100%; }

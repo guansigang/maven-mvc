@@ -39,7 +39,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Autowired
 	private SecurityService securityService;
 	
-	private List<Map<String,String>> securityLevelList = new LinkedList<>();
+	private List<Map<String,String>> securityLevelList = new LinkedList<Map<String, String>>();
 	private static Long holdTime = System.currentTimeMillis();
 
 	/**

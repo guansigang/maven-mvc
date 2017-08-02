@@ -248,7 +248,7 @@ html, body {
 	</script>
 
 	<script
-		src="${pageContext.request.contextPath}/static/easyui-1.5.1/js/jquery.easyui.min.js"></script>
+		src="${pageContext.request.contextPath}/static/plugin/easyui-1.5.1/js/jquery.easyui.min.js"></script>
 	<script>
 		function _add_daletou_data() {
 		console.log("asdasdadad");
