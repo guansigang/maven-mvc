@@ -186,7 +186,7 @@ function viewEcharts(data,num){
 				        {
 				            name:'第一位',
 				            type:'line',
-				            stack: '总量',
+				            stack: '一二位差值',
 				            data:data1, 
 				            markPoint : {
 				                data : [
@@ -202,7 +202,7 @@ function viewEcharts(data,num){
 				        },{
 				            name:'第二位',
 				            type:'line',
-				            stack: '总量',
+				            stack: '二三位差值',
 				            data:data2, 
 				            markPoint : {
 				                data : [
@@ -218,7 +218,7 @@ function viewEcharts(data,num){
 				        },{
 				            name:'第三位',
 				            type:'line',
-				            stack: '总量',
+				            stack: '三四位差值',
 				            data:data3, 
 				            markPoint : {
 				                data : [
@@ -234,7 +234,7 @@ function viewEcharts(data,num){
 				        },{
 				            name:'第四位',
 				            type:'line',
-				            stack: '总量',
+				            stack: '四五位差值',
 				            data:data4, 
 				            markPoint : {
 				                data : [
