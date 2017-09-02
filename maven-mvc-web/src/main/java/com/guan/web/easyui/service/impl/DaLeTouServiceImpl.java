@@ -105,7 +105,12 @@ public class DaLeTouServiceImpl implements DaLeTouService {
 				e.printStackTrace();
 			}  
         }  
-          
         return resultList;  
     }
+
+	@Override
+	public PageResult<DaletouHisList> createDaletouData(PageResult<DaletouHisList> pageResult) {
+		List<DaletouHisList> resultList= this.daLeTouMapper.queryDaletouHisListByCondition(pageResult);
+		return null;
+	}
 }

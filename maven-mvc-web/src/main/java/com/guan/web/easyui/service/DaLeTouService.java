@@ -10,4 +10,6 @@ public interface DaLeTouService{
 
 	PageResult<DaletouHisList> queryDaletouData(PageResult<DaletouHisList> pageResult);
 
+	PageResult<DaletouHisList> createDaletouData(PageResult<DaletouHisList> pageResult);
+
 }

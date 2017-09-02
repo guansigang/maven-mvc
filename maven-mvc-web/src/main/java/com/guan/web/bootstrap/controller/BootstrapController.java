@@ -43,7 +43,6 @@ public class BootstrapController extends BaseController{
     	try {
     		resultCode = daLeTouService.batchAddDaLeTou();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	return resultCode;
@@ -58,7 +57,20 @@ public class BootstrapController extends BaseController{
     	try {
     		pageResult = daLeTouService.queryDaletouData(pageResult);
     	} catch (Exception e) {
-    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	return pageResult.toEasyUiJson();
+    	
+    }
+    
+    @RequestMapping(value = "/createDaletouData", method = { RequestMethod.GET, RequestMethod.POST }, produces = "text/html;;charset=UTF-8")
+    @ResponseBody
+    public String createDaletouData(HttpServletRequest request, HttpServletResponse response,Model model){
+    	logger.info("queryDaletouData");
+    	PageResult<DaletouHisList> pageResult = new PageResult<DaletouHisList>();
+    	try {
+    		pageResult = daLeTouService.createDaletouData(pageResult);
+    	} catch (Exception e) {
     		e.printStackTrace();
     	}
     	return pageResult.toEasyUiJson();

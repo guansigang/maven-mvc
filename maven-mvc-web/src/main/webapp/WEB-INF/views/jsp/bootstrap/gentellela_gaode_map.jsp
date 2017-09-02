@@ -62,7 +62,7 @@
             map.addControl(toolBar);
 
             //起点（用户位置）的marker标记
-           /*  var startMarker = new AMap.Marker({
+           var startMarker = new AMap.Marker({
               content:"<img style='width:19px;height:32px' src='../static/plugin/gaode/images/starts.png'/>",
               offset:new AMap.Pixel(-10,-32)
             })
@@ -75,9 +75,9 @@
             var driving = new AMap.Driving({
               map:map,
               hideMarkers:true
-            }); */
+            });
 
-          /*   var  wrap= document.getElementsByClassName('wrap')[0];
+            var  wrap= document.getElementsByClassName('wrap')[0];
             //显示控制，执行后显示地图页面
             var showLeftView = function(){
                 AMap.event.removeListener(placeSearch.listElementClickHandler);
@@ -90,7 +90,7 @@
               wrap.className = 'wrap rightShow';
             }
             //点击返回，页面由搜索页面返回显示页面
-            AMap.event.addDomListener(document.getElementById('back'),'click',showLeftView); */
+            AMap.event.addDomListener(document.getElementById('back'),'click',showLeftView);
 
       </script>
       <script type="text/javascript" src='${pageContext.request.contextPath}/static/plugin/gaode/js/locate.js'></script>  

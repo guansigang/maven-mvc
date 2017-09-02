@@ -61,6 +61,9 @@
  var onLocateSuccess = function(result) {
  	showTip('定位成功,拖动地图可微调.');
  	showLocation(result.position); //在定位结果显示起始marker
+ 	if(!result.addressComponent){
+ 		return;
+ 	}
  	var city = result.addressComponent.city;
  	var province = result.addressComponent.province;
  	var district = result.addressComponent.district;
@@ -84,7 +87,7 @@
 
  //自定义控件，用于进行定位位置的微调
  var content = document.createElement('div');
- content.innerHTML = "<img src='./images/starts.png'>";
+ content.innerHTML = "<img src='../static/plugin/gaode/images/starts.png'>";
  content.className = 'customControl';
  var customControl = { //自定义控件，需要实现addTo和removeFrom两个方法
  	dom: content,

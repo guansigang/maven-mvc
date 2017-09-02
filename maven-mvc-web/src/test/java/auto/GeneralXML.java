@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.MessageFormat;
-import xmltool.template.GetXmlContont;
 
 public class GeneralXML {
 
@@ -51,21 +49,21 @@ public class GeneralXML {
 	
 	public static void main(String[] args) {
 		
-		final String  head = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-		final String root_start = "<root>";
-		final String root_end = "</root>";
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append(head);
-		sb.append(root_start);
-		
-		MessageFormat mf = new MessageFormat(GetXmlContont.readFileByer("src/eg/template.xml"));
-		sb.append(mf.format(new Object[] { "list.jsp", "get", "list", "request_param1|request_param2"}));
-		sb.append(mf.format(new Object[] { "content.jsp", "post", "content", "title,publisher,published_calendar"}));
-		
-		sb.append(root_end);
-		
-		System.out.println(sb.toString());
+//		final String  head = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
+//		final String root_start = "<root>";
+//		final String root_end = "</root>";
+//		
+//		StringBuffer sb = new StringBuffer();
+//		sb.append(head);
+//		sb.append(root_start);
+//		
+//		MessageFormat mf = new MessageFormat(GetXmlContont.readFileByer("src/eg/template.xml"));
+//		sb.append(mf.format(new Object[] { "list.jsp", "get", "list", "request_param1|request_param2"}));
+//		sb.append(mf.format(new Object[] { "content.jsp", "post", "content", "title,publisher,published_calendar"}));
+//		
+//		sb.append(root_end);
+//		
+//		System.out.println(sb.toString());
 //		System.out.print(sb.toString().replaceAll("\n", ""));
 	}
 }

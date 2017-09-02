@@ -6,9 +6,9 @@ public class RandomChoiceNumUtils {
 
 	public static void main(String[] args) {
 		
-//		randomNum(5,1,32);
-		int arg0 = 23;
-		System.out.println(String.valueOf(arg0 & -arg0));
+		randomNum(5,1,32);
+//		int arg0 = 23;
+//		System.out.println(String.valueOf(arg0 & -arg0));
 		
 //		MathRandomNum(1,10,100);
 
