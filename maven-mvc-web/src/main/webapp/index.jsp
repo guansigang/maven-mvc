@@ -50,7 +50,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="http://www.lxway.com/#home" class="scroll">主页</a></li>
+			<li><a href="personalhomepage" class="scroll">主页</a></li>
 			<li><a href="http://www.lxway.com/#whatIdo" class="scroll">产品与服务</a></li>
 			<li><a href="http://www.lxway.com/#about" class="scroll">技术与支持</a></li>
 			<li><a href="http://www.lxway.com/#works" class="scroll">解决方案</a></li>
