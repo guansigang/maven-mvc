@@ -59,6 +59,16 @@ public class LoginController extends BaseController{
     public String backlogin(Model model){
     	return "backlogin";
     }
+    
+    /**
+     * 后台登陆
+     * @param model
+     * @return
+     */
+    @RequestMapping("/personalhomepage")
+    public String personalhomepage(Model model){
+    	return "personal/personalhomepage";
+    }
 //    @RequestMapping("/gentellelaToPage")
 //    public String gentellela(String pageFlag){
 //    	return "bootstrap/"+pageFlag;
