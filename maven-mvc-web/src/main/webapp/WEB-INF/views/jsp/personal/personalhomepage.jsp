@@ -12,6 +12,20 @@
     <link href="${pageContext.request.contextPath}/static/plugin/bootstrap/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/plugin/bootstrap/bootstrap-3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 </head>
+
+
+
+<style>
+.banner { position: relative; overflow: auto; }
+    .banner li { list-style: none; }
+        .banner ul li { float: left; }
+    </style>
+    
+    
+
+
+
+
 <body>
  <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +41,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="#">首页</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
             <li class="dropdown">
@@ -54,6 +68,15 @@
         <h1>Theme example</h1>
         <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
       </div>
+      <div class="banner" style="width: 100%">
+		    <ul>
+		        <li style="background-image: url("static/image/personal/timg.jpg"); background-size: 100% 100%; width: 100%;"><img src="static/image/personal/timg.jpg"></li>
+		        <li style="background-image: url("static/image/personal/timg.jpg"); background-size: 100% 100%; width: 100%;"><img src="static/image/personal/timg1.jpg"></li>
+		        <li style="background-image: url("static/image/personal/timg.jpg"); background-size: 100% 100%; width: 100%;"><img src="static/image/personal/timg2.jpg"></li>
+		        <li style="background-image: url("static/image/personal/timg.jpg"); background-size: 100% 100%; width: 100%;"><img src="static/image/personal/timg3.jpg"></li>
+		        <li style="background-image: url("static/image/personal/timg.jpg"); background-size: 100% 100%; width: 100%;"><img src="static/image/personal/timg4.jpg"></li>
+		    </ul>
+		</div>
 
 
       <div class="page-header">
@@ -616,6 +639,15 @@
     <script src="${pageContext.request.contextPath}/static/gentellela/js/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="${pageContext.request.contextPath}/static/plugin/bootstrap/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/plugin/unslider/unslider.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function() {
+    $('.banner').unslider();
+});
+</script>
+
 <!--     <script src="../../dist/js/bootstrap.min.js"></script> -->
 <!--     <script src="../../assets/js/docs.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
